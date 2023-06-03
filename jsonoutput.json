@@ -1,0 +1,44 @@
+
+
+[
+  {
+    "Exercise": "Push-ups",
+    "Body parts worked": "Chest, shoulders, triceps"
+  },
+  {
+    "Exercise": "Squats",
+    "Body parts worked": "Quadriceps, hamstrings, glutes"
+  },
+  {
+    "Exercise": "Deadlifts",
+    "Body parts worked": "Back, hamstrings, glutes, quads"
+  },
+  {
+    "Exercise": "Bench press",
+    "Body parts worked": "Chest, shoulders, triceps"
+  },
+  {
+    "Exercise": "Bicep curls",
+    "Body parts worked": "Biceps"
+  },
+  {
+    "Exercise": "Tricep dips",
+    "Body parts worked": "Triceps, chest, shoulders"
+  },
+  {
+    "Exercise": "Lunges",
+    "Body parts worked": "Quadriceps, hamstrings, glutes"
+  },
+  {
+    "Exercise": "Crunches",
+    "Body parts worked": "Abs"
+  },
+  {
+    "Exercise": "Shoulder press",
+    "Body parts worked": "Shoulders, triceps"
+  },
+  {
+    "Exercise": "Pull-ups",
+    "Body parts worked": "Back, biceps"
+  }
+]
