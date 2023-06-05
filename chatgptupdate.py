@@ -159,6 +159,9 @@ class ChatGPT:
         exercise_details = response.choices[0].text.strip()
 
         # Convert the exercise details to a JSON object
+        #todo try catch
+        print("HELLO")
+        print(exercise_details)
         exercise_json = json.loads(exercise_details)
 
         return exercise_json

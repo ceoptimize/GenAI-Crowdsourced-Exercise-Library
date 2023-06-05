@@ -31,13 +31,13 @@ postgres.drop_schema()
 postgres.execute_sql_file('QuickDBD-Free Diagram.sql')
 postgres.get_tables()
 
-#vl = VideoLoader()
-#vl.load_videos_to_youtubevideo_table()
+vl = VideoLoader()
+vl.load_videos_to_youtubevideo_table()
 
 el = ExerciseLoader()
-el.load_exercises_from_videos()
+el.load_exercises_from_videos(insertnewrelations=False)
 
-
+postgres.print_all_table_contents()
 
 
 

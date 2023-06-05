@@ -230,6 +230,17 @@ class PostgresDatabase:
         
         return table_names
 
+   
+    def print_all_table_contents(self, limit=None):
+        table_names = self.get_tables(printenabled=False)
+        for table_name in table_names:
+            query = f'SELECT * FROM {table_name}'
+            if limit is not None:
+                query += f' LIMIT {limit}'
+            result = self.fetch_query(query)
+            print(f"{table_name} table:")
+            for row in result:
+                print(row)
 
     def get_columns(self, tablename, printenabled = True):
         self.cursor = self.conn.cursor()
@@ -279,7 +290,45 @@ class PostgresDatabase:
         if result:
             return result[0]
         return None
+    
+    def get_exercise(self, exercise_name):
+        sanitized_name = self.sanitize_string(exercise_name)
+        query = f"SELECT ExerciseID, ExerciseDifficulty FROM Exercises WHERE ExerciseName = '{sanitized_name}'"
+        self.execute_query(query)
+        result = self.cursor.fetchone()
+        if result:
+            exercise_id, exercise_difficulty = result[0], result[1]
+            return exercise_id, exercise_difficulty
+        else:
+            return None, None
+
+
+    def create_or_get_exercise(self, exercise_name, exercise_difficulty, insertnew = True):
+        exercise_id, existing_difficulty = self.get_exercise(exercise_name)
+
+        if exercise_id:
+            if exercise_difficulty is not None:
+                # Exercise already exists, update the exercise difficulty
+                updated_difficulty = existing_difficulty + exercise_difficulty
+                query = f"UPDATE Exercises SET ExerciseDifficulty = {updated_difficulty} WHERE ExerciseID = {exercise_id}"
+                self.execute_query(query)
+                return exercise_id
+        else:
+            if insertnew:
+                sanitized_name = self.sanitize_string(exercise_name)
+                if exercise_difficulty is None:
+                    query = f"INSERT INTO Exercises (ExerciseName) VALUES ('{sanitized_name}') RETURNING ExerciseID"
+                else:
+                    query = f"INSERT INTO Exercises (ExerciseName, ExerciseDifficulty) VALUES ('{sanitized_name}', {exercise_difficulty}) RETURNING ExerciseID"
+                self.execute_query(query)
+                result = self.cursor.fetchone()
+                exercise_id = result[0] if result else None
+                return exercise_id
+            else:
+                return None
+
    
+    """
     def create_or_get_exercise(self, exercise_name, exercise_difficulty):
         sanitized_name = self.sanitize_string(exercise_name)
 
@@ -307,7 +356,7 @@ class PostgresDatabase:
             result = self.cursor.fetchone()
             exercise_id = result[0] if result else None
         
-        return exercise_id
+        return exercise_id"""
    
 
     def sanitize_and_check_equipment(self, equipment_name):
@@ -451,34 +500,34 @@ class PostgresDatabase:
             self.execute_query(query)
 
 
-    def update_exercise_relations(self, exercise_id, relation_list, relation_type):
+    def update_exercise_relations(self, exercise_id, relation_list, relation_type, insertnew):
         for relation in relation_list:
             relation_name = relation.strip().lower()
 
             # Sanitize and check relation exercise
-            relation_id = self.create_or_get_exercise(relation_name, None)
+            relation_id = self.create_or_get_exercise(relation_name, None, insertnew = insertnew)
+            if relation_id is None:
+                break
             self.sanitize_and_check_exercise_relation(exercise_id, relation_id, relation_type)
 
     def update_exercise_youtube(self, exercise_id, video_id):
-        sanitized_exercise_id = self.sanitize_and_check_exercise(exercise_id)
-        sanitized_video_id = self.sanitize_and_check_video(video_id)
-
-        query = f"SELECT ExerciseVideoMatch FROM ExerciseYouTube WHERE ExerciseID = {sanitized_exercise_id} " \
-                f"AND VideoID = '{sanitized_video_id}'"
+      
+        query = f"SELECT ExerciseVideoMatch FROM ExerciseYouTube WHERE ExerciseID = {exercise_id} " \
+                f"AND YoutubeVideoID = '{video_id}'"
         self.execute_query(query)
         result = self.cursor.fetchone()
 
         if result:
             exercise_video_match = result[0]
             query = f"UPDATE ExerciseYouTube SET ExerciseVideoMatch = ExerciseVideoMatch + 1 " \
-                    f"WHERE ExerciseID = {sanitized_exercise_id} AND VideoID = '{sanitized_video_id}'"
+                    f"WHERE ExerciseID = {exercise_id} AND VideoID = '{video_id}'"
             self.execute_query(query)
         else:
-            query = f"INSERT INTO ExerciseYouTube (ExerciseID, VideoID, ExerciseVideoMatch) " \
-                    f"VALUES ({sanitized_exercise_id}, '{sanitized_video_id}', 1)"
+            query = f"INSERT INTO ExerciseYouTube (ExerciseID, YoutubeVideoID, ExerciseVideoMatch) " \
+                    f"VALUES ({exercise_id}, '{video_id}', 1)"
             self.execute_query(query)
 
-    def load_json(self, json_data, youtubevideoId: str):
+    def load_json(self, json_data, youtubevideoId: str, insertnewrelations = False):
         # Parse JSON data
         try:
             exercise_name = json_data['exercise_name']
@@ -521,15 +570,15 @@ class PostgresDatabase:
 
             # Process regressions
             regressions = json_data['regressions']
-            self.update_exercise_relations(exercise_id, regressions, 'regression')
+            self.update_exercise_relations(exercise_id, regressions, 'regression', insertnew= insertnewrelations)
 
             # Process progressions
             progressions = json_data['progressions']
-            self.update_exercise_relations(exercise_id, progressions, 'progression')
+            self.update_exercise_relations(exercise_id, progressions, 'progression', insertnew= insertnewrelations)
 
             # Process variations
             variations = json_data['variations']
-            self.update_exercise_relations(exercise_id, variations, 'variation')
+            self.update_exercise_relations(exercise_id, variations, 'variation', insertnew= insertnewrelations)
 
             # Update exerciseyoutube table
             if youtubevideoId:
@@ -608,13 +657,13 @@ class PostgresDatabase:
             raise"""
 
 
-    def get_video_id_and_title_array(self, limit): 
+    def get_video_id_and_title_array(self): 
         query = f"SELECT VideoId, VideoTitle from YoutubeVideo"
         self.execute_query(query)
         result = self.cursor.fetchall()
         if result:
            # return result[0]
-           return [row[0] for row in result]
+           return [row for row in result]
         return None
 
     def get_video_title(self, video_id):
