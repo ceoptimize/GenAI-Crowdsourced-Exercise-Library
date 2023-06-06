@@ -16,20 +16,18 @@ def index():
 @app.route('/table')
 def table():
     # Get the filter values from the query string
-    filter_exercise_id = request.args.get('ExerciseID')
-    filter_exercise_name = request.args.get('ExerciseName')
-    # Add other filter fields here
+    filter_params = {}
+    for key, value in request.args.items():
+        if key.startswith('filter_'):
+            filter_params[key[7:]] = value
 
     # Construct the WHERE clause for filtering
     where_clause = ""
-    filter_params = []
-    if filter_exercise_id:
-        where_clause += " AND ExerciseID = %s"
-        filter_params.append(filter_exercise_id)
-    if filter_exercise_name:
-        where_clause += " AND ExerciseName = %s"
-        filter_params.append(filter_exercise_name)
-    # Add other filter fields here
+    filter_values = []
+    for field, value in filter_params.items():
+        if value:
+            where_clause += f" AND {field} = %s"
+            filter_values.append(value)
 
     # Get the sort column and order from the query string
     sort_column = request.args.get('sort_column', 'ExerciseID')
@@ -67,9 +65,9 @@ def table():
         ORDER BY {sort_column} {sort_order};
     """
 
-    # Execute the SQL query with filter parameters
+    # Execute the SQL query with filter values
     cursor = conn.cursor()
-    cursor.execute(query, filter_params)
+    cursor.execute(query, filter_values)
 
     # Fetch all rows from the result
     table = cursor.fetchall()
@@ -81,7 +79,8 @@ def table():
     cursor.close()
 
     return render_template('table.html', table=table, column_names=column_names,
-                           sort_column=sort_column, sort_order=sort_order)
+                           sort_column=sort_column, sort_order=sort_order,
+                           filter_params=filter_params)
 
 if __name__ == '__main__':
     app.run(debug=True)

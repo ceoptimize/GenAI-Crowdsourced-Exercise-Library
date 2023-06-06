@@ -25,20 +25,80 @@
         .sort-indicator {
             margin-left: 5px;
         }
+
+        .filter-input {
+            margin-right: 5px;
+        }
+
+        .filter-term {
+            display: inline-block;
+            background-color: lightblue;
+            border-radius: 5px;
+            padding: 2px 5px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Remove filter logic for a specific field
+            $('.filter-term').on('click', function() {
+                var field = $(this).data('field');
+                $('#filter-' + field).val('');
+                filterTable();
+            });
+
+            // Filter the table when a filter input value changes
+            $('.filter-input').on('input', function() {
+                filterTable();
+            });
+
+            // Filter the table when the Enter key is pressed
+            $('.filter-input').on('keydown', function(event) {
+                if (event.keyCode === 13) {
+                    filterTable();
+                    event.preventDefault();
+                }
+            });
+
+            // Function to filter the table based on the filter inputs
+            function filterTable() {
+                var filterParams = {};
+                $('.filter-input').each(function() {
+                    var field = $(this).data('field');
+                    var value = $(this).val().trim();
+                    if (value !== '') {
+                        filterParams[field] = value;
+                    }
+                });
+                var queryString = $.param(filterParams);
+                var url = '/table' + (queryString ? '?' + queryString : '');
+                window.location.href = url;
+            }
+        });
+    </script>
 </head>
 <body>
     <h1>Table Viewer</h1>
     <div class="filter-form">
         <form action="/table" method="get">
+            {% for field, value in filter_params.items() %}
+                <div class="filter-term">
+                    <input type="hidden" name="{{ 'filter_' + field }}" value="{{ value }}">
+                    {{ field }}: {{ value }}
+                    <a href="#" class="filter-remove" data-field="{{ field }}">x</a>
+                </div>
+            {% endfor %}
             <label for="filter-exercise-id">Exercise ID:</label>
-            <input type="text" id="filter-exercise-id" name="ExerciseID" value="" placeholder="Filter by Exercise ID">
+            <input type="text" id="filter-exercise-id" name="filter_ExerciseID" value="" placeholder="Filter by Exercise ID">
             <label for="filter-exercise-name">Exercise Name:</label>
-            <input type="text" id="filter-exercise-name" name="ExerciseName" value="" placeholder="Filter by Exercise Name">
+            <input type="text" id="filter-exercise-name" name="filter_ExerciseName" value="" placeholder="Filter by Exercise Name">
             <!-- Add other filter fields here -->
             <input type="submit" value="Filter">
         </form>
     </div>
+    
     <table>
         <thead>
             <tr>
@@ -77,5 +137,23 @@
             {% endfor %}
         </tbody>
     </table>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterRemoveLinks = document.getElementsByClassName('filter-remove');
+            
+            Array.from(filterRemoveLinks).forEach(function(link) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const field = link.getAttribute('data-field');
+                    const filterInput = document.getElementById('filter-' + field.toLowerCase());
+                    filterInput.value = '';
+                    link.parentNode.remove();
+                    filterInput.parentNode.remove();
+                    filterInput.form.submit();
+                });
+            });
+        });
+    </script>
+    
 </body>
 </html>
