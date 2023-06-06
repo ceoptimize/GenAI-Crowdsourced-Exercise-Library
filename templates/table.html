@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Viewer</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .filter-form {
+            margin-bottom: 10px;
+        }
+
+        .sort-indicator {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Table Viewer</h1>
+    <div class="filter-form">
+        <form action="/table" method="get">
+            <label for="filter-exercise-id">Exercise ID:</label>
+            <input type="text" id="filter-exercise-id" name="ExerciseID" value="" placeholder="Filter by Exercise ID">
+            <label for="filter-exercise-name">Exercise Name:</label>
+            <input type="text" id="filter-exercise-name" name="ExerciseName" value="" placeholder="Filter by Exercise Name">
+            <!-- Add other filter fields here -->
+            <input type="submit" value="Filter">
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th><a href="?sort_column=ExerciseID&sort_order={{ sort_order }}">Exercise ID<span class="sort-indicator">{{ sort_order }}</span></a></th>
+                <th><a href="?sort_column=ExerciseName&sort_order={{ sort_order }}">Exercise Name<span class="sort-indicator">{{ sort_order }}</span></a></th>
+                <th><a href="?sort_column=ExerciseDifficulty&sort_order={{ sort_order }}">Exercise Difficulty<span class="sort-indicator">{{ sort_order }}</span></a></th>
+                <th><a href="?sort_column=EquipmentName&sort_order={{ sort_order }}">Equipment Name<span class="sort-indicator">{{ sort_order }}</span></a></th>
+                <th><a href="?sort_column=Count&sort_order={{ sort_order }}">Count<span class="sort-indicator">{{ sort_order }}</span></a></th>
+                <th><a href="?sort_column=BodyPlane&sort_order={{ sort_order }}">Body Plane<span class="sort-indicator">{{ sort_order }}</span></a></th>
+                <th><a href="?sort_column=BodyArea&sort_order={{ sort_order }}">Body Area<span class="sort-indicator">{{ sort_order }}</span></a></th>
+                <th><a href="?sort_column=IsPrimary&sort_order={{ sort_order }}">Is Primary<span class="sort-indicator">{{ sort_order }}</span></a></th>
+                <th><a href="?sort_column=IsSecondary&sort_order={{ sort_order }}">Is Secondary<span class="sort-indicator">{{ sort_order }}</span></a></th>
+                <th><a href="?sort_column=VideoID&sort_order={{ sort_order }}">Video ID<span class="sort-indicator">{{ sort_order }}</span></a></th>
+                <th><a href="?sort_column=VideoTitle&sort_order={{ sort_order }}">Video Title<span class="sort-indicator">{{ sort_order }}</span></a></th>
+                <th><a href="?sort_column=RelationID&sort_order={{ sort_order }}">Relation ID<span class="sort-indicator">{{ sort_order }}</span></a></th>
+                <th><a href="?sort_column=RelationType&sort_order={{ sort_order }}">Relation Type<span class="sort-indicator">{{ sort_order }}</span></a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in table %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                    <td>{{ row[6] }}</td>
+                    <td>{{ row[7] }}</td>
+                    <td>{{ row[8] }}</td>
+                    <td>{{ row[9] }}</td>
+                    <td>{{ row[10] }}</td>
+                    <td>{{ row[11] }}</td>
+                    <td>{{ row[12] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

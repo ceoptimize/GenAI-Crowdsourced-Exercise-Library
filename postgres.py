@@ -280,6 +280,41 @@ class PostgresDatabase:
         self.cursor.execute("CREATE TABLE PLANTS( what int   NOT NULL, mom VARCHAR NOT NULL)")
         self.conn.commit()
 
+    def get_denormalized_table(self):
+        query = """
+        SELECT
+        e.ExerciseID,
+        e.ExerciseName,
+        e.ExerciseDifficulty,
+        eq.EquipmentName,
+        ee.Count,
+        bp.BodyPlane,
+        ba.BodyArea,
+        eba.IsPrimary,
+        eba.IsSecondary,
+        yv.VideoID,
+        yv.VideoTitle,
+        er.RelationID,
+        er.RelationType
+    FROM
+        Exercises e
+        LEFT JOIN ExerciseDescription ed ON e.ExerciseID = ed.ExerciseID
+        LEFT JOIN ExerciseBodyArea eba ON e.ExerciseID = eba.ExerciseID
+        LEFT JOIN ExerciseEquipment ee ON e.ExerciseID = ee.ExerciseID
+        LEFT JOIN ExercisePlane ep ON e.ExerciseID = ep.ExerciseID
+        LEFT JOIN ExerciseYoutube ey ON e.ExerciseID = ey.ExerciseID
+        LEFT JOIN ExerciseRelation er ON e.ExerciseID = er.ExerciseID
+        LEFT JOIN Equipment eq ON ee.EquipmentID = eq.EquipmentID
+        LEFT JOIN BodyPlane bp ON ep.BodyPlaneID = bp.BodyPlaneID
+        LEFT JOIN BodyArea ba ON eba.BodyAreaID = ba.BodyAreaID
+        LEFT JOIN YoutubeVideo yv ON ey.YoutubeVideoID = yv.VideoID
+
+        """
+        self.cursor.execute(query)
+        table = self.cursor.fetchall()
+        return table
+
+
 
     def sanitize_string(self, value):
         return value.strip().lower()

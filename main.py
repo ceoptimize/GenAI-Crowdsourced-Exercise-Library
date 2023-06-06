@@ -27,17 +27,21 @@ postgres = PostgresDatabase()
 #print(postgres.get_primary_key_columns('youtubevideo'))
 
 
-postgres.drop_schema()
-postgres.execute_sql_file('QuickDBD-Free Diagram.sql')
-postgres.get_tables()
+#postgres.drop_schema()
+#postgres.execute_sql_file('QuickDBD-Free Diagram.sql')
+#postgres.get_tables()
 
-vl = VideoLoader()
-vl.load_videos_to_youtubevideo_table()
+#vl = VideoLoader()
+#vl.load_videos_to_youtubevideo_table()
 
-el = ExerciseLoader()
-el.load_exercises_from_videos(insertnewrelations=True, limit = 5)
+#el = ExerciseLoader()
+#el.load_exercises_from_videos(insertnewrelations=True, limit = 5)
 
 postgres.print_all_table_contents()
+
+table = postgres.get_denormalized_table()
+for row in table:
+    print(row)
 
 
 
