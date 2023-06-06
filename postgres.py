@@ -4,6 +4,7 @@ import re
 import sqlparse
 import pandas
 import json
+import traceback
 
 
 
@@ -520,13 +521,18 @@ class PostgresDatabase:
         if result:
             exercise_video_match = result[0]
             query = f"UPDATE ExerciseYouTube SET ExerciseVideoMatch = ExerciseVideoMatch + 1 " \
-                    f"WHERE ExerciseID = {exercise_id} AND VideoID = '{video_id}'"
+                    f"WHERE ExerciseID = {exercise_id} AND YoutubeVideoID = '{video_id}'"
             self.execute_query(query)
         else:
             query = f"INSERT INTO ExerciseYouTube (ExerciseID, YoutubeVideoID, ExerciseVideoMatch) " \
                     f"VALUES ({exercise_id}, '{video_id}', 1)"
             self.execute_query(query)
 
+          
+
+    
+
+    
     def load_json(self, json_data, youtubevideoId: str, insertnewrelations = False):
         # Parse JSON data
         try:
@@ -586,6 +592,7 @@ class PostgresDatabase:
 
             # Commit changes to the database
             self.conn.commit()
+     
 
         except Exception as e:
             # Rollback changes on error
@@ -657,14 +664,17 @@ class PostgresDatabase:
             raise"""
 
 
-    def get_video_id_and_title_array(self): 
+    def get_video_id_and_title_array(self, limit= None): 
         query = f"SELECT VideoId, VideoTitle from YoutubeVideo"
+        if limit is not None:
+            query += f' LIMIT {limit}'
         self.execute_query(query)
         result = self.cursor.fetchall()
         if result:
            # return result[0]
            return [row for row in result]
         return None
+    
 
     def get_video_title(self, video_id):
         query = f"SELECT VideoTitle FROM YoutubeVideo WHERE VideoID = '{video_id}'"

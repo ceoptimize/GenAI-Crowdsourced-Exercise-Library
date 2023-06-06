@@ -35,7 +35,7 @@ vl = VideoLoader()
 vl.load_videos_to_youtubevideo_table()
 
 el = ExerciseLoader()
-el.load_exercises_from_videos(insertnewrelations=False)
+el.load_exercises_from_videos(insertnewrelations=True, limit = 5)
 
 postgres.print_all_table_contents()
 

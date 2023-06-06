@@ -13,6 +13,7 @@ class ChatGPT:
     def __init__(self, apikey=Api().chat_gpt_api):
         self.api_key = apikey
         self.model_engine = "text-davinci-003"
+       # self.model_engine = "text-curie-003"
         openai.api_key = self.api_key
     """
     def rate_video_title(self, title):
@@ -34,7 +35,14 @@ class ChatGPT:
                 return int(result) if result.isdigit() else 'AI is unsure'
             else:
                 return 'Error occurred'"""
+    
+    def get_exercise_basics(self, video_title):
+        user_message = f'Given the exercise video title {video_title}, provide a detailed description of how to do the exercises as a step by step process' 
+        response = self._get_chatgpt_response(user_message)
+        exercise_description = response.choices[0].text
+        return exercise_description
 
+    """
     def get_exercise_basics(self, video_title):
         user_message = f'Given the exercise video title {video_title}, provide a detailed description of how to do the exercises as a step by step process' 
       #  user_message = f'How do you perform the following exercise? Provide detailed instructions:  {video_title}'
@@ -50,7 +58,7 @@ class ChatGPT:
 
         # Retrieve the exercise details from the model's response
         exercise_description = response.choices[0].text
-        return (exercise_description)
+        return (exercise_description)"""
 
     def get_exercise_details(self, title, videoname = True):
         compensations = [
@@ -140,9 +148,12 @@ class ChatGPT:
                     f'\n    "description": "Provide a detailed description or set of instructions for performing the exercise. Don’t leave this blank"' \
                     f'\n}}'"""
 
-         
+        response = self._get_chatgpt_response(user_message)
+        exercise_details = response.choices[0].text.strip()
+        exercise_json = json.loads(exercise_details)
 
         # Generate a response from ChatGPT
+        """
         response = openai.Completion.create(
             engine=self.model_engine,
             prompt=user_message,
@@ -162,9 +173,30 @@ class ChatGPT:
         #todo try catch
         print("HELLO")
         print(exercise_details)
-        exercise_json = json.loads(exercise_details)
+        exercise_json = json.loads(exercise_details)"""
 
         return exercise_json
+
+    def _get_chatgpt_response(self, prompt):
+        completion = openai.Completion.create(
+            engine=self.model_engine,
+            prompt=prompt,
+            max_tokens=3000
+        )
+        return completion
+
+    def process_exercise(self, title):
+        exercise_json = self.get_exercise_details(title)
+        print(json.dumps(exercise_json, indent=4))
+
+    def process_exercise_titles(self, exercise_titles):
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            futures = [executor.submit(self.process_exercise, title) for title in exercise_titles]
+            concurrent.futures.wait(futures)
+
+
+
+
 
 # Test the ChatGPT class
 """
