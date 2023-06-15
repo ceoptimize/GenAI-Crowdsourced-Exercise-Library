@@ -1,6 +1,6 @@
 import openai
 import json
-from OLD.api import Api
+from api import Api
 import requests
 import json
 import psycopg2

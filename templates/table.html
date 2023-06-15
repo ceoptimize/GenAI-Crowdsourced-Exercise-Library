@@ -82,23 +82,23 @@
 <body>
     <h1>Table Viewer</h1>
     <div class="filter-form">
-        <form action="/table" method="get">
+        <form action="/filter" method="post">
             {% for field, value in filter_params.items() %}
                 <div class="filter-term">
-                    <input type="hidden" name="{{ 'filter_' + field }}" value="{{ value }}">
+                    <input type="hidden" name="{{ field }}" value="{{ value }}">
                     {{ field }}: {{ value }}
                     <a href="#" class="filter-remove" data-field="{{ field }}">x</a>
                 </div>
             {% endfor %}
             <label for="filter-exercise-id">Exercise ID:</label>
-            <input type="text" id="filter-exercise-id" name="filter_ExerciseID" value="" placeholder="Filter by Exercise ID">
+            <input type="text" id="filter-exercise-id" name="filter_ExerciseID" value="{{ filter_params.ExerciseID|default('') }}" placeholder="Filter by Exercise ID">
             <label for="filter-exercise-name">Exercise Name:</label>
-            <input type="text" id="filter-exercise-name" name="filter_ExerciseName" value="" placeholder="Filter by Exercise Name">
+            <input type="text" id="filter-exercise-name" name="filter_ExerciseName" value="{{ filter_params.ExerciseName|default('') }}" placeholder="Filter by Exercise Name">
             <!-- Add other filter fields here -->
             <input type="submit" value="Filter">
         </form>
     </div>
-    
+
     <table>
         <thead>
             <tr>

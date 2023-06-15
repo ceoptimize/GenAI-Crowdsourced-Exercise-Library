@@ -15,19 +15,23 @@ def index():
 # Define the route for the table page
 @app.route('/table')
 def table():
+    # Initialize the table variable
+    table = []
+    column_names = []
+
     # Get the filter values from the query string
-    filter_params = {}
-    for key, value in request.args.items():
-        if key.startswith('filter_'):
-            filter_params[key[7:]] = value
+    filter_exercise_id = request.args.get('ExerciseID')
+    filter_exercise_name = request.args.get('ExerciseName')
 
     # Construct the WHERE clause for filtering
     where_clause = ""
-    filter_values = []
-    for field, value in filter_params.items():
-        if value:
-            where_clause += f" AND {field} = %s"
-            filter_values.append(value)
+    filter_params = []
+    if filter_exercise_id:
+        where_clause += " AND ExerciseID = %s"
+        filter_params.append(filter_exercise_id)
+    if filter_exercise_name:
+        where_clause += " AND ExerciseName = %s"
+        filter_params.append(filter_exercise_name)
 
     # Get the sort column and order from the query string
     sort_column = request.args.get('sort_column', 'ExerciseID')
@@ -65,22 +69,31 @@ def table():
         ORDER BY {sort_column} {sort_order};
     """
 
-    # Execute the SQL query with filter values
-    cursor = conn.cursor()
-    cursor.execute(query, filter_values)
+    try:
+        # Execute the SQL query with filter parameters
+        cursor = conn.cursor()
+        cursor.execute(query, filter_params)
 
-    # Fetch all rows from the result
-    table = cursor.fetchall()
+        # Fetch all rows from the result
+        table = cursor.fetchall()
 
-    # Get the column names
-    column_names = [desc[0] for desc in cursor.description]
+        # Get the column names
+        column_names = [desc[0] for desc in cursor.description]
 
-    # Close the cursor
-    cursor.close()
+        # Commit the transaction
+        conn.commit()
+    except Exception as e:
+        # Rollback the transaction
+        conn.rollback()
+        print("Error executing the SQL query:", e)
+    finally:
+        # Close the cursor
+        cursor.close()
 
-    return render_template('table.html', table=table, column_names=column_names,
+    return render_template('index2.html', table=table, column_names=column_names,
                            sort_column=sort_column, sort_order=sort_order,
-                           filter_params=filter_params)
+                           filter_exercise_id=filter_exercise_id,
+                           filter_exercise_name=filter_exercise_name)
 
 if __name__ == '__main__':
     app.run(debug=True)
