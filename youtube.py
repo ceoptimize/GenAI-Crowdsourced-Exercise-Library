@@ -11,6 +11,7 @@ from google_auth_oauthlib.flow import Flow
 SCOPES = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 
 
+#channel_ids = ['UCXrWnUUIza2gpaXhVknC55Q']
 channel_ids = ['UCpyjZrR0so-aHFIyg2U0cyw', 'UCXrWnUUIza2gpaXhVknC55Q']
 #search_query = 'intitle:"Landmine Lateral Raise"'
 #channel_id = 'UCpyjZrR0so-aHFIyg2U0cyw'
@@ -70,45 +71,6 @@ class Youtube:
        
         return youtube
 
-       
-
-    """
-    def youtubesearchandfilter(self, exercise):
-        filtered_results = []
-        pattern = "(?<=PT)(?P<minutes>\d*M)*(?P<seconds>\d*S)*"
-        for channel_id in self.channel_ids:
-            self.search_params['channelId'] = channel_id 
-            search_response = self.youtubebuild.search().list(**self.search_params).execute()
-
-            # Print the video titles for the search results
-            for search_result in search_response.get('items', []):
-                videotitle = search_result['snippet']['title']
-                print(videotitle + ' -- ' + exercise)
-                if videotitle.lower() == exercise.lower(): 
-                    video_id = search_result['id']['videoId']
-                    video_response = self.youtubebuild.videos().list(
-                        id=video_id,
-                        part='contentDetails'
-                    ).execute()
-                    duration = video_response['items'][0]['contentDetails']['duration']
-                    #print(re.split())
-                    #print(duration)
-                    timegroups = re.findall(pattern,duration)
-                    minutes = self.convert_string_to_int(re.split('M', timegroups[0][0])[0])
-                    #print(minutes)
-                    seconds = self.convert_string_to_int(re.split('S', timegroups[0][1])[0])
-                    #print(seconds)
-                    totaltime = minutes*60+seconds
-                    if (totaltime < 40) & (totaltime > 10):
-                        filtered_results.append(search_result)
-        return filtered_results"""
-    """
-    def insert_all_channel_ids_to_postgres(self):
-        for channel_id in self.channel_ids:
-            self.get_channel_videos_insert_to_postgres(channel_id)
-        self.postgres.close()"""
-
-
 
     def insert_all_channel_ids_to_postgres(self, enable_limit=True):
         video_count = 0  # Counter for the number of videos processed
@@ -129,7 +91,11 @@ class Youtube:
         
         print(channel_title)
         
-        
+        # This block of code retrieves videos from a YouTube channel, processes their data,
+        # and inserts relevant information into a PostgreSQL database. It operates in an
+        # infinite loop, fetching videos in batches of up to 50 until a certain limit is reached
+        # or there are no more videos to retrieve. The loop breaks when either the limit
+        # is less than 50 or there is no 'nextPageToken' indicating the end of the video list.
         while True:
             res =  self.youtubebuild.search().list(part='id', channelId=channel_id, maxResults=min(50, limitvideocount), type='video', pageToken=page_token).execute()
             for item in res['items']:
@@ -172,7 +138,6 @@ class Youtube:
         print(is_embeddable)
         title = res['items'][0]['snippet']['title']
         thumbnails = res['items'][0]['snippet']['thumbnails']['default']['url']
-        print("hi")
         print(thumbnails)
 
         return duration, is_embeddable, thumbnails, title
@@ -210,26 +175,5 @@ class Youtube:
 
         return caption_text
 
-# Set the video duration to "short" and retrieve up to 50 videos
-
-
-# Filter the search results to only include videos that are less than 60 seconds long
-
-
-
-   # print(duration.split('S')[0])
-   # if 'S' in duration:
-  #      filtered_results.append(search_result)
-
-   # if 'S' in duration and int(duration.split('S')[0]) < 60:
-       # filtered_results.append(search_result)
-
-# Print the filtered search results
-#function that takes in a list of exercises, searches for results on youtube and loads results into the 
-#but only if the exericse is new and the video id is new
-#table 
-#exerices string
-#youtubevideo id string
-#exercisevideomatch int
 
 

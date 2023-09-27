@@ -8,9 +8,8 @@ class VideoLoader:
         self.postgres = PostgresDatabase()
         self.youtube = Youtube()
 
-    def load_videos_to_youtubevideo_table(self, printresults = True):
-        self.youtube.insert_all_channel_ids_to_postgres()
-        print("done")
+    def load_videos_to_youtubevideo_table(self, printresults = False, enable_limit=True):
+        self.youtube.insert_all_channel_ids_to_postgres(enable_limit)
         if(printresults):
             query = """
                 SELECT *
@@ -18,8 +17,6 @@ class VideoLoader:
                 LIMIT 5;
                 """
             result = self.postgres.fetch_query(query)
-            print("First 5 rows of the YoutubeVideo table:")
-            for row in result:
-                print(row)
+           
 
 

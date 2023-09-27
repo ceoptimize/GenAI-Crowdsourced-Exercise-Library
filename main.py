@@ -6,42 +6,43 @@ from youtube import Youtube
 from videoloader import VideoLoader
 from exerciseinfoloader import ExerciseLoader
 
+
 postgres = PostgresDatabase()
-#postgres.drop_table("EXERCISELIBRARY")
-#postgres.drop_table("ExerciseYoutube")
-#postgres.drop_table("EXERCISES")
-#print(postgres.get_current_schema())
-#print(postgres.query_data("YoutubeVideo"))
-#print(postgres.query_data("EXERCISELIBRARY", ["exercise", "unilateral"]))
-#postgres.drop_schema()
-#print(postgres.get_table_columns("YoutubeVideo"))
-#postgres.drop_table("PLANTS")
-#postgres.test_create()
-#postgres.get_table_columns("PLANTS")
-#columns = ["WHAT", "MOM"]
-#values = [5,"huh"]
-#postgres.insert_data("PLANTS", columns, values)
-#columns = postgres.get_table_columns('youtubevideo')
-#print(columns)
-#print(postgres.query_data("PLANTS"))
-#print(postgres.get_primary_key_columns('youtubevideo'))
 
+#drops current tables and recreates them 
+def run(load_new_videos = False):
+    if load_new_videos:
+        postgres.drop_schema()
+        postgres.execute_sql_file('DBD/QuickDBD-Free Diagram-13.sql')
+        postgres.get_tables()
 
-#postgres.drop_schema()
-#postgres.execute_sql_file('QuickDBD-Free Diagram.sql')
-#postgres.get_tables()
+        #loads videos into the youtube video table
+        vl = VideoLoader()
+        vl.load_videos_to_youtubevideo_table(enable_limit = True)
 
-#vl = VideoLoader()
-#vl.load_videos_to_youtubevideo_table()
+        #gets the name of the exercises based off the videos 
+        el = ExerciseLoader()
+        el.load_exercises_from_videos(insertnewrelations=True, limit = 11)
 
-#el = ExerciseLoader()
-#el.load_exercises_from_videos(insertnewrelations=True, limit = 5)
+        #prints all the tables and their contents
+        postgres.print_all_table_contents()
+    else:
 
-postgres.print_all_table_contents()
+        postgres.truncate_tables(tables_to_keep=['youtubevideo'])
+        postgres.get_tables()
+            #gets the name of the exercises based off the videos 
+        el = ExerciseLoader()
+        el.load_exercises_from_videos(insertnewrelations=True, limit = 11)
 
-table = postgres.get_denormalized_table()
-for row in table:
-    print(row)
+        #prints all the tables and their contents
+        postgres.print_all_table_contents()
+
+        #connects the tables into a denormalizaed view using keys
+        #table = postgres.get_denormalized_table()
+        #for row in table:
+        #    print(row)
+
+run(load_new_videos=False)
 
 
 

@@ -1,0 +1,4 @@
+Video ID: OdMr-Y5zoJs, Error: Error in sanitize_and_check_equipment: no results to fetch
+Video ID: 8AFMOxVTEKI, Error: Error in update_exercise_equipment: insert or update on table "exerciseequipment" violates foreign key constraint "fk_exerciseequipment_exerciseid"
+DETAIL:  Key (exerciseid)=(3) is not present in table "exercises".
+

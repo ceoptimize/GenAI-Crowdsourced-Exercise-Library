@@ -15,40 +15,55 @@ class ExerciseLoader:
   
     
     def load_exercises_from_videos(self, videoid = None, printresults = False, insertnewrelations = False, limit = None):
-       
+
         if videoid is not None:
             videotitle = self.postgres.get_video_title(videoid)
+
             self.load_exercise_from_video(videoid, videotitle, insertnewrelations=False)
         
         else: 
             videoandtitlearray = self.postgres.get_video_id_and_title_array(limit = limit)
+         
+            
+            def process_video(videoandtitle, chatgptinstance: ChatGPT):
+                videoid, videotitle = videoandtitle
+                
+                def handle_error(msg_prefix, e):
+                    traceback_str = traceback.format_exc()
+                    error_message = f"Error occurred for video ID: {videoid}\n"
+                    error_message += f"{msg_prefix}: {str(e)}\n"
+                    error_message += f"Traceback:\n{traceback_str}\n"
 
-          #  exercise_titles = [videoandtitle[1] for videoandtitle in videoandtitlearray]
+                    log_filename = "error_log.txt"
+                    with open(log_filename, "a") as log_file:
+                        log_file.write(error_message)
 
-                            # Define a function to process a single video
-            def process_video(videoandtitle, chatgptinstance):
-                    videoid, videotitle = videoandtitle
-                    try:
-                        json = chatgptinstance.get_exercise_details(videotitle, videoname=True)
-                        self.postgres.load_json(json, youtubevideoId=videoid, insertnewrelations=False)
-                    except Exception as e:
-                        # Handle the error, log it, and continue with the loop
-                        traceback_str = traceback.format_exc()
-                        error_message = f"Error occurred for video ID: {videoid}\n"
-                        error_message += f"Error message: {str(e)}\n"
-                        error_message += f"Traceback:\n{traceback_str}\n"
+                    print(f"Error occurred for video ID: {videoid} ({msg_prefix})")
+                    print(f"Error message ({msg_prefix}): {str(e)}")
+                    print(f"Continuing with the loop...")
+                print("here?")
+                try:
+                    # Attempt to get exercise details
+                    print("error 0")
+                    json = chatgptinstance.get_exercise_details(videotitle.replace("'", "''"), videoname=True)
+        
+                    print("error 1")
+                    # Attempt to load JSON data into the database
+                    self.postgres.load_json(json, youtubevideoId=videoid, insertnewrelations=False)
+             
+                except Exception as e:
+                
+                    # Handle the error for getting exercise details or loading JSON data into the database
+                    if "getting exercise details" in str(e):
+                        handle_error("Getting exercise details", e)
+                        print("error 1")
+                    elif "loading JSON data into the database" in str(e):
+                        handle_error("Loading JSON data into the database", e)
+                        print("error_2")
 
-                        log_filename = "error_log.txt"
-                        with open(log_filename, "a") as log_file:
-                            log_file.write(error_message)
-
-                        # Log the error message and traceback to a file or print them
-                        print(f"Error occurred for video ID: {videoid}")
-                        print(f"Error message: {str(e)}")
-                        print(f"Continuing with the loop...")
-
-                        # Process videos in parallel
+            
             with concurrent.futures.ThreadPoolExecutor() as executor:
+                    print("testing here")
                     executor.map(lambda videoandtitle: process_video(videoandtitle, self.chatgpt), videoandtitlearray)
                    # executor.map(process_video, videoandtitlearray, self.chatgpt)
 
