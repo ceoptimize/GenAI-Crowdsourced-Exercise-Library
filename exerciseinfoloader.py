@@ -41,7 +41,7 @@ class ExerciseLoader:
                     print(f"Error occurred for video ID: {videoid} ({msg_prefix})")
                     print(f"Error message ({msg_prefix}): {str(e)}")
                     print(f"Continuing with the loop...")
-                print("here?")
+          
                 try:
                     # Attempt to get exercise details
                     print("error 0")

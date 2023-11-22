@@ -70,15 +70,14 @@ class PostgresDatabase:
         self.conn.commit()
 
 
-    def insert_data(self, table_name, columns: list, values: list):
+    def insert_data(self, table_name,  columns: list, values: list, primarykey= None):
        # self.cursor.execute(f"INSERT INTO {table_name} (exercise, body_parts, equipment_used) VALUES (%s, %s), (exercise, body_parts, equipment_used)")
        # self.cursor.execute(f"INSERT INTO {table_name} (exercise, body_parts, equipment_used) VALUES (%s, %s)", (exercise, bodyparts))
         query = f"INSERT INTO {table_name} ({', '.join(columns)}) VALUES ({', '.join(['%s'] * len(values))})"
-        primarykey  = self.get_primary_key_columns(table_name)
+        if primarykey is None:
+            primarykey  = self.get_primary_key_columns(table_name)
         query += f" ON CONFLICT ({primarykey}) DO NOTHING"  # Specify the conflict resolution
 
-        print("full query")
-        print(query)
         self.cursor.execute(query, values)
         self.conn.commit()
         if self.cursor.rowcount == 0:
@@ -138,7 +137,7 @@ class PostgresDatabase:
         FROM information_schema.key_column_usage
         WHERE table_name = '{table_name}'
         """
-        print(query)
+      
         self.cursor.execute(query)
         columns = [row[0] for row in self.cursor.fetchall()]
         return ', '.join(columns)
@@ -263,7 +262,7 @@ class PostgresDatabase:
         SELECT
         e.ExerciseID,
         e.ExerciseName,
-        e.ExerciseDifficulty,
+        e.ExerciseDifficultySum,
         eq.EquipmentName,
         ee.Count,
         bp.BodyPlane,
@@ -654,6 +653,18 @@ class PostgresDatabase:
            return [row for row in result]
         return None
     
+    def get_video_id_array(self, limit= None): 
+        query = f"SELECT VideoId from YoutubeVideo"
+        if limit is not None:
+            query += f' LIMIT {limit}'
+        self.execute_query(query)
+        result = self.cursor.fetchall()
+        if result:
+           print("result")
+           print([row for row in result])
+           # return result[0]
+           return [row for row in result]
+        return None
 
     def get_video_title(self, video_id):
         query = f"SELECT VideoTitle FROM YoutubeVideo WHERE VideoID = '{video_id}'"

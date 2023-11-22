@@ -5,6 +5,11 @@ from  postgres import PostgresDatabase
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import Flow
+from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api._errors import TranscriptsDisabled, NoTranscriptFound, VideoUnavailable
+
+
+
 
 
 
@@ -13,6 +18,8 @@ SCOPES = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 
 #channel_ids = ['UCXrWnUUIza2gpaXhVknC55Q']
 channel_ids = ['UCpyjZrR0so-aHFIyg2U0cyw', 'UCXrWnUUIza2gpaXhVknC55Q']
+#starting_exercises = ['squat', 'deadlift', 'bench press', 'overhead press', 'bent over row', 'pull-up', 'chin-up', 'push-up', 'dip', 'lunge']
+#starting_exercises = ['deadlift']
 #search_query = 'intitle:"Landmine Lateral Raise"'
 #channel_id = 'UCpyjZrR0so-aHFIyg2U0cyw'
  #   "VideoID" string   NOT NULL,
@@ -27,8 +34,8 @@ channel_ids = ['UCpyjZrR0so-aHFIyg2U0cyw', 'UCXrWnUUIza2gpaXhVknC55Q']
 
 class Youtube:
     def __init__(self, search_query = None):
-       # self.api_key = 'AIzaSyBc9qycvVaBAeG9DV8KewsLKGnmVyBUkgk' #crowdsourcevideo project
-        self.api_key = 'AIzaSyBxz4yP7xttz7Xe59ZNfaYCHIP_N8VBc9Q'  #crowdsourcevideo2 project
+        self.api_key = 'AIzaSyBc9qycvVaBAeG9DV8KewsLKGnmVyBUkgk' #crowdsourcevideo project
+       # self.api_key = 'AIzaSyBxz4yP7xttz7Xe59ZNfaYCHIP_N8VBc9Q'  #crowdsourcevideo2 project
         self.channel_ids = channel_ids
         self.search_params = {
             'q': search_query,
@@ -36,14 +43,11 @@ class Youtube:
             'type': 'video',
             'maxResults': 50,
             'videoDuration' : 'short',
+            'videoCaption': 'closedCaption', 
+            'relevanceLanguage': 'en'
         }
         self.youtubebuild = self.youtubebuild() 
-        self.videotablename = "youtubevideo"
-        self.postgres = PostgresDatabase()
-        self.videotablecolumns = self.postgres.get_table_columns(self.videotablename)
-       # self.videotablecolumns = ["VideoId", "ChannelId", "ChannelName", "ChannelHandle", "ThumbnailUrl", "Duration"]
-        self.videotableextracolumns = ["gendercount", "lighting", "audio"]
-
+  
     def authenticate_youtube():
         flow = InstalledAppFlow.from_client_secrets_file(
             client_secrets_file='client_secrets.json',
@@ -72,6 +76,107 @@ class Youtube:
         return youtube
 
 
+    def extract_time_from_duration(self, duration):
+        # Parse the ISO 8601 duration format from YouTube API response
+        pattern = re.compile(r'PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?')
+        match = pattern.match(duration)
+
+        hours = int(match.group(1)) if match.group(1) else 0
+        minutes = int(match.group(2)) if match.group(2) else 0
+        seconds = int(match.group(3)) if match.group(3) else 0
+
+        return (hours * 60 + minutes), seconds
+
+    def get_transcript_from_api(self, video_id): 
+        try:
+             # Retrieve the transcript using youtube_transcript_api
+             transcript = YouTubeTranscriptApi.get_transcript(video_id)
+                  # Concatenate transcript texts
+             transcript_text = ' '.join([i['text'] for i in transcript])
+        except (TranscriptsDisabled, NoTranscriptFound, VideoUnavailable):
+             transcript_text = 'No transcript available'
+        return transcript_text
+    
+
+    def get_video_data(self, item): 
+        res = self.youtubebuild.videos().list(id=video_id, part='contentDetails, status, snippet, statistics').execute()
+        duration = res['items'][0]['contentDetails']['duration']
+        is_embeddable = res['items'][0]['status']['embeddable']
+        title = res['items'][0]['snippet']['title']
+        thumbnails = res['items'][0]['snippet']['thumbnails']['default']['url']
+        likes = res['items'][0]['statistics'].get('likeCount', '0')  # Use .get() to avoid KeyError if 'likeCount' does not exist
+
+        return duration, is_embeddable, thumbnails, title, likes
+
+
+    def is_short_duration(self, totaltime):
+        if (totaltime < 60) & (totaltime > 5):
+            return True
+        else:
+            return False
+        
+    '''
+    def search_youtube_on_exercise(self, exercise, max_videos_per_exercise=50):
+            print(f"Searching for exercise: {exercise}")
+            self.search_params['q'] = exercise
+            page_token = None
+            videos_remaining = max_videos_per_exercise
+
+            while videos_remaining > 0:
+                search_response = self.youtubebuild.search().list(
+                    part='id,snippet',
+                    q=self.search_params['q'],
+                    maxResults=min(50, videos_remaining),
+                    type='video',
+                    videoDuration='short',
+                    videoCaption='closedCaption',
+                    pageToken=page_token
+                ).execute()
+
+                items = search_response.get('items', [])
+                if not items:
+                    print(f"No results for {exercise}")
+                    break  # Exit the while loop if no items are found
+
+                for item in items:
+                    video_id = item['id']['videoId']
+                    video_duration, is_embeddable, thumbnail, video_title = self.get_video_data(video_id)
+
+                    # Extract minutes and seconds from duration string
+                    minutes, seconds = self.extract_time_from_duration(video_duration)
+                    total_time = minutes * 60 + seconds
+
+                    if self.is_short_duration(total_time) and is_embeddable:
+                            try:
+                                # Retrieve the transcript using youtube_transcript_api
+                                transcript = YouTubeTranscriptApi.get_transcript(video_id)
+                                # Concatenate transcript texts
+                                transcript_text = ' '.join([i['text'] for i in transcript])
+                            except (TranscriptsDisabled, NoTranscriptFound, VideoUnavailable):
+                                transcript_text = 'No transcript available'
+
+                            # Insert the data into PostgreSQL database
+                            insert_data_columns = [
+                                video_id, video_title, item['snippet']['channelId'],
+                                item['snippet']['channelTitle'], 'ChannelHandle', thumbnail,
+                                transcript_text, total_time
+                            ]
+
+                            self.postgres.insert_data(
+                                self.videotablename, self.videotablecolumns,
+                                insert_data_columns + [0] * len(self.videotableextracolumns)
+                            )
+
+
+                videos_remaining -= len(items)
+                page_token = search_response.get('nextPageToken')
+
+                if not page_token:
+                    break  # If there is no next page, exit the while loop
+
+            # Outside the while loop, ready for the next exercise
+            print(f"Finished searching for {exercise}")'''
+
     def insert_all_channel_ids_to_postgres(self, enable_limit=True):
         video_count = 0  # Counter for the number of videos processed
         for channel_id in self.channel_ids:
@@ -80,7 +185,6 @@ class Youtube:
             self.get_channel_videos_insert_to_postgres(channel_id)
             video_count += 1
         self.postgres.close()
-    
 
     def get_channel_videos_insert_to_postgres(self, channel_id, captions_enabled = False, limitvideocount = 5):
         page_token = None
@@ -131,49 +235,5 @@ class Youtube:
             else: 
                 break
 
-    def get_video_data(self, video_id): 
-        res = self.youtubebuild.videos().list(id=video_id, part='contentDetails, status, snippet').execute()
-        duration = res['items'][0]['contentDetails']['duration']
-        is_embeddable = res['items'][0]['status']['embeddable']
-        print(is_embeddable)
-        title = res['items'][0]['snippet']['title']
-        thumbnails = res['items'][0]['snippet']['thumbnails']['default']['url']
-        print(thumbnails)
 
-        return duration, is_embeddable, thumbnails, title
-
-
-    def is_short_duration(self, totaltime):
-        if (totaltime < 60) & (totaltime > 5):
-            return True
-        else:
-            return False
-
-    def get_video_captions(self, video_id):
-        captions_response = self.youtubebuild.captions().list(
-            part='snippet',
-            videoId=video_id
-        ).execute()
-
-        captions = captions_response.get('items', [])
-
-        # Process captions as per your requirement
-        captions_text = []
-        for caption in captions:
-            caption_language = caption['snippet']['language']
-            caption_text = self.retrieve_caption_text(caption['id'])  # Implement a function to retrieve the caption text
-            captions_text.append({'language': caption_language, 'text': caption_text})
-
-        return captions_text
-    
-    def retrieve_caption_text(self, caption_id):
-        caption_response = self.youtubebuild.captions().download(
-            id=caption_id
-        ).execute()
-
-        caption_text = caption_response['body']
-
-        return caption_text
-
-
-
+   

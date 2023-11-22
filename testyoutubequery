@@ -1,0 +1,97 @@
+from googleapiclient.discovery import build
+import re
+import json
+from  postgres import PostgresDatabase
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import Flow
+from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api._errors import TranscriptsDisabled, NoTranscriptFound, VideoUnavailable
+
+starting_exercises = ['deadlift']
+
+youtube = build('youtube', 'v3', developerKey='AIzaSyBxz4yP7xttz7Xe59ZNfaYCHIP_N8VBc9Q')
+
+
+def get_video_views(video_id):
+    res = youtube.videos().list(id=video_id, part='statistics').execute()
+    views = int(res['items'][0]['statistics']['viewCount'])
+    return views
+
+def get_channel_subscribers(channel_id):
+    res = youtube.channels().list(id=channel_id, part='statistics').execute()
+    subscribers = int(res['items'][0]['statistics']['subscriberCount'])
+    return subscribers
+
+def get_video_data(video_id): 
+        res = youtube.videos().list(id=video_id, part='contentDetails, status, snippet').execute()
+        duration = res['items'][0]['contentDetails']['duration']
+        is_embeddable = res['items'][0]['status']['embeddable']
+        title = res['items'][0]['snippet']['title']
+        thumbnails = res['items'][0]['snippet']['thumbnails']['default']['url']
+
+        return duration, is_embeddable, thumbnails, title
+
+def is_short_duration(totaltime):
+        if (totaltime < 60) & (totaltime > 5):
+            return True
+        else:
+            return False
+
+def extract_time_from_duration(duration):
+        # Parse the ISO 8601 duration format from YouTube API response
+        pattern = re.compile(r'PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?')
+        match = pattern.match(duration)
+
+        hours = int(match.group(1)) if match.group(1) else 0
+        minutes = int(match.group(2)) if match.group(2) else 0
+        seconds = int(match.group(3)) if match.group(3) else 0
+
+        return (hours * 60 + minutes), seconds
+
+for exercise in starting_exercises:
+    page_token = None
+
+    while True:
+        search_response = youtube.search().list(
+            part='snippet',
+            q=exercise,
+            type='video',
+            maxResults=50,
+            videoDuration='short',
+            videoEmbeddable='true',
+            videoCaption='closedCaption',
+            safeSearch='strict',
+            pageToken=page_token
+        ).execute()
+
+        items = search_response.get('items', [])
+        if not items:
+            print(f"No results for {exercise}")
+            break
+
+        for item in items:
+            video_id = item['id']['videoId']
+            channel_id = item['snippet']['channelId']
+            video_duration, is_embeddable, thumbnail, video_title = get_video_data(video_id)
+            minutes, seconds = extract_time_from_duration(video_duration)
+            total_time = minutes * 60 + seconds
+
+            if is_short_duration(total_time) and is_embeddable:
+                video_views = get_video_views(video_id)
+                channel_subscribers = get_channel_subscribers(channel_id)
+                
+
+                if video_views > 1000 and channel_subscribers > 100:
+                    try:
+                     # Retrieve the transcript using youtube_transcript_api
+                      transcript = YouTubeTranscriptApi.get_transcript(video_id)
+                       # Concatenate transcript texts
+                      transcript_text = ' '.join([i['text'] for i in transcript])
+                    except (TranscriptsDisabled, NoTranscriptFound, VideoUnavailable):
+                      transcript_text = 'No transcript available'
+                    print(f"Video ID: {video_id}, Title: {video_title}, Views: {video_views}, Channel Subscribers: {channel_subscribers}, Captions: {transcript_text}")
+
+        page_token = search_response.get('nextPageToken')
+        if not page_token:
+            break
