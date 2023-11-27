@@ -79,7 +79,6 @@ class PostgresDatabase:
         query += f" ON CONFLICT ({primarykey}) DO NOTHING"  # Specify the conflict resolution
 
         self.cursor.execute(query, values)
-        self.conn.commit()
         if self.cursor.rowcount == 0:
             print("No rows were inserted into the table.")
 
@@ -626,18 +625,17 @@ class PostgresDatabase:
                 self.update_exercise_youtube(exercise_id, youtubevideoId)
 
             # Commit changes to the database
-            self.conn.commit()
+           # self.conn.commit()
      
 
         except Exception as e:
             # Rollback changes on error
-            self.conn.rollback()
-            print(f"Rolling back any db updates for video {youtubevideoId} - error occurred:", str(e))
+            #self.conn.rollback()
+            #print(f"Rolling back any db updates for video {youtubevideoId} - error occurred:", str(e))
 
             # Log the error, including the exercise ID and the reason for the failure
             error_message = f"Video ID: {youtubevideoId}, Error: {str(e)}\n"
-            self.error_log_file.write(error_message)
-
+           # self.error_log_file.write(error_message)
             raise
 
 

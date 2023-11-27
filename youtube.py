@@ -34,8 +34,19 @@ channel_ids = ['UCpyjZrR0so-aHFIyg2U0cyw', 'UCXrWnUUIza2gpaXhVknC55Q']
 
 class Youtube:
     def __init__(self, search_query = None):
-        self.api_key = 'AIzaSyBc9qycvVaBAeG9DV8KewsLKGnmVyBUkgk' #crowdsourcevideo project
-       # self.api_key = 'AIzaSyBxz4yP7xttz7Xe59ZNfaYCHIP_N8VBc9Q'  #crowdsourcevideo2 project
+      #  self.api_key = 'AIzaSyBc9qycvVaBAeG9DV8KewsLKGnmVyBUkgk' #crowdsourcevideo project
+      #  self.api_key = 'AIzaSyBxz4yP7xttz7Xe59ZNfaYCHIP_N8VBc9Q'  #crowdsourcevideo2 project
+      # self.api_key =  'AIzaSyAvYkCC1husjU70PwUykUodl5PaWVpMVAY'
+        self.api_keys = [
+            'AIzaSyCIGxPcXwnwizKyrmmXX-sYjcgruiMG6o4' #ceoptimize videoplatform
+           # 'AIzaSyC7Mf2gwPmI5mtAXXinAG565kE2VO_5Q9c', #crowdsourcedvideo4
+           # 'AIzaSyBxz4yP7xttz7Xe59ZNfaYCHIP_N8VBc9Q',  #crowdsorucedvideo2
+           # 'AIzaSyAvYkCC1husjU70PwUykUodl5PaWVpMVAY', #crowdsourcedvideo3
+           # 'AIzaSyBc9qycvVaBAeG9DV8KewsLKGnmVyBUkgk' #crowdsourcedvideo
+            
+        ]
+        self.current_api_key_index = 0
+ 
         self.channel_ids = channel_ids
         self.search_params = {
             'q': search_query,
@@ -46,8 +57,14 @@ class Youtube:
             'videoCaption': 'closedCaption', 
             'relevanceLanguage': 'en'
         }
-        self.youtubebuild = self.youtubebuild() 
+        self.youtubebuild = self.build_youtube_client() 
   
+    def rotate_api_key(self):
+        self.current_api_key_index = (self.current_api_key_index + 1) % len(self.api_keys)
+        self.api_key = self.api_keys[self.current_api_key_index]
+        self.youtubebuild = self.build_youtube_client()  # Rebuild the client with the new API key
+
+    
     def authenticate_youtube():
         flow = InstalledAppFlow.from_client_secrets_file(
             client_secrets_file='client_secrets.json',
@@ -67,13 +84,35 @@ class Youtube:
             int_var = 0
             return int_var
 
-    def youtubebuild(self, oauthenabled = False):
+    def build_youtube_client(self, oauthenabled = False):
         if oauthenabled: 
             youtube = self.authenticate_youtube()
         else: 
-            youtube = build('youtube', 'v3', developerKey=self.api_key)
+           # youtube = build('youtube', 'v3', developerKey=self.api_key)
+            youtube = build('youtube', 'v3', developerKey=self.api_keys[self.current_api_key_index])
+
        
         return youtube
+    
+    def search_youtube(self, exercise, max_results):
+        try:
+            search_response = self.youtubebuild.search().list(
+                part='snippet',
+                q=exercise,
+                type='video',
+                maxResults=max_results,
+                videoDuration='short',
+                videoEmbeddable='true',
+                videoCaption='closedCaption',
+                safeSearch='strict'
+            ).execute()
+            return search_response
+        except Exception as e:
+            if "quota" in str(e).lower():
+                self.rotate_api_key()
+                return self.search_youtube(exercise, max_results)  # Retry the search with the new API key
+            else:
+                raise
 
 
     def extract_time_from_duration(self, duration):
@@ -99,6 +138,7 @@ class Youtube:
     
 
     def get_video_data(self, item): 
+        video_id = item['id']['videoId']
         res = self.youtubebuild.videos().list(id=video_id, part='contentDetails, status, snippet, statistics').execute()
         duration = res['items'][0]['contentDetails']['duration']
         is_embeddable = res['items'][0]['status']['embeddable']
@@ -114,7 +154,9 @@ class Youtube:
             return True
         else:
             return False
-        
+
+ 
+
     '''
     def search_youtube_on_exercise(self, exercise, max_videos_per_exercise=50):
             print(f"Searching for exercise: {exercise}")

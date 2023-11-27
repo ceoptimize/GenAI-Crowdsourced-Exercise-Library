@@ -10,8 +10,41 @@ import concurrent.futures
 import re
 import stringfunctions
 
+standard_exercise_names = {
+    "push up": ["push-up", "pushup"],
+    # Add more standard names and their variations here
+}
 
+def standardize_exercise_name(name, standard_names):
+    words = name.split()  # Split the name into words
+    new_words = []
+    for word in words:
+        for standard, synonyms in standard_names.items():
+            # Check if the word is in the synonyms list
+            if word in synonyms:
+                word = standard  # Replace it with the standard term
+                break  # Break the loop once a replacement is done
+        new_words.append(word)  # Add the word to the new words list
+    return ' '.join(new_words)  # Reconstruct the name
 
+'''
+def standardize_exercise_name(name, standard_names):
+    for standard, synonyms in standard_names.items():
+        if name in synonyms:
+            return standard
+    return name
+'''
+    
+def replace_chars(text, char_to_replace, replacement_char):
+    return text.replace(char_to_replace, replacement_char)
+
+def to_singular(word):
+        # Check for 'es' or 's' at the end of the word, but not 'ss' (like in 'press')
+        if word.endswith('es') and not word.endswith('ss') and not word.endswith('ees'):
+            return word[:-2]
+        elif word.endswith('s') and not word[-2:] == 'ss':
+            return word[:-1]
+        return word
 
 def sanitize_list(a_list):
     sanitized_elements = [stringfunctions.sanitize_string(name) for name in a_list]
@@ -31,13 +64,6 @@ class ChatGPT:
         self.valid_bodyareas = sanitize_list(valid_data['bodyareas'])
         self.valid_compensations = sanitize_list(valid_data['compensations'])
     
-
-    '''
-    def get_exercise_basics(self, video_title):
-        user_message = f'Given the exercise video title {video_title}, provide a detailed description of how to do the exercises as a step by step process' 
-        response = self._get_chatgpt_response(user_message)
-        exercise_description = response.choices[0].text
-        return exercise_description'''
 
     def is_likely_exercise_video(self, video_id, video_title, channel_title, transcript, duration):
         # Construct the prompt for querying ChatGPT
@@ -74,7 +100,7 @@ class ChatGPT:
         format_code = (
             f'\n\n{{'
             f'\n    "exercise_name_primary": "The name of the exercise demonstrated",'
-            f'\n    "exercise_aliases": ["List of other well known aliases for this exercise, if there are any, outside of the primary name"],'
+            f'\n    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],'
             f'\n    "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",'
             f'\n    "planes_of_motion": ["List of planes of motion involved"],'
             f'\n    "equipment": [{{'
@@ -104,7 +130,7 @@ class ChatGPT:
         )
 
       
-        user_message = f'Given the youtube video information "{gptquerydata}", provide exercise details in the following format: {format_code}'
+        user_message = f'Given the youtube video information "{gptquerydata}", provide exercise details in the following format: {format_code} and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database'
 
         return(user_message)
  
@@ -142,6 +168,35 @@ class ChatGPT:
         return data
     '''
     
+    '''
+    def singularize_exercises(self, exercise_json):
+        keys_to_singularize = ['exercise_name_primary', 'exercise_aliases', 'regressions', 'progressions', 'variations']
+        
+        for key in keys_to_singularize:
+            if key in exercise_json:
+                if isinstance(exercise_json[key], list):
+                    exercise_json[key] = [to_singular(item) for item in exercise_json[key]]
+                elif isinstance(exercise_json[key], str):
+                    exercise_json[key] = to_singular(exercise_json[key])
+        
+        return exercise_json
+    '''
+
+    def clean_exercises(self, exercise_json):
+        keys_to_clean = ['exercise_name_primary', 'exercise_aliases', 'regressions', 'progressions', 'variations']
+        
+        for key in keys_to_clean:
+            if key in exercise_json:
+                if isinstance(exercise_json[key], list):
+                    exercise_json[key] = [
+                        standardize_exercise_name(replace_chars(to_singular(item), '-', ' '), standard_exercise_names)
+                        for item in exercise_json[key]
+                    ]
+                elif isinstance(exercise_json[key], str):
+                    exercise_json[key] = standardize_exercise_name(replace_chars(to_singular(exercise_json[key]), '-', ' '), standard_exercise_names)
+        
+        return exercise_json
+    
     def get_exercise_details(self, gptquerydata, user_message, max_retries=3):
         for _ in range(max_retries):
             response = self._get_chatgpt_response(user_message)
@@ -167,6 +222,7 @@ class ChatGPT:
                     # Validate and correct types
                     exercise_json = self.validate_and_correct_types(exercise_json, expected_types)
                     '''
+                    exercise_json = self.clean_exercises(exercise_json)
                     return exercise_json    
                 
                 except json.JSONDecodeError:
@@ -176,104 +232,6 @@ class ChatGPT:
         
         # If max_retries reached without obtaining valid JSON, raise an exception.
         raise Exception("Unable to obtain valid exercise details after multiple retries")
-    '''
-    def get_exercise_details(self, gptquerydata, user_message, max_retries=3):
-        
-        for _ in range(max_retries):
-            response = self._get_chatgpt_response(user_message)
-            exercise_details = response.choices[0].text.strip()
-            print("this is the raw output")
-            print(exercise_details)
-
-            if not exercise_details:
-                print("empty details")
-                raise Exception("Received an empty response from ChatGPT. Resubmitting request.")
-
-            exercise_json = json.loads(exercise_details)
-            print("here's the json")
-            print(exercise_json)
-            
-
-            # Validate primary and secondary body parts
-            primary_body_part = stringfunctions.sanitize_string(exercise_json["body_parts"]["primary"])
-            print(primary_body_part)
-            secondary_body_parts = sanitize_list(exercise_json["body_parts"]["secondary"])
-            print(secondary_body_parts)
-            print(1)
-            # Validate valid_compensations
-            print(exercise_json["corrective_exercise"])
-            exercise_compensations = sanitize_list(exercise_json["corrective_exercise"])
-            print(exercise_compensations)
-
-           # Validate exercise equipment
-            exercise_equipment_items = exercise_json["equipment"]
-            print(exercise_equipment_items)
-            print(2)
-            for equipment_item in exercise_equipment_items:
-                equipment_name = stringfunctions.sanitize_string(equipment_item.get("Name", ""))
-                equipment_count = stringfunctions.sanitize_string(equipment_item.get("Count", ""))
-
-                # Check if equipment_name is valid
-                if equipment_name not in self.valid_equipment:
-                    equipment_prompt = f'Given the video information "{gptquerydata}", provide a valid equipment name from: {json.dumps(valid_equipment)}'
-                    equipment_response = self._get_chatgpt_response(equipment_prompt)
-                    equipment_item["Name"] = equipment_response.choices[0].text.strip()
-
-                # Check if equipment_count is a number
-                if not equipment_count.isdigit():
-                    count_prompt = f'Given the video information "{gptquerydata}", provide a valid equipment count as a number'
-                    count_response = self._get_chatgpt_response(count_prompt)
-                    equipment_item["Count"] = count_response.choices[0].text.strip()
-
-            print(3)
-            # Check if primary body part is valid
-            if primary_body_part not in self.valid_bodyareas:
-                primary_prompt = f'Given the video information "{gptquerydata}", provide a valid primary body part from: {self.valid_bodyareas}'
-                primary_response = self._get_chatgpt_response(primary_prompt)
-                exercise_json["body_parts"]["primary"] = stringfunctions.sanitize_string(primary_response.choices[0].text.strip())
-
-            # Check if secondary body parts are valid
-            invalid_secondary_parts = [part for part in secondary_body_parts if part not in self.valid_bodyareas]
-            for invalid_part in invalid_secondary_parts:
-                secondary_prompt = f'Given the video information "{gptquerydata}", provide a valid secondary body part from: {self.valid_bodyareas}'
-                secondary_response = self._get_chatgpt_response(secondary_prompt)
-                updated_secondary = secondary_response.choices[0].text.strip()
-                secondary_body_parts.remove(invalid_part)
-                secondary_body_parts.append(updated_secondary)
-                exercise_json["body_parts"]["secondary"] = sanitize_list(secondary_body_parts)
-            print(4)
-            # Check if valid_compensations are valid
-            invalid_compensations = [compensation for compensation in exercise_compensations if compensation not in self.valid_compensations]
-            for invalid_compensation in invalid_compensations:
-                compensation_prompt = f'Given the video information "{gptquerydata}", provide a valid compensation from: {self.valid_compensations}'
-                compensation_response = self._get_chatgpt_response(compensation_prompt)
-                updated_compensation = compensation_response.choices[0].text.strip()
-                exercise_compensations.remove(invalid_compensation)
-                exercise_compensations.append(updated_compensation)
-                exercise_json["corrective_exercise"] = sanitize_list(exercise_compensations)
-
-            # Re-validate the entire JSON after updates
-            primary_body_part = exercise_json["body_parts"]["primary"]
-            print("primary body part")
-            print(primary_body_part)
-            secondary_body_parts = exercise_json["body_parts"]["secondary"]
-            exercise_compensations = exercise_json["corrective_exercise"]
-
-            if (
-                primary_body_part not in self.valid_bodyareas
-                or any(part not in self.valid_bodyareas for part in secondary_body_parts)
-                or any(compensation not in self.valid_compensations for compensation in exercise_compensations)
-            ):
-                raise ValueError("Invalid elements detected. Resubmitting request.")
-                print("invalide parts")
-
-            print("this is the final json")
-            print("exercise_json")
-            return exercise_json
-
-        # If max_retries reached without obtaining valid JSON, raise an exception.
-        raise Exception("Unable to obtain valid exercise details after multiple retries")
-    '''
 
     def _get_chatgpt_response(self, prompt):
     
