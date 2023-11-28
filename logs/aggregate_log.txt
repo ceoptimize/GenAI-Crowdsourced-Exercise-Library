@@ -1,0 +1,6 @@
+Timestamp: 2023-11-28 00:59:45
+Total Successful Inserts: 12
+Total Unlikely Exercise Videos: 54
+Total Failures Getting Exercise Details: 40
+Total Failures Loading JSON: 14
+

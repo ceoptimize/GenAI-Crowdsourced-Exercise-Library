@@ -16,15 +16,21 @@ standard_exercise_names = {
 }
 
 def standardize_exercise_name(name, standard_names):
+    # Replace hyphens with spaces to handle cases like "push-up"
+    name = name.replace('-', ' ')
     words = name.split()  # Split the name into words
+    
     new_words = []
     for word in words:
+        # Apply to_singular to each word to ensure they are not plural
+        singular_word = to_singular(word)
         for standard, synonyms in standard_names.items():
-            # Check if the word is in the synonyms list
-            if word in synonyms:
-                word = standard  # Replace it with the standard term
-                break  # Break the loop once a replacement is done
-        new_words.append(word)  # Add the word to the new words list
+            # Check if the singular word is in the synonyms list
+            if singular_word.lower() in synonyms:
+                singular_word = standard  # Replace it with the standard term
+                break
+        new_words.append(singular_word)  # Add the word to the new words list
+    
     return ' '.join(new_words)  # Reconstruct the name
 
 '''
@@ -40,9 +46,9 @@ def replace_chars(text, char_to_replace, replacement_char):
 
 def to_singular(word):
         # Check for 'es' or 's' at the end of the word, but not 'ss' (like in 'press')
-        if word.endswith('es') and not word.endswith('ss') and not word.endswith('ees'):
+        if word.endswith('es') and not word.endswith('ss') and not word.endswith('plus') and not word.endswith('ees'):
             return word[:-2]
-        elif word.endswith('s') and not word[-2:] == 'ss':
+        elif word.endswith('s') and not word[-2:] == 'ss' and not word.endswith('plus'):
             return word[:-1]
         return word
 

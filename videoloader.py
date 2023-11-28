@@ -66,20 +66,20 @@ class VideoLoader:
 
             while not limit_inserts or (limit_inserts and video_count < max_videos_per_exercise):
                        # Step 1: Use search().list() to find videos
-                '''
+                
                 search_response = self.youtube.youtubebuild.search().list(
                     part='snippet',
                     q=exercise,
                     type='video',
-                    maxResults=max_videos_per_exercise,
+                    maxResults=50,
                     videoDuration='short',
                     videoEmbeddable='true',
                     videoCaption='closedCaption',
                     safeSearch='strict',
                     pageToken=page_token
                 ).execute()
-                '''
-                search_response = self.youtube.search_youtube(exercise, max_videos_per_exercise)
+                
+             #   search_response = self.youtube.search_youtube(exercise, max_videos_per_exercise)
                 #search_response = search_youtube()
              
 
@@ -146,21 +146,24 @@ class VideoLoader:
                                 self.postgres.conn.commit()
                                 video_count += 1
                                 total_successes += 1
-                                log.log_counter(exercise, video_id, video_count)
+                                log.log_counter(exercise, video_id, video_title, likely_exercise_video, video_count)
+                                if video_count >= max_videos_per_exercise:
+                                    break
                             else:
                                 self.postgres.conn.rollback()
                                 total_unlikely_videos += 1
-                                log.log_error(video_id, "Unlikely exercise video detected")  # Ensure this function logs the error to the file
+                                log.log_error(video_id, video_title, likely_exercise_video, "Unlikely exercise video detected")  # Ensure this function logs the error to the file
                         except Exception as e:
                             self.postgres.conn.rollback()
                             print(f"Rolling back any db updates for video {video_id} - error occurred:", str(e))
-                            log.log_error(video_id, str(e))  # Log any exception that occurs
+                            log.log_error(video_id, video_title, likely_exercise_video,  str(e))  # Log any exception that occurs
                             if 'exercise details' in str(e).lower():
                                 total_detail_failures += 1
                             else:
                                 total_json_load_failures += 1
 
-                            
+                if video_count >= max_videos_per_exercise:
+                    break           
                 page_token = search_response.get('nextPageToken')
                 if not page_token:
                     break

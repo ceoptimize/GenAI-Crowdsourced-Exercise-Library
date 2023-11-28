@@ -36,16 +36,17 @@ class Youtube:
     def __init__(self, search_query = None):
       #  self.api_key = 'AIzaSyBc9qycvVaBAeG9DV8KewsLKGnmVyBUkgk' #crowdsourcevideo project
       #  self.api_key = 'AIzaSyBxz4yP7xttz7Xe59ZNfaYCHIP_N8VBc9Q'  #crowdsourcevideo2 project
-      # self.api_key =  'AIzaSyAvYkCC1husjU70PwUykUodl5PaWVpMVAY'
-        self.api_keys = [
-            'AIzaSyCIGxPcXwnwizKyrmmXX-sYjcgruiMG6o4' #ceoptimize videoplatform
+       # self.api_key =  'AIzaSyAvYkCC1husjU70PwUykUodl5PaWVpMVAY'
+        self.api_key = 'AIzaSyC7Mf2gwPmI5mtAXXinAG565kE2VO_5Q9c' #crowdsourcedvideo4
+     #   self.api_keys = [
+           # 'AIzaSyCIGxPcXwnwizKyrmmXX-sYjcgruiMG6o4' #ceoptimize videoplatform
            # 'AIzaSyC7Mf2gwPmI5mtAXXinAG565kE2VO_5Q9c', #crowdsourcedvideo4
-           # 'AIzaSyBxz4yP7xttz7Xe59ZNfaYCHIP_N8VBc9Q',  #crowdsorucedvideo2
+      #      'AIzaSyBxz4yP7xttz7Xe59ZNfaYCHIP_N8VBc9Q'  #crowdsorucedvideo2
            # 'AIzaSyAvYkCC1husjU70PwUykUodl5PaWVpMVAY', #crowdsourcedvideo3
            # 'AIzaSyBc9qycvVaBAeG9DV8KewsLKGnmVyBUkgk' #crowdsourcedvideo
             
-        ]
-        self.current_api_key_index = 0
+     #   ]
+   #     self.current_api_key_index = 0
  
         self.channel_ids = channel_ids
         self.search_params = {
@@ -88,32 +89,33 @@ class Youtube:
         if oauthenabled: 
             youtube = self.authenticate_youtube()
         else: 
-           # youtube = build('youtube', 'v3', developerKey=self.api_key)
-            youtube = build('youtube', 'v3', developerKey=self.api_keys[self.current_api_key_index])
+            youtube = build('youtube', 'v3', developerKey=self.api_key)
+           # youtube = build('youtube', 'v3', developerKey=self.api_keys[self.current_api_key_index])
 
        
         return youtube
     
     def search_youtube(self, exercise, max_results):
-        try:
-            search_response = self.youtubebuild.search().list(
-                part='snippet',
-                q=exercise,
-                type='video',
-                maxResults=max_results,
-                videoDuration='short',
-                videoEmbeddable='true',
-                videoCaption='closedCaption',
-                safeSearch='strict'
-            ).execute()
-            return search_response
+       # try:
+        search_response = self.youtubebuild.search().list(
+            part='snippet',
+            q=exercise,
+            type='video',
+            maxResults=max_results,
+            videoDuration='short',
+            videoEmbeddable='true',
+            videoCaption='closedCaption',
+            safeSearch='strict'
+        ).execute()
+        return search_response
+        '''
         except Exception as e:
             if "quota" in str(e).lower():
                 self.rotate_api_key()
                 return self.search_youtube(exercise, max_results)  # Retry the search with the new API key
             else:
                 raise
-
+        '''
 
     def extract_time_from_duration(self, duration):
         # Parse the ISO 8601 duration format from YouTube API response

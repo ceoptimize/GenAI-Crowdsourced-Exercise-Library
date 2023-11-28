@@ -1,12 +1,653 @@
-Timestamp: 2023-11-27 11:51:05
+Timestamp: 2023-11-28 00:48:58
 Video ID: ATink4Ix84A
+Video Title: 💪🏽 6 PUSH UP VARIATIONS TO BUILD A STRONGER CHEST, TRICEPS, SHOULDERS &amp; BACK 🔥
+Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Timestamp: 2023-11-27 11:51:06
-Video ID: ATink4Ix84A
+Timestamp: 2023-11-28 00:49:09
+Video ID: zMwsibV1kng
+Video Title: Push Up Progression
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:49:20
+Video ID: nJPZ3fjryVg
+Video Title: How many pushups per day to lose 1 lb/wk?
+Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Timestamp: 2023-11-27 11:51:39
+Timestamp: 2023-11-28 00:49:21
+Video ID: VNtESzhTRtI
+Video Title: 🔥 How to INCREASE Push Ups fast? TRY THIS!
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:49:39
+Video ID: 8F19AV0Mhto
+Video Title: Arm Chair Pushup Exercise for Pre-Op Joint Replacement
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:49:49
+Video ID: fP8iNMgXdbI
+Video Title: Scapula Push-Ups - Thoracic Spine Exercise - CORE Chiropractic
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:49:58
+Video ID: YB0egDzsu18
+Video Title: Wall Push Ups For Beginners | How To
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:49:59
+Video ID: rLSQvI8ryDU
+Video Title: Modified Floor Push Up
+Likely/Unlikely Score: 1
+Error: value too long for type character varying(50)
+
+
+Timestamp: 2023-11-28 00:50:10
+Video ID: aHzRhTYJvvg
+Video Title: How To Do Tricep PushUps For Beginners at home
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:50:11
+Video ID: IHlKg7BE5Rw
+Video Title: What if Freeza did 1 push-up after the Namek arc?
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:50:11
+Video ID: 98vlDZI_NcI
+Video Title: #1 Tip to get strong in Handstand Push Up (ft. Gabo Saturno)
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:50:12
+Video ID: Lo_b-Hpea-M
+Video Title: Why the pushup is one of the most effective exercises | Freeletics Expert Series
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:50:31
+Video ID: KT_jlToOLGU
+Video Title: 5EW Exercises: Incline Push-Ups
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:50:39
 Video ID: ATink4Ix84A
+Video Title: 💪🏽 6 PUSH UP VARIATIONS TO BUILD A STRONGER CHEST, TRICEPS, SHOULDERS &amp; BACK 🔥
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:50:48
+Video ID: zMwsibV1kng
+Video Title: Push Up Progression
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:50:49
+Video ID: qq6MwUf4hFI
+Video Title: Incline Push Ups | Fitness Workout
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:50:58
+Video ID: vLJxn8J-9ek
+Video Title: INCLINE PUSH UP
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:51:07
+Video ID: iMeq2sfx1s8
+Video Title: ACC Wellness Center Workouts - Incline Pushup
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:51:08
+Video ID: yJbLo7QPSy0
+Video Title: INCLINE PUSH UP
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:51:17
+Video ID: Evp32A-2s1I
+Video Title: Quick How To: Incline Push-up  - from my “Build Your Gymnastic Strength” Program #shorts
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:51:19
+Video ID: SF6nT29WjUw
+Video Title: INCLINE PUSH UP #workout #fitness #fit #home #homefitness  #homeworkout
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:51:28
+Video ID: vw-zGgYrBxA
+Video Title: INCLINE PUSH UP
+Likely/Unlikely Score: 1
+Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'NoneType' and 'int'
+
+Timestamp: 2023-11-28 00:51:28
+Video ID: nJPZ3fjryVg
+Video Title: How many pushups per day to lose 1 lb/wk?
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:51:29
+Video ID: VNtESzhTRtI
+Video Title: 🔥 How to INCREASE Push Ups fast? TRY THIS!
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:51:38
+Video ID: Ydwu4t-Ow5o
+Video Title: Incline Push-Ups
+Likely/Unlikely Score: 1
+Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'NoneType' and 'int'
+
+Timestamp: 2023-11-28 00:51:47
+Video ID: XUiA4wActeM
+Video Title: Incline Push Ups
+Likely/Unlikely Score: 1
+Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'NoneType' and 'int'
+
+Timestamp: 2023-11-28 00:51:55
+Video ID: YB0egDzsu18
+Video Title: Wall Push Ups For Beginners | How To
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:52:03
+Video ID: 9M0xE5kUh5A
+Video Title: Wall Push Ups For Beginners | How To | Exercises for a Firmer BREAST &amp; TONED ARMS #shorts #youtube
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:52:21
+Video ID: oUkchOCAel8
+Video Title: Park Bench Fitness Assisted Pushups
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:52:31
+Video ID: NJohyPolWWo
+Video Title: #shorts incline push ups Full exercise 💪💪💪
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:52:40
+Video ID: YD0ooWl2d9w
+Video Title: Incline Press Ups
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:52:49
+Video ID: YD0ooWl2d9w
+Video Title: Incline Press Ups
+Likely/Unlikely Score: 1
+Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'float' and 'str'
+
+Timestamp: 2023-11-28 00:52:50
+Video ID: 2USBv_AHjQw
+Video Title: Knee Push Up Plus - Serratus Anterior Strengthening Exercise
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:52:59
+Video ID: xHTl2geBHhQ
+Video Title: Push-Up Modified from Bench
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:53:00
+Video ID: 2QRlumOs9g4
+Video Title: Cant do Pushups? Just DO THIS! [ENG SUBS]
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:53:01
+Video ID: hOUD4Gc79Eo
+Video Title: Modified Wall Push Up
+Likely/Unlikely Score: 1
+Error: value too long for type character varying(50)
+
+
+Timestamp: 2023-11-28 00:53:02
+Video ID: FmjmWh5PWDk
+Video Title: How To Start Calisthenics At Home! #shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:53:03
+Video ID: VeaxzqW0LrE
+Video Title: IK DEED 300 PUSH UPS VOOR 30 DAGEN LANG!!😱 Push Up Challenge #4
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:53:04
+Video ID: _jQbpSL1fgk
+Video Title: Sore wrists during push ups or planks? #shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:53:05
+Video ID: qPrgA06M_pU
+Video Title: Can’t Do PUSH UPS? JUST DO THIS! 💪🏻
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:53:22
+Video ID: zK-mwjE35nw
+Video Title: Push Up Variation: How To Do a Decline Push up | Tough Mudder Training
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:53:31
+Video ID: 2PSUrWs5By8
+Video Title: Decline Push Ups | Fitness Workout
+Likely/Unlikely Score: 1
+Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'NoneType' and 'str'
+
+Timestamp: 2023-11-28 00:53:40
+Video ID: VygouhIKDog
+Video Title: Upper Body: Decline Pushups
+Likely/Unlikely Score: 1
+Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'NoneType' and 'int'
+
+Timestamp: 2023-11-28 00:53:50
+Video ID: KPcL2QwMs_s
+Video Title: How To Do Decline Push Up Workout | Push ups | Shoulder Workout | Arm Workout | Triceps
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:53:51
+Video ID: voWgMHWJlTQ
+Video Title: How Much Weight Do You Press in a Push-Up? #Shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:54:00
+Video ID: zMwsibV1kng
+Video Title: Push Up Progression
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:54:08
+Video ID: 0ppOENur9WQ
+Video Title: Decline Push ups with Ball - Chaparral Fitness
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:54:09
+Video ID: VNtESzhTRtI
+Video Title: 🔥 How to INCREASE Push Ups fast? TRY THIS!
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:54:19
+Video ID: Bo9IGN_k-Do
+Video Title: Decline Press Ups
+Likely/Unlikely Score: 1
+Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'NoneType' and 'int'
+
+Timestamp: 2023-11-28 00:54:20
+Video ID: V3xQaDIN_qk
+Video Title: How To: Decline Push-Up (Shiva Singh Health &amp; Fitness)#shortYouTube
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:54:21
+Video ID: MridpaK8SD8
+Video Title: MIKE TYSON PUSHUP EXPLAINED ( AND 3 MOST COMMON MISTAKES)
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:54:31
+Video ID: XIHO5t_VBPQ
+Video Title: Pushups  - Chest Exercise - Bodybuilding.com
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:54:32
+Video ID: VeaxzqW0LrE
+Video Title: IK DEED 300 PUSH UPS VOOR 30 DAGEN LANG!!😱 Push Up Challenge #4
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:54:33
+Video ID: dQOS15LYvLc
+Video Title: We can start with this half push up  This will increase blood flow to the heart
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:54:42
+Video ID: ptwbmhNwg_A
+Video Title: Reactive Push Up Floor Narrow Hand | Plyometric | Strength and Conditioning Exercises
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:54:54
+Video ID: AYz25gcVGfY
+Video Title: How To Go From 0 To ONE ARM PUSH UP #shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:54:56
+Video ID: TmljK_bgcAE
+Video Title: NO WEIGHTS!?! | 5 Exercises to maximize arm gains at home. #shorts #armworkoutathome #workouts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:54:57
+Video ID: wvGrneYCoyI
+Video Title: &quot;Hands of Power: The Story of Two Enormous Palms&quot;#fitness #bigarms #triceps #gym #bodybuilding
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:55:06
+Video ID: Xq_f5Go0_O8
+Video Title: Day 14 | 31-Day Hockey Offseason Conditioning Challenge
+Likely/Unlikely Score: 1
+Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'NoneType' and 'str'
+
+Timestamp: 2023-11-28 00:55:17
+Video ID: AFn2nMgJeac
+Video Title: Wendy Levra - Intense Triceps Workout - [Pozedown]
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:55:18
+Video ID: 14Z1Zaw7m0o
+Video Title: Fitness - Push-up
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:55:19
+Video ID: 2WR_-SdaIhw
+Video Title: Correct Push up Position For Bigger Chest Gym At Home | GYM Workout #channel #Shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:55:20
+Video ID: eIl2V2NzWfs
+Video Title: One Leg Push-up Exercise||single Leg Push-Ups Benefits|| The fitness sp #shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:55:30
+Video ID: K_vplPw283s
+Video Title: Bosu Ball Wobble Board Push ups - Chaparral Fitness
+Likely/Unlikely Score: 1
+Error: Error in sanitize_and_check_equipment: value too long for type character varying(20)
+
+
+Timestamp: 2023-11-28 00:55:40
+Video ID: CSKVTb-8MG4
+Video Title: Decline Side Plank Exercise | Fitness
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:55:41
+Video ID: 3DfnoSchnww
+Video Title: how to do dumbbell pushups for big, thick chest best  NYC trainer
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:55:59
+Video ID: 8F19AV0Mhto
+Video Title: Arm Chair Pushup Exercise for Pre-Op Joint Replacement
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:56:10
+Video ID: g8VliU782ao
+Video Title: Dumbbell Reverse Grip Decline Bench Press Eccentric | Chest | Strength and Conditioning Exercises
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:56:11
+Video ID: VEbKNl9zLNY
+Video Title: #Home  WORKOUT To Make Your BIGGER BICEPS  #shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:56:12
+Video ID: iMIgmvF4g5U
+Video Title: How to do Feet on Box Hand Stand Push-Ups
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:56:13
+Video ID: _0popSiLioE
+Video Title: Six Pack workout! abs exercises
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:56:23
+Video ID: W_CSN7YayQo
+Video Title: Barbell Close Grip Decline Bench Press Pause | Chest | Strength and Conditioning Exercises
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:56:32
+Video ID: FCxl2y4nsTA
+Video Title: The Perfect Dip!
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:56:42
+Video ID: xgFr-SWCyoM
+Video Title: Relieve Back and Shoulder Pain in Seconds #Shorts
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:56:52
+Video ID: exRctsE-79Q
+Video Title: Kneeling Push Ups Form... Finally Get it Right!!
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:56:52
+Video ID: lMdjsh2WYvY
+Video Title: How to Grow Your Chest With Wide Push-Up. #workout #pushups #chest #bodybuilding #fyp #shortvideo
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:57:01
+Video ID: 3ML6x6NSyaY
+Video Title: Exercise of the Week – Push Up Shoulder Tap
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:57:02
+Video ID: F3CLC8Rxm2k
+Video Title: DEEP Push Ups for Chest Development #Shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:57:03
+Video ID: -DfGZFfN4Ks
+Video Title: Day 9 of Kegels: How to do kegels while doing push-ups at a playground
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:57:04
+Video ID: AXKorni9kG0
+Video Title: pushups with Steal Raad viral 🔥No Hand Pushups #shorts #youtubeshorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:57:23
+Video ID: 2USBv_AHjQw
+Video Title: Knee Push Up Plus - Serratus Anterior Strengthening Exercise
+Likely/Unlikely Score: 1
+Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'float' and 'str'
+
+Timestamp: 2023-11-28 00:57:24
+Video ID: Al9fOb4SFCU
+Video Title: How To Do KNEE PUSH UPS | Chest &amp; Triceps Workout
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:57:34
+Video ID: 6hUJ24m6v5A
+Video Title: Hip Pain &amp; Weakness: Wall Push up Knee Highs
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:57:35
+Video ID: bx2WJiDNP44
+Video Title: KNEE PUSH-UP with audio instructions
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:57:36
+Video ID: GgZURSIYslE
+Video Title: Knee Push Up exercises while you watch TV.
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:57:46
+Video ID: zMwsibV1kng
+Video Title: Push Up Progression
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:57:47
+Video ID: xbJyQY4i5uw
+Video Title: Upper Body: Knee Pushups
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:57:48
+Video ID: nVsP36LTNvs
+Video Title: Knee push up - Easy
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:57:49
+Video ID: addOtAHj3SQ
+Video Title: Fix Your Knee Push Ups! #shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:57:59
+Video ID: aHzRhTYJvvg
+Video Title: How To Do Tricep PushUps For Beginners at home
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:57:59
+Video ID: VNtESzhTRtI
+Video Title: 🔥 How to INCREASE Push Ups fast? TRY THIS!
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:58:00
+Video ID: nJPZ3fjryVg
+Video Title: How many pushups per day to lose 1 lb/wk?
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:58:01
+Video ID: rLSQvI8ryDU
+Video Title: Modified Floor Push Up
+Likely/Unlikely Score: 1
+Error: value too long for type character varying(50)
+
+
+Timestamp: 2023-11-28 00:58:10
+Video ID: YB0egDzsu18
+Video Title: Wall Push Ups For Beginners | How To
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:58:11
+Video ID: LNkbcYouHAw
+Video Title: Instant Full Back Pain Relief #Shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:58:12
+Video ID: L2iDZSwPoYo
+Video Title: Quick How To: Pseudo Push-up  - from my “Build Your Gymnastic Strength” Program #shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:58:22
+Video ID: MxNnN80EJ-Y
+Video Title: Knee Press Up - Stronger My Way
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:58:42
+Video ID: o0MR1RYe7cU
+Video Title: EASY Daily Core Exercise #Shorts
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:58:50
+Video ID: TzB3cSRny-A
+Video Title: Wrist Pain Relief in Seconds #Shorts
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:58:52
+Video ID: TzB3cSRny-A
+Video Title: Wrist Pain Relief in Seconds #Shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:59:01
+Video ID: DQzg3zolfqM
+Video Title: One Exercise to Relieve and PREVENT Sciatica #Shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:59:11
+Video ID: -m9buxRuWEc
+Video Title: How To Do A Push Up #shorts
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:59:11
+Video ID: h6LnycQMgys
+Video Title: Release Stiff Hips in Seconds #Shorts
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:59:21
+Video ID: 6W_n9loeUsg
+Video Title: How to Unlock Tight Hips in Seconds #Shorts
+Likely/Unlikely Score: 1
+Error: Error in sanitize_and_check_body_area: value too long for type character varying(20)
+
+
+Timestamp: 2023-11-28 00:59:33
+Video ID: mjoR7xTMvuA
+Video Title: Instant Hip Pain Relief #Shorts
+Likely/Unlikely Score: 1
+Error: Unable to obtain valid exercise details after multiple retries
+
+Timestamp: 2023-11-28 00:59:34
+Video ID: vHKSPiF8N5I
+Video Title: Planks with Knee Bend - Ask Doctor Jo
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:59:35
+Video ID: 6I-m0qqSdEk
+Video Title: CROSS KNEE PLANK #workout #fitness #fit #home #homefitness  #homeworkout
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Timestamp: 2023-11-28 00:59:36
+Video ID: NSbGUGM1AKQ
+Video Title: Elbow Pain Relief in Seconds #Shorts
+Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 

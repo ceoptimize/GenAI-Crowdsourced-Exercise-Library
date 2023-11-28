@@ -20,7 +20,7 @@ def run(load_new_videos = False):
 
         #loads videos into the youtube video table
         vl = VideoLoader()
-        vl.loadExerciseBasedVideos(max_videos_per_exercise=4, limit_inserts = True, insertnewrelations = True)
+        vl.loadExerciseBasedVideos(max_videos_per_exercise=3, limit_inserts = True, insertnewrelations = True)
        # vl.loadChannelBasedVideos(enable_limit = True)
 
         #gets the name of the exercises based off the videos 

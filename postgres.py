@@ -7,8 +7,64 @@ import json
 import traceback
 import stringfunctions
 
+'''
+word_mapping = {
+    'knee': 'kneeling',
+    'kneeling': 'knee',
+    'clap': 'clapping',
+    'clapping': 'clap',
+    'plyo': 'plyometric',
+    'plyometric': 'plyo',
+    'incline': 'inclined',
+    'inclined': 'incline',
+    'decline': 'declined',
+    'declined': 'decline'
+    # Add more mappings as needed.
+}
+'''
 
+word_mapping = [
+    ['knee', 'kneeling'],
+    ['clap', 'clapping'],
+    ['incline', 'inclined', 'inclining'],
+    ['decline', 'declined', 'declining']
+    # Add more mappings as needed.
+]
 
+def generate_aliases(exercise_name):
+    print(f"Generating aliases for: {exercise_name}")
+    words = exercise_name.split()
+    new_aliases = set([exercise_name])  # Include the original name as well
+
+    for word_set in word_mapping:
+        for word in words:
+            if word in word_set:
+                # Generate all possible combinations with the synonyms
+                for synonym in word_set:
+                    if synonym != word:
+                        new_alias = exercise_name.replace(word, synonym)
+                        new_aliases.add(new_alias)
+    
+    new_aliases.remove(exercise_name)  # Remove the original name from the aliases
+    print(f"Generated aliases: {new_aliases}")
+    return list(new_aliases)
+
+'''
+def generate_aliases(exercise_name):
+    print(f"Generating aliases for: {exercise_name}")
+    words = exercise_name.split()
+    new_aliases = []
+
+    for word in words:
+        # Check if the word has an alternative.
+        if word in word_mapping:
+            # Create a new alias by replacing the word with its alternative.
+            alternative_word = word_mapping[word]
+            new_alias = exercise_name.replace(word, alternative_word)
+            new_aliases.append(new_alias)
+    print(f"Generated aliases: {new_aliases}")
+    return new_aliases
+'''
 
 class PostgresDatabase:
     def __init__(self, dbname = "mydatabase", user = "postgres", password = "C$g$9292greer", host = "localhost", port = "5432"):
@@ -350,7 +406,40 @@ class PostgresDatabase:
         except Exception as e:
             raise Exception(f"Error in create_or_get_exercise: {str(e)}")
 
+    def create_or_get_exercise(self, exercise_name, exercise_difficulty, insertnew=True, aliases=None):
+        try:
+            exercise_id, existing_difficulty, existing_difficulty_count = self.get_exercise(exercise_name)
 
+            if exercise_id:
+                if exercise_difficulty is not None:
+                    # Exercise already exists, update the exercise difficulty
+                    updated_difficulty = existing_difficulty + exercise_difficulty
+                    updated_difficulty_count = existing_difficulty_count + 1
+                    query = f"UPDATE Exercises SET ExerciseDifficultySum = {updated_difficulty}, ExerciseDifficultyCount = {updated_difficulty_count} WHERE ExerciseID = {exercise_id}"
+                    self.execute_query(query)
+            else:
+                if insertnew:
+                    sanitized_name = self.sanitize_string(exercise_name)
+                    if exercise_difficulty is None:
+                        query = f"INSERT INTO Exercises (ExerciseName) VALUES ('{sanitized_name}') RETURNING ExerciseID"
+                    else:
+                        query = f"INSERT INTO Exercises (ExerciseName, ExerciseDifficultySum, ExerciseDifficultyCount) VALUES ('{sanitized_name}', {exercise_difficulty}, 1) RETURNING ExerciseID"
+                    self.execute_query(query)
+                    result = self.cursor.fetchone()
+                    exercise_id = result[0] if result else None
+
+            # Handle aliases after creating or finding the exercise
+            if exercise_id:
+                # If aliases are provided, sanitize and update
+                if aliases:
+                    sanitized_aliases = [self.sanitize_string(alias) for alias in aliases]
+                    self.update_exercise_aliases(exercise_id, sanitized_aliases)
+                    #self.update_exercise_aliases_with_additional(exercise_id, exercise_name)
+                self.update_exercise_aliases_with_additional(exercise_id, exercise_name)
+            return exercise_id
+        except Exception as e:
+            raise Exception(f"Error in create_or_get_exercise: {str(e)}")
+        
     def sanitize_and_check_equipment(self, equipment_name):
         try:
             sanitized_name = self.sanitize_string(equipment_name)
@@ -493,7 +582,24 @@ class PostgresDatabase:
                 query = f"INSERT INTO ExerciseNameAlias (ExerciseId, ExerciseNameAlias) VALUES ({exercise_id}, '{sanitized_alias}')"
                 self.execute_query(query)
         except Exception as e:
-            raise Exception(f"Error in update_exercise_aliases: {str(e)}")    
+            raise Exception(f"Error in update_exercise_aliases: {str(e)}") 
+
+    def get_existing_aliases(self, exercise_id):
+        query = f"SELECT ExerciseNameAlias FROM ExerciseNameAlias WHERE ExerciseId = {exercise_id}"
+        self.cursor.execute(query)
+        return [row[0] for row in self.cursor.fetchall()] 
+
+    def update_exercise_aliases_with_additional(self, exercise_id, exercise_name):
+        print(f"Generating additional aliases for exercise name: {exercise_name}")
+        additional_aliases = generate_aliases(exercise_name)
+        print(f"Additional aliases generated: {additional_aliases}")
+        existing_aliases = self.get_existing_aliases(exercise_id)  # You would need to implement this method.
+        print(f"Existing aliases: {existing_aliases}")
+        # Add the new aliases, avoiding duplicates.
+        for alias in additional_aliases:
+            if alias not in existing_aliases:
+                print(f"Adding new alias: {alias}")
+                self.update_exercise_aliases(exercise_id, [alias])  
 
     def sanitize_and_check_exercise_relation(self, exercise_id, relation_id, relation_type):
         try:
@@ -570,11 +676,14 @@ class PostgresDatabase:
             exercise_id = self.create_or_get_exercise(exercise_name, exercise_difficulty)
             print(exercise_id)
 
+            '''
                 # Process exercise aliases
             exercise_aliases = json_data.get('exercise_aliases', [])
-            if exercise_id and exercise_aliases:
-                self.update_exercise_aliases(exercise_id, exercise_aliases)
-
+            if exercise_id:
+                sanitized_aliases = [self.sanitize_string(alias) for alias in exercise_aliases]
+                self.update_exercise_aliases(exercise_id, sanitized_aliases)
+                self.update_exercise_aliases_with_additional(exercise_id, exercise_name)
+            '''
 
             # Process equipment
             equipment_list = json_data['equipment']
