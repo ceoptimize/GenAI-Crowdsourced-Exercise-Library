@@ -9,6 +9,7 @@ from postgres import PostgresDatabase
 import concurrent.futures
 import re
 import stringfunctions
+import log
 
 standard_exercise_names = {
     "push up": ["push-up", "pushup"],
@@ -71,6 +72,27 @@ class ChatGPT:
         self.valid_compensations = sanitize_list(valid_data['compensations'])
     
 
+    def get_related_exercise_adjustments(self, primary_exercise_name, primary_exercise_desc, related_exercise_name, related_exercise_desc, relationship_type):
+        # Construct the query
+        prompt = (
+            f"Primary Exercise: {primary_exercise_name}\n"
+            f"Description: {primary_exercise_desc}\n\n"
+            f"Related Exercise: {related_exercise_name}\n"
+            f"Description: {related_exercise_desc}\n\n"
+            "For each of the following adjustment areas: complexity, range of motion, stability, lever length, equipment, and speed, specify if the related exercise is a regression, progression, or unrelated to the primary exercise in that particular area."
+        )
+
+        # Get the response from ChatGPT
+        response = self._get_chatgpt_response(prompt)
+
+        # Process and return the response
+        if response.choices:
+            adjustment_details = response.choices[0].text.strip()
+            return adjustment_details
+        else:
+            # Handle cases where the response is empty or invalid
+            return "Unable to determine adjustment details"
+        
     def is_likely_exercise_video(self, video_id, video_title, channel_title, transcript, duration):
         # Construct the prompt for querying ChatGPT
         prompt = (
@@ -209,7 +231,7 @@ class ChatGPT:
             if response.choices:
                 exercise_details = response.choices[0].text.strip()
                 print("ChatGPT response:")
-                print(exercise_details)
+                log.log_exercise_details(exercise_details)
                 
                 # Try to parse the response into JSON
                 try:
@@ -229,10 +251,10 @@ class ChatGPT:
                     exercise_json = self.validate_and_correct_types(exercise_json, expected_types)
                     '''
                     exercise_json = self.clean_exercises(exercise_json)
+                    log.log_exercise_details("Successful json load and clean")
                     return exercise_json    
-                
-                except json.JSONDecodeError:
-                    print("Failed to parse JSON. Response may not be in JSON format.")
+                except json.JSONDecodeError as je:
+                    log.log_exercise_details(f"Failed to parse JSON. Response may not be in JSON format.\nError: {je}")
             else:
                 print("Received an empty or invalid response from ChatGPT. Resubmitting request.")
         

@@ -1,4 +1,5 @@
 import datetime
+import os
 
 
 def log_aggregate_results(successes, unlikely_videos, detail_failures, json_load_failures):
@@ -48,6 +49,19 @@ def log_counter(exercise, video_id, video_title, likely_score, video_counter):
     except IOError as e:
         print(f"An I/O error occurred while writing to the log file: {str(e)}")
 
+def log_exercise_details(details, log_folder='logs'):
+    # Ensure the log folder exists
+    os.makedirs(log_folder, exist_ok=True)
+    
+    # Define the log file path
+    log_file_path = os.path.join(log_folder, 'logexercisedetails.txt')
+
+    # Append the details to the log file
+    try:
+        with open(log_file_path, 'a') as log_file:  # 'a' mode to append to the file
+            log_file.write(details + "\n")
+    except IOError as e:
+        print(f"An I/O error occurred while writing to the log file: {str(e)}")
 
 
 

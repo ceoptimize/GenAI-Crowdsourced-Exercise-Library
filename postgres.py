@@ -6,6 +6,7 @@ import pandas
 import json
 import traceback
 import stringfunctions
+import chatgptupdate
 
 '''
 word_mapping = {
@@ -65,6 +66,7 @@ def generate_aliases(exercise_name):
     print(f"Generated aliases: {new_aliases}")
     return new_aliases
 '''
+
 
 class PostgresDatabase:
     def __init__(self, dbname = "mydatabase", user = "postgres", password = "C$g$9292greer", host = "localhost", port = "5432"):
@@ -376,7 +378,18 @@ class PostgresDatabase:
                 return None, None, None
         except Exception as e:
             raise Exception(f"Error in get_exercise: {str(e)}")
+        
+    def get_exercise_description(self, exercise_id):
+        query = f"SELECT ExerciseDescription FROM ExerciseDescription WHERE ExerciseID = {exercise_id}"
+        self.execute_query(query)
+        result = self.cursor.fetchone()
+        return result[0] if result else None
 
+    def get_exercise_name(self, exercise_id):
+        query = f"SELECT ExerciseName FROM Exercises WHERE ExerciseID = {exercise_id}"
+        self.execute_query(query)
+        result = self.cursor.fetchone()
+        return result[0] if result else None
 
     def create_or_get_exercise(self, exercise_name, exercise_difficulty, insertnew = True):
         try:
@@ -406,6 +419,32 @@ class PostgresDatabase:
         except Exception as e:
             raise Exception(f"Error in create_or_get_exercise: {str(e)}")
 
+    def create_or_get_exercise(self, exercise_name, exercise_difficulty, insertnew=True):
+        try:
+            exercise_id, existing_difficulty, existing_difficulty_count = self.get_exercise(exercise_name)
+
+            if exercise_id:
+                # Existing exercise
+                if exercise_difficulty is not None:
+                    updated_difficulty = existing_difficulty + exercise_difficulty
+                    updated_difficulty_count = existing_difficulty_count + 1
+                    query = f"UPDATE Exercises SET ExerciseDifficultySum = {updated_difficulty}, ExerciseDifficultyCount = {updated_difficulty_count} WHERE ExerciseID = {exercise_id}"
+                    self.execute_query(query)
+                return exercise_id, False  # Returning False as the exercise was found, not created
+            else:
+                # New exercise
+                if insertnew:
+                    sanitized_name = self.sanitize_string(exercise_name)
+                    query = f"INSERT INTO Exercises (ExerciseName, ExerciseDifficultySum, ExerciseDifficultyCount) VALUES ('{sanitized_name}', {exercise_difficulty if exercise_difficulty is not None else 0}, 1) RETURNING ExerciseID"
+                    self.execute_query(query)
+                    result = self.cursor.fetchone()
+                    exercise_id = result[0] if result else None
+                    return exercise_id, True  # Returning True as the exercise was created
+                else:
+                    return None, False
+        except Exception as e:
+            raise Exception(f"Error in create_or_get_exercise: {str(e)}")
+    '''
     def create_or_get_exercise(self, exercise_name, exercise_difficulty, insertnew=True, aliases=None):
         try:
             exercise_id, existing_difficulty, existing_difficulty_count = self.get_exercise(exercise_name)
@@ -439,7 +478,7 @@ class PostgresDatabase:
             return exercise_id
         except Exception as e:
             raise Exception(f"Error in create_or_get_exercise: {str(e)}")
-        
+    '''    
     def sanitize_and_check_equipment(self, equipment_name):
         try:
             sanitized_name = self.sanitize_string(equipment_name)
@@ -629,7 +668,39 @@ class PostgresDatabase:
         except Exception as e:
             raise Exception(f"Error in sanitize_and_check_exercise_relation: {str(e)}")    
 
+    def handle_existing_exercises_adjustments(self, exercise_id, regression_ids, progression_ids, variation_ids, chatgpt):
+        # For each list (regressions, progressions, variations), fetch the exercise details
+        # and call the ChatGPT method for adjustments analysis.
+        exercise_name = self.get_exercise_name(exercise_id)
+        exercise_description = self.get_exercise_description(exercise_id)
+        for rel_exercise_id_list, relation_type in [(regression_ids, 'regression'), (progression_ids, 'progression'), (variation_ids, 'variation')]:
+            for rel_exercise_id in rel_exercise_id_list:
+                rel_exercise_name = self.get_exercise_name(rel_exercise_id)
+                rel_exercise_description = self.get_exercise_description(rel_exercise_id)
 
+                # Call the ChatGPT method for adjustments analysis.
+                # Assuming chatgpt_instance is an instance of your ChatGPT class.
+                gptresponse = chatgpt.get_related_exercise_adjustments(exercise_name, exercise_description, rel_exercise_name, rel_exercise_description, relation_type)
+                #now load them into the appropriate fields
+
+    def update_exercise_relations(self, main_exercise_id, relation_list, relation_type, insertnew):
+      
+        existing_relation_ids = set()  # Set to store unique existing relation IDs
+
+        for relation_name in relation_list:
+            # Sanitize and check relation exercise
+            relation_id, is_new = self.create_or_get_exercise(relation_name, None, insertnew)
+            if relation_id is None:
+                continue
+
+            self.sanitize_and_check_exercise_relation(main_exercise_id, relation_id, relation_type)
+            # Add relation_id to existing_relation_ids set if it's not new
+            if not is_new:
+                existing_relation_ids.add(relation_id)
+
+        return existing_relation_ids
+    
+    '''
     def update_exercise_relations(self, exercise_id, relation_list, relation_type, insertnew):
         try:
             for relation in relation_list:
@@ -642,7 +713,7 @@ class PostgresDatabase:
                 self.sanitize_and_check_exercise_relation(exercise_id, relation_id, relation_type)
         except Exception as e:
             raise Exception(f"Error in update_exercise_relations: {str(e)}")  
-
+    '''
     def update_exercise_youtube(self, exercise_id, video_id):
         try:
         
@@ -717,22 +788,24 @@ class PostgresDatabase:
             description = json_data['description']
             self.update_exercise_description(exercise_id, description)
 
-            # Process regressions
-            regressions = json_data['regressions']
-            self.update_exercise_relations(exercise_id, regressions, 'regression', insertnew= insertnewrelations)
-
-            # Process progressions
-            progressions = json_data['progressions']
-            self.update_exercise_relations(exercise_id, progressions, 'progression', insertnew= insertnewrelations)
-
-            # Process variations
-            variations = json_data['variations']
-            self.update_exercise_relations(exercise_id, variations, 'variation', insertnew= insertnewrelations)
-
+            
             # Update exerciseyoutube table
             if youtubevideoId:
                 self.update_exercise_youtube(exercise_id, youtubevideoId)
 
+            # Process regressions
+            regressions = json_data['regressions']
+            existingregressionids = self.update_exercise_relations(exercise_id, regressions, 'regression', insertnew= insertnewrelations)
+
+            # Process progressions
+            progressions = json_data['progressions']
+            existingprogressionids = self.update_exercise_relations(exercise_id, progressions, 'progression', insertnew= insertnewrelations)
+
+            # Process variations
+            variations = json_data['variations']
+            existingvariationids = self.update_exercise_relations(exercise_id, variations, 'variation', insertnew= insertnewrelations)
+
+            return exercise_id, existingregressionids, existingprogressionids, existingvariationids
             # Commit changes to the database
            # self.conn.commit()
      

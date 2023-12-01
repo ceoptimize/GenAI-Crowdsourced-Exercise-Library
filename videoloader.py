@@ -32,26 +32,6 @@ class VideoLoader:
         exercise as the search query. Ask ChatGPT if this is likely an exercise demo and if it is, then populate
         each of the tables with the proper information about the video and the exercise. 
         """
-        '''
-        def search_youtube():
-                try:
-                    search_response = self.youtube.youtubebuild.search().list(
-                        part='snippet',
-                        q=exercise,
-                        type='video',
-                        maxResults=max_videos_per_exercise,
-                        videoDuration='short',
-                        videoEmbeddable='true',
-                        videoCaption='closedCaption',
-                        safeSearch='strict',
-                        pageToken=page_token
-                    ).execute()
-                    pass
-                except Exception as e:  # Catch the specific exception related to quota errors
-                    if "quota" in str(e).lower():
-                        self.rotate_api_key()  # Rotate to the next API key
-                        self.search_youtube()  # Retry the search with the new API
-        '''
 
         #for logging total number of successful and unsuccessful video loads
         total_successes = 0
@@ -142,7 +122,9 @@ class VideoLoader:
                                 }
                                 query = self.chatgpt.formulate_chat_gpt_exercise_query(gptquerydata)
                                 json_data = self.chatgpt.get_exercise_details(gptquerydata, query, 1)
-                                self.postgres.load_json(json_data, youtubevideoId=video_id, insertnewrelations=insertnewrelations)
+                                exercise_id, existingregressionids, existingprogressionids,existingvariationids = self.postgres.load_json(json_data, youtubevideoId=video_id, insertnewrelations=insertnewrelations)
+                                self.postgres.handle_existing_exercises_adjustments(exercise_id, existingregressionids, existingprogressionids,existingvariationids, self.chatgpt)
+                                
                                 self.postgres.conn.commit()
                                 video_count += 1
                                 total_successes += 1

@@ -1,84 +1,84 @@
-Timestamp: 2023-11-28 00:49:19
+Timestamp: 2023-11-30 16:00:09
 ExercisePrompt: pushup
-Video ID: mqhbzV6nlok
-Video Title: 7 Tips To Increase Your Push Ups In 30 Days
+Video ID: XIHO5t_VBPQ
+Video Title: Pushups  - Chest Exercise - Bodybuilding.com
 Likely/Unlikely Score: 1
 Count: 1
 
-Timestamp: 2023-11-28 00:49:30
+Timestamp: 2023-11-30 16:00:22
 ExercisePrompt: pushup
+Video ID: LLVf0RXxRwo
+Video Title: Scap Push Ups!
+Likely/Unlikely Score: 1
+Count: 2
+
+Timestamp: 2023-11-30 16:00:37
+ExercisePrompt: pushup
+Video ID: Mw1QjH4BHxg
+Video Title: Push Ups - The Ultimate Chest Muscle Growth Workout for Massive Gains
+Likely/Unlikely Score: 1
+Count: 3
+
+Timestamp: 2023-11-30 16:03:37
+ExercisePrompt: incline pushup
+Video ID: oUkchOCAel8
+Video Title: Park Bench Fitness Assisted Pushups
+Likely/Unlikely Score: 1
+Count: 1
+
+Timestamp: 2023-11-30 16:03:46
+ExercisePrompt: incline pushup
 Video ID: 2USBv_AHjQw
 Video Title: Knee Push Up Plus - Serratus Anterior Strengthening Exercise
 Likely/Unlikely Score: 1
 Count: 2
 
-Timestamp: 2023-11-28 00:50:21
-ExercisePrompt: pushup
-Video ID: LLVf0RXxRwo
-Video Title: Scap Push Ups!
-Likely/Unlikely Score: 1
-Count: 3
-
-Timestamp: 2023-11-28 00:52:11
-ExercisePrompt: incline pushup
-Video ID: egd-2slm7Io
-Video Title: Incline Press Ups
-Likely/Unlikely Score: 1
-Count: 1
-
-Timestamp: 2023-11-28 00:52:59
+Timestamp: 2023-11-30 16:03:56
 ExercisePrompt: incline pushup
 Video ID: 8F19AV0Mhto
 Video Title: Arm Chair Pushup Exercise for Pre-Op Joint Replacement
 Likely/Unlikely Score: 1
-Count: 2
-
-Timestamp: 2023-11-28 00:53:13
-ExercisePrompt: incline pushup
-Video ID: pNZ3A-uwUB8
-Video Title: Collarbone Relief in Seconds #Shorts
-Likely/Unlikely Score: 1
 Count: 3
 
-Timestamp: 2023-11-28 00:54:53
+Timestamp: 2023-11-30 16:04:45
+ExercisePrompt: decline pushup
+Video ID: 0ppOENur9WQ
+Video Title: Decline Push ups with Ball - Chaparral Fitness
+Likely/Unlikely Score: 1
+Count: 1
+
+Timestamp: 2023-11-30 16:05:39
 ExercisePrompt: decline pushup
 Video ID: S_fa3K2jHIA
 Video Title: Swiss Ball - Push Up Planks - Ask Doctor Jo
 Likely/Unlikely Score: 1
-Count: 1
-
-Timestamp: 2023-11-28 00:55:49
-ExercisePrompt: decline pushup
-Video ID: omyxhVce78k
-Video Title: Multilevel Push-Up Exercise | Fitness
-Likely/Unlikely Score: 1
 Count: 2
 
-Timestamp: 2023-11-28 00:57:14
+Timestamp: 2023-11-30 16:05:49
 ExercisePrompt: decline pushup
-Video ID: 9UyZpk93fkI
-Video Title: Elevated Push Ups
+Video ID: ptwbmhNwg_A
+Video Title: Reactive Push Up Floor Narrow Hand | Plyometric | Strength and Conditioning Exercises
 Likely/Unlikely Score: 1
 Count: 3
 
-Timestamp: 2023-11-28 00:58:32
-ExercisePrompt: knee pushup
-Video ID: xgFr-SWCyoM
-Video Title: Relieve Back and Shoulder Pain in Seconds #Shorts
-Likely/Unlikely Score: 1
-Count: 1
-
-Timestamp: 2023-11-28 00:59:00
+Timestamp: 2023-11-30 16:08:04
 ExercisePrompt: knee pushup
 Video ID: huWnDohnvhk
 Video Title: Simple Knee Mobilization 2 | Increase Flexion
 Likely/Unlikely Score: 1
+Count: 1
+
+Timestamp: 2023-11-30 16:08:19
+ExercisePrompt: knee pushup
+Video ID: 6W_n9loeUsg
+Video Title: How to Unlock Tight Hips in Seconds #Shorts
+Likely/Unlikely Score: 1
 Count: 2
 
-Timestamp: 2023-11-28 00:59:45
+Timestamp: 2023-11-30 16:09:49
 ExercisePrompt: knee pushup
-Video ID: 8F19AV0Mhto
-Video Title: Arm Chair Pushup Exercise for Pre-Op Joint Replacement
+Video ID: 2SiKHuyqiFQ
+Video Title: Plank knee bend to front reach
 Likely/Unlikely Score: 1
 Count: 3
 
