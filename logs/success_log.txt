@@ -1,84 +1,84 @@
-Timestamp: 2023-11-30 16:00:09
+Timestamp: 2023-12-01 17:42:05
 ExercisePrompt: pushup
-Video ID: XIHO5t_VBPQ
-Video Title: Pushups  - Chest Exercise - Bodybuilding.com
+Video ID: ATink4Ix84A
+Video Title: 💪🏽 6 PUSH UP VARIATIONS TO BUILD A STRONGER CHEST, TRICEPS, SHOULDERS &amp; BACK 🔥
 Likely/Unlikely Score: 1
 Count: 1
 
-Timestamp: 2023-11-30 16:00:22
+Timestamp: 2023-12-01 17:42:16
 ExercisePrompt: pushup
-Video ID: LLVf0RXxRwo
-Video Title: Scap Push Ups!
-Likely/Unlikely Score: 1
-Count: 2
-
-Timestamp: 2023-11-30 16:00:37
-ExercisePrompt: pushup
-Video ID: Mw1QjH4BHxg
-Video Title: Push Ups - The Ultimate Chest Muscle Growth Workout for Massive Gains
-Likely/Unlikely Score: 1
-Count: 3
-
-Timestamp: 2023-11-30 16:03:37
-ExercisePrompt: incline pushup
-Video ID: oUkchOCAel8
-Video Title: Park Bench Fitness Assisted Pushups
-Likely/Unlikely Score: 1
-Count: 1
-
-Timestamp: 2023-11-30 16:03:46
-ExercisePrompt: incline pushup
-Video ID: 2USBv_AHjQw
-Video Title: Knee Push Up Plus - Serratus Anterior Strengthening Exercise
-Likely/Unlikely Score: 1
-Count: 2
-
-Timestamp: 2023-11-30 16:03:56
-ExercisePrompt: incline pushup
 Video ID: 8F19AV0Mhto
 Video Title: Arm Chair Pushup Exercise for Pre-Op Joint Replacement
 Likely/Unlikely Score: 1
+Count: 2
+
+Timestamp: 2023-12-01 17:42:28
+ExercisePrompt: pushup
+Video ID: fP8iNMgXdbI
+Video Title: Scapula Push-Ups - Thoracic Spine Exercise - CORE Chiropractic
+Likely/Unlikely Score: 1
 Count: 3
 
-Timestamp: 2023-11-30 16:04:45
+Timestamp: 2023-12-01 17:42:39
+ExercisePrompt: incline pushup
+Video ID: KT_jlToOLGU
+Video Title: 5EW Exercises: Incline Push-Ups
+Likely/Unlikely Score: 1
+Count: 1
+
+Timestamp: 2023-12-01 17:42:47
+ExercisePrompt: incline pushup
+Video ID: zMwsibV1kng
+Video Title: Push Up Progression
+Likely/Unlikely Score: 1
+Count: 2
+
+Timestamp: 2023-12-01 17:42:57
+ExercisePrompt: incline pushup
+Video ID: vLJxn8J-9ek
+Video Title: INCLINE PUSH UP
+Likely/Unlikely Score: 1
+Count: 3
+
+Timestamp: 2023-12-01 17:43:09
+ExercisePrompt: decline pushup
+Video ID: 2PSUrWs5By8
+Video Title: Decline Push Ups | Fitness Workout
+Likely/Unlikely Score: 1
+Count: 1
+
+Timestamp: 2023-12-01 17:43:18
+ExercisePrompt: decline pushup
+Video ID: VygouhIKDog
+Video Title: Upper Body: Decline Pushups
+Likely/Unlikely Score: 1
+Count: 2
+
+Timestamp: 2023-12-01 17:43:29
 ExercisePrompt: decline pushup
 Video ID: 0ppOENur9WQ
 Video Title: Decline Push ups with Ball - Chaparral Fitness
 Likely/Unlikely Score: 1
-Count: 1
-
-Timestamp: 2023-11-30 16:05:39
-ExercisePrompt: decline pushup
-Video ID: S_fa3K2jHIA
-Video Title: Swiss Ball - Push Up Planks - Ask Doctor Jo
-Likely/Unlikely Score: 1
-Count: 2
-
-Timestamp: 2023-11-30 16:05:49
-ExercisePrompt: decline pushup
-Video ID: ptwbmhNwg_A
-Video Title: Reactive Push Up Floor Narrow Hand | Plyometric | Strength and Conditioning Exercises
-Likely/Unlikely Score: 1
 Count: 3
 
-Timestamp: 2023-11-30 16:08:04
+Timestamp: 2023-12-01 17:43:39
 ExercisePrompt: knee pushup
-Video ID: huWnDohnvhk
-Video Title: Simple Knee Mobilization 2 | Increase Flexion
+Video ID: 2USBv_AHjQw
+Video Title: Knee Push Up Plus - Serratus Anterior Strengthening Exercise
 Likely/Unlikely Score: 1
 Count: 1
 
-Timestamp: 2023-11-30 16:08:19
+Timestamp: 2023-12-01 17:43:47
 ExercisePrompt: knee pushup
-Video ID: 6W_n9loeUsg
-Video Title: How to Unlock Tight Hips in Seconds #Shorts
+Video ID: Al9fOb4SFCU
+Video Title: How To Do KNEE PUSH UPS | Chest &amp; Triceps Workout
 Likely/Unlikely Score: 1
 Count: 2
 
-Timestamp: 2023-11-30 16:09:49
+Timestamp: 2023-12-01 17:43:57
 ExercisePrompt: knee pushup
-Video ID: 2SiKHuyqiFQ
-Video Title: Plank knee bend to front reach
+Video ID: 6hUJ24m6v5A
+Video Title: Hip Pain &amp; Weakness: Wall Push up Knee Highs
 Likely/Unlikely Score: 1
 Count: 3
 

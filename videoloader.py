@@ -5,9 +5,11 @@ import traceback
 import log
 import os
 import shutil
+import re
 
 
 exercises = ['pushup', 'incline pushup', 'decline pushup', 'knee pushup']
+
 
 
 class VideoLoader:
@@ -23,7 +25,21 @@ class VideoLoader:
             shutil.rmtree(logs_dir)  # Remove the existing logs directory and all its contents
         os.makedirs(logs_dir)  # Create a fresh new logs directory
     
+    def clean_transcript(self, transcript):
 
+        # Remove special characters, including non-breaking spaces
+        transcript = transcript.replace('\xa0', ' ')
+      #  transcript = re.sub(r'[^\w\s]', '', transcript)
+        transcript = transcript.encode('ascii', 'ignore').decode('ascii')
+
+        # Convert to lowercase and remove extra whitespace
+    #  transcript = transcript.lower()
+        transcript = ' '.join(transcript.split())
+
+        # Handle newlines and tabs
+        transcript = transcript.replace('\n', ' ').replace('\t', ' ')
+
+        return transcript
     
     #func
     def loadExerciseBasedVideos(self, exercises = exercises, printresults=False, max_videos_per_exercise=5, limit_inserts=False, insertnewrelations=False):
@@ -100,7 +116,9 @@ class VideoLoader:
                     total_time = minutes * 60 + seconds
 
                     if self.youtube.is_short_duration(total_time) and is_embeddable:
-                        transcript = self.youtube.get_transcript_from_api(video_id)
+                        rawtranscript = self.youtube.get_transcript_from_api(video_id)
+                        transcript = self.clean_transcript(rawtranscript)
+
 
                         try:
                             likely_exercise_video = self.chatgpt.is_likely_exercise_video(video_id, video_title, channel_title, transcript, total_time)
@@ -121,9 +139,9 @@ class VideoLoader:
                                     'total_time_seconds': total_time
                                 }
                                 query = self.chatgpt.formulate_chat_gpt_exercise_query(gptquerydata)
-                                json_data = self.chatgpt.get_exercise_details(gptquerydata, query, 1)
+                                json_data = self.chatgpt.get_exercise_details(query, 1)
                                 exercise_id, existingregressionids, existingprogressionids,existingvariationids = self.postgres.load_json(json_data, youtubevideoId=video_id, insertnewrelations=insertnewrelations)
-                                self.postgres.handle_existing_exercises_adjustments(exercise_id, existingregressionids, existingprogressionids,existingvariationids, self.chatgpt)
+                              #  self.postgres.handle_existing_exercises_adjustments(exercise_id, existingregressionids, existingprogressionids,existingvariationids, self.chatgpt)
                                 
                                 self.postgres.conn.commit()
                                 video_count += 1

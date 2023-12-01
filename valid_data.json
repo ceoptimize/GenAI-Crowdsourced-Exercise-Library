@@ -31,6 +31,17 @@
       "Shoulders",
       "Forearms"
     ],
+    "adjustmentareas": [
+      "core stabilization",
+      "balance",
+      "proprioception",
+      "strength",
+      "load capacity",
+      "tempo",
+      "complexity",
+      "equipment",
+      "range of motion"
+    ],
     "equipment": [
       "Treadmill",
       "Stationary Bike",

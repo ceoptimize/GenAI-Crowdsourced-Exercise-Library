@@ -5,7 +5,6 @@ import requests
 import json
 import psycopg2
 import openai
-from postgres import PostgresDatabase
 import concurrent.futures
 import re
 import stringfunctions
@@ -70,7 +69,36 @@ class ChatGPT:
         self.valid_equipment = sanitize_list(valid_data['equipment'])
         self.valid_bodyareas = sanitize_list(valid_data['bodyareas'])
         self.valid_compensations = sanitize_list(valid_data['compensations'])
+        self.valid_adjustments = sanitize_list(valid_data['adjustmentareas'])
     
+    def get_related_exercise_adjustments(self, primary_exercise_name, primary_exercise_desc, related_exercise_name, related_exercise_desc, relationship_type):
+        # Construct the query
+        prompt = (
+            f"Primary Exercise: {primary_exercise_name}\n"
+            f"Primary Exercise description: {primary_exercise_desc}\n\n"
+            f"Related Exercise: {related_exercise_name}\n"
+            f"Related Exercise description: {related_exercise_desc}\n\n"
+            "Exercises can be progresed or regressed according to the following adjustment areas: " + ', '.join(self.adjustment_areas) + ".\n\n"
+            "Return a JSON format response indicating for each adjustment area if the related exercise is a regression, or progression to the primary exercise. If an adjustment area is neither progressed nor regressed than omit it. But you can never have an adjusment area that is both regressed and progressed. "
+            "The JSON format should be:\n"
+            "{\n"
+            "   'related_exercise_id': <id>,\n"
+            "   'regression': ['<adjustment area 1>', '<adjustment area 2>', ...],\n"
+            "   'progression': ['<adjustment area 3>', '<adjustment area 4>', ...]\n"
+            "}"
+        )
+
+        # Get the response from ChatGPT
+        response = self._get_chatgpt_response(prompt)
+
+        # Process and return the response
+        if response.choices:
+            adjustment_details = response.choices[0].text.strip()
+            return adjustment_details
+        else:
+            # Handle cases where the response is empty or invalid
+            return "Unable to determine adjustment details"
+
 
     def get_related_exercise_adjustments(self, primary_exercise_name, primary_exercise_desc, related_exercise_name, related_exercise_desc, relationship_type):
         # Construct the query
@@ -153,7 +181,7 @@ class ChatGPT:
             f'\n    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],'
             f'\n    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],'
             f'\n    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],'
-            f'\n    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"'
+            f'\n    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"'
             f'\n}}'
         )
 
@@ -162,53 +190,6 @@ class ChatGPT:
 
         return(user_message)
  
-
-    '''
-    def validate_and_correct_types(self, data: dict, expected_types: dict) -> dict:
-        """
-        Validates the types of the data fields and corrects them if necessary.
-
-        :param data: The JSON data to validate.
-        :param expected_types: A dictionary mapping the data fields to their expected types.
-        :return: The validated and corrected data.
-        """
-        for key, expected_type in expected_types.items():
-            if key in data:
-                if not isinstance(data[key], expected_type):
-                    print(f"The field '{key}' has an incorrect type. Expected {expected_type}, got {type(data[key])}.")
-                    # Construct a query for the specific field
-                    user_message = f"What should be the {expected_type.__name__} value for the field '{key}'?"
-                    # Get the response from ChatGPT
-                    response = self._get_chatgpt_response(user_message)
-                    # Parse and integrate the corrected value
-                    corrected_value = response.choices[0].text.strip()
-                    try:
-                        # Convert the corrected value to the expected type
-                        corrected_value = expected_type(corrected_value)
-                        data[key] = corrected_value
-                    except ValueError:
-                        print(f"Failed to convert the value for '{key}' to {expected_type.__name__}.")
-                        # Handle the conversion error (e.g., log, raise exception, etc.)
-                # If the type is correct, no action is needed
-            else:
-                print(f"The field '{key}' is missing.")
-                # Handle the missing key (e.g., log, raise exception, etc.)
-        return data
-    '''
-    
-    '''
-    def singularize_exercises(self, exercise_json):
-        keys_to_singularize = ['exercise_name_primary', 'exercise_aliases', 'regressions', 'progressions', 'variations']
-        
-        for key in keys_to_singularize:
-            if key in exercise_json:
-                if isinstance(exercise_json[key], list):
-                    exercise_json[key] = [to_singular(item) for item in exercise_json[key]]
-                elif isinstance(exercise_json[key], str):
-                    exercise_json[key] = to_singular(exercise_json[key])
-        
-        return exercise_json
-    '''
 
     def clean_exercises(self, exercise_json):
         keys_to_clean = ['exercise_name_primary', 'exercise_aliases', 'regressions', 'progressions', 'variations']
@@ -224,7 +205,49 @@ class ChatGPT:
                     exercise_json[key] = standardize_exercise_name(replace_chars(to_singular(exercise_json[key]), '-', ' '), standard_exercise_names)
         
         return exercise_json
-    
+    def clean_json_response(self, response_text):
+        start_index = response_text.find('{')
+        if start_index == -1:
+            return None  # Indicates no valid JSON found
+        return response_text[start_index:]
+
+    def get_exercise_details(self, user_message, max_retries=3):
+        for _ in range(max_retries):
+            response = self._get_chatgpt_response(user_message)
+            if response.choices:
+                exercise_details = response.choices[0].text.strip()
+                print("ChatGPT response:")
+                log.log_exercise_details(user_message)
+                cleaned_details = self.clean_json_response(exercise_details)
+                if cleaned_details is None:
+                    log.log_exercise_details("No valid JSON found in the response after attempting to clean json")
+                    continue
+                log.log_exercise_details(cleaned_details)
+                log.log_exercise_details(f"Type of exercise_details: {type(cleaned_details)}, Length: {len(cleaned_details)}")
+
+                try:
+                    exercise_json = json.loads(cleaned_details)
+                    log.log_exercise_details("Successful json load")
+                  
+                except json.JSONDecodeError as je:
+                    log.log_exercise_details(f"JSON parsing error: {je}")
+                    continue  # Skip the rest of the loop and try again
+
+                try:
+                    # Assuming clean_exercises modifies the JSON and returns a new version
+                    exercise_json = self.clean_exercises(exercise_json)
+                    log.log_exercise_details("Successful json clean")
+                    return exercise_json
+                except Exception as e:
+                    # Log the specific error from clean_exercises
+                    log.log_exercise_details(f"Error in clean_exercises method: {str(e)}")
+            else:
+                print("Received an empty or invalid response from ChatGPT. Resubmitting request.")
+
+        # Log that all retries have been exhausted without success
+        log.log_exercise_details("All retries exhausted without a successful response.")
+        return None  # or some default value or action
+    '''
     def get_exercise_details(self, gptquerydata, user_message, max_retries=3):
         for _ in range(max_retries):
             response = self._get_chatgpt_response(user_message)
@@ -238,18 +261,7 @@ class ChatGPT:
                     exercise_json = json.loads(exercise_details)
                     print("Parsed JSON:")
                     print(exercise_json)
-                    '''
-                    expected_types = {
-                        "exercise_name_primary": str,
-                        "exercise_aliases": list,
-                        "difficulty": int,
-                        "planes_of_motion": list,
-                        # Add other fields and their expected types here
-                    }
                     
-                    # Validate and correct types
-                    exercise_json = self.validate_and_correct_types(exercise_json, expected_types)
-                    '''
                     exercise_json = self.clean_exercises(exercise_json)
                     log.log_exercise_details("Successful json load and clean")
                     return exercise_json    
@@ -260,7 +272,7 @@ class ChatGPT:
         
         # If max_retries reached without obtaining valid JSON, raise an exception.
         raise Exception("Unable to obtain valid exercise details after multiple retries")
-
+    '''
     def _get_chatgpt_response(self, prompt):
     
         try:
