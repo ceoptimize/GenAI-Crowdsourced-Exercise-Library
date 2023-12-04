@@ -33,6 +33,7 @@ word_mapping = [
 ]
 
 def generate_aliases(exercise_name):
+    exercise_name = stringfunctions.sanitize_string(exercise_name)
     print(f"Generating aliases for: {exercise_name}")
     words = exercise_name.split()
     new_aliases = set([exercise_name])  # Include the original name as well
@@ -353,9 +354,6 @@ class PostgresDatabase:
     def sanitize_string(self, value):
         sanitized_value = re.sub(r"'", "''", value)
         return sanitized_value.strip().lower()'''
-    
-    def sanitize_string(self, value):
-        return stringfunctions.sanitize_string(value)
 
     def check_existing_exercise(self, exercise_name):
         query = f"SELECT ExerciseID FROM Exercises WHERE ExerciseName = '{exercise_name}'"
@@ -367,7 +365,7 @@ class PostgresDatabase:
     
     def get_exercise(self, exercise_name):
         try: 
-            sanitized_name = self.sanitize_string(exercise_name)
+            sanitized_name = stringfunctions.sanitize_string(exercise_name)
             query = f"SELECT ExerciseID, ExerciseDifficultySum, ExerciseDifficultyCount FROM Exercises WHERE ExerciseName = '{sanitized_name}'"
             self.execute_query(query)
             result = self.cursor.fetchone()
@@ -411,7 +409,7 @@ class PostgresDatabase:
             else:
                 # New exercise
                 if insertnew:
-                    sanitized_name = self.sanitize_string(exercise_name)
+                    sanitized_name = stringfunctions.sanitize_string(exercise_name)
                     query = f"INSERT INTO Exercises (ExerciseName, ExerciseDifficultySum, ExerciseDifficultyCount) VALUES ('{sanitized_name}', {exercise_difficulty if exercise_difficulty is not None else 0}, 1) RETURNING ExerciseID"
                     self.execute_query(query)
                     result = self.cursor.fetchone()
@@ -421,10 +419,21 @@ class PostgresDatabase:
                     return None, False
         except Exception as e:
             raise Exception(f"Error in create_or_get_exercise: {str(e)}")
-        
+
+    def create_or_get_alias(self, main_exercise_id, alias_id):
+        # Check if the alias relationship already exists
+        check_query = f"SELECT * FROM ExerciseNameAlias WHERE ExerciseID = {main_exercise_id} AND AliasID = {alias_id}"
+        self.execute_query(check_query)
+        result = self.cursor.fetchone()
+
+        if not result:
+            # Insert new alias relationship
+            insert_query = f"INSERT INTO ExerciseNameAlias (ExerciseID, AliasID, AliasVotes) VALUES ({main_exercise_id}, {alias_id}, 1)"
+            self.execute_query(insert_query)  
+
     def sanitize_and_check_equipment(self, equipment_name):
         try:
-            sanitized_name = self.sanitize_string(equipment_name)
+            sanitized_name = stringfunctions.sanitize_string(equipment_name)
 
             query = f"SELECT EquipmentID FROM Equipment WHERE EquipmentName = '{sanitized_name}'"
             self.execute_query(query)
@@ -476,7 +485,7 @@ class PostgresDatabase:
     
     def sanitize_and_check_body_plane(self, body_plane):
         try:
-            sanitized_plane = self.sanitize_string(body_plane)
+            sanitized_plane = stringfunctions.sanitize_string(body_plane)
 
             query = f"SELECT BodyPlaneID FROM BodyPlane WHERE BodyPlane = '{sanitized_plane}'"
             self.execute_query(query)
@@ -513,7 +522,7 @@ class PostgresDatabase:
 
     def sanitize_and_check_body_area(self, body_area):
         try:
-            sanitized_area = self.sanitize_string(body_area)
+            sanitized_area = stringfunctions.sanitize_string(body_area)
 
             query = f"SELECT BodyAreaID FROM BodyArea WHERE BodyArea = '{sanitized_area}'"
             self.execute_query(query)
@@ -551,12 +560,26 @@ class PostgresDatabase:
 
     def update_exercise_description(self, exercise_id, description):
         try:
-            sanitized_description = self.sanitize_string(description)
+            sanitized_description = stringfunctions.sanitize_string(description)
             query = f"INSERT INTO ExerciseDescription (ExerciseID, ExerciseDescription) VALUES ({exercise_id}, '{sanitized_description}')"
             self.execute_query(query)
         except Exception as e:
             raise Exception(f"Error in update_exercise_description: {str(e)}")              
 
+
+    def update_exercise_aliases(self, exercise_id, exercise_aliases):
+        try:
+            for alias_name in exercise_aliases:
+                print("gpt aliases " + alias_name)
+                # Find or create alias exercise
+                alias_id, _ = self.create_or_get_exercise(alias_name, None, insertnew=True)
+                # Insert into ExerciseNameAlias
+                insert_query = f"INSERT INTO ExerciseNameAlias (ExerciseId, AliasID, AliasVotes) VALUES ({exercise_id}, {alias_id}, 1) ON CONFLICT DO NOTHING"
+                self.execute_query(insert_query)
+
+        except Exception as e:
+            raise Exception(f"Error in update_exercise_aliases: {str(e)}")
+    '''     
     def update_exercise_aliases(self, exercise_id, exercise_aliases):
         try:
             for alias in exercise_aliases:
@@ -579,9 +602,15 @@ class PostgresDatabase:
                     self.execute_query(insert_query)
         except Exception as e:
             raise Exception(f"Error in update_exercise_aliases: {str(e)}") 
-        
+    '''  
 
 
+    
+    def get_existing_aliases(self, exercise_id):
+        query = f"SELECT e.ExerciseName FROM ExerciseNameAlias ena JOIN Exercises e ON ena.AliasID = e.ExerciseID WHERE ena.ExerciseId = {exercise_id}"
+        self.cursor.execute(query)
+        return [row[0] for row in self.cursor.fetchall()]
+    '''
     def get_existing_aliases(self, exercise_id):
         # Query to fetch all aliases linked to the given exercise ID
         query = f"""
@@ -592,7 +621,30 @@ class PostgresDatabase:
         """
         self.execute_query(query)
         return [row[0] for row in self.cursor.fetchall()]
+    '''
+    def update_exercise_aliases_with_additional(self, exercise_id, exercise_name):
+        print(f"Generating additional aliases for exercise name: {exercise_name}")
+        additional_aliases = generate_aliases(exercise_name)
+        print(f"Additional aliases generated: {additional_aliases}")
+        existing_aliases = self.get_existing_aliases(exercise_id)
+        print(f"Existing aliases: {existing_aliases}")
 
+        for alias in additional_aliases:
+            if alias not in existing_aliases:
+                sanitized_alias = stringfunctions.sanitize_string(alias)
+                alias_id, _ = self.create_or_get_exercise(sanitized_alias, None, insertnew=True)
+                if alias_id:
+                    self.create_or_get_alias(exercise_id, alias_id)
+                print(f"Adding new alias: {sanitized_alias}")
+    '''
+    def update_exercise_aliases_with_additional(self, exercise_id, exercise_name):
+        additional_aliases = generate_aliases(exercise_name)
+        existing_aliases = self.get_existing_aliases(exercise_id)
+        new_aliases = set(additional_aliases) - set(existing_aliases)
+        if new_aliases:
+            self.update_exercise_aliases(exercise_id, list(new_aliases))
+    '''
+    '''
     def update_exercise_aliases_with_additional(self, exercise_id, exercise_name):
         print(f"Generating additional aliases for exercise name: {exercise_name}")
         additional_aliases = generate_aliases(exercise_name)
@@ -608,7 +660,7 @@ class PostgresDatabase:
                 # Insert into ExerciseNameAlias table
                 query = f"INSERT INTO ExerciseNameAlias (ExerciseID, AliasID) VALUES ({exercise_id}, {alias_id})"
                 self.execute_query(query)
-        
+    '''  
 
     def sanitize_and_check_exercise_relation(self, exercise_id, relation_id, relation_type):
         try:
@@ -746,20 +798,23 @@ class PostgresDatabase:
         # Parse JSON data
         print(youtubevideoId)
         try:
-            exercise_name = json_data['exercise_name_primary']
+            exercise_name = stringfunctions.sanitize_string(json_data['exercise_name_primary'])
             print(exercise_name)
             exercise_difficulty = json_data.get('difficulty', 1)
             exercise_id, is_new= self.create_or_get_exercise(exercise_name, exercise_difficulty)
             print(exercise_id)
 
-            '''
+            
                 # Process exercise aliases
             exercise_aliases = json_data.get('exercise_aliases', [])
             if exercise_id:
-                sanitized_aliases = [self.sanitize_string(alias) for alias in exercise_aliases]
+                sanitized_aliases = [stringfunctions.sanitize_string(alias) for alias in exercise_aliases]
                 self.update_exercise_aliases(exercise_id, sanitized_aliases)
+                
+                # Call the method to handle additional aliases
                 self.update_exercise_aliases_with_additional(exercise_id, exercise_name)
-            '''
+
+
 
             # Process equipment
             equipment_list = json_data['equipment']

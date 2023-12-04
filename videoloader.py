@@ -139,7 +139,7 @@ class VideoLoader:
                                     'total_time_seconds': total_time
                                 }
                                 query = self.chatgpt.formulate_chat_gpt_exercise_query(gptquerydata)
-                                json_data = self.chatgpt.get_exercise_details(query, 1)
+                                json_data = self.chatgpt.get_exercise_details(query, 2)
                                 exercise_id, existingregressionids, existingprogressionids,existingvariationids = self.postgres.load_json(json_data, youtubevideoId=video_id, insertnewrelations=insertnewrelations)
                               #  self.postgres.handle_existing_exercises_adjustments(exercise_id, existingregressionids, existingprogressionids,existingvariationids, self.chatgpt)
                                 
@@ -152,11 +152,12 @@ class VideoLoader:
                             else:
                                 self.postgres.conn.rollback()
                                 total_unlikely_videos += 1
-                                log.log_error(video_id, video_title, likely_exercise_video, "Unlikely exercise video detected")  # Ensure this function logs the error to the file
+                                log.log_error(video_id, video_title, likely_exercise_video, "Unlikely exercise video detected", "no traceback")  # Ensure this function logs the error to the file
                         except Exception as e:
                             self.postgres.conn.rollback()
+                            error_traceback = traceback.format_exc()
                             print(f"Rolling back any db updates for video {video_id} - error occurred:", str(e))
-                            log.log_error(video_id, video_title, likely_exercise_video,  str(e))  # Log any exception that occurs
+                            log.log_error(video_id, video_title, likely_exercise_video,  str(e), error_traceback)  # Log any exception that occurs
                             if 'exercise details' in str(e).lower():
                                 total_detail_failures += 1
                             else:

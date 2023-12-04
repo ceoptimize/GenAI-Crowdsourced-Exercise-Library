@@ -15,7 +15,7 @@ def run(load_new_videos = False):
     #load_new_videos just means we want to reach out to Youtube and load the videos in again. If you don't you
     #are just going out to openai to get the information about the videos already loaded
         postgres.drop_schema()
-        postgres.execute_sql_file('DBD/QuickDBD-Free Diagram-14.sql')
+        postgres.execute_sql_file('DBD/QuickDBD-Free Diagram-15.sql')
         postgres.get_tables()
 
         #loads videos into the youtube video table

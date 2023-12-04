@@ -12,6 +12,7 @@ import log
 
 standard_exercise_names = {
     "push up": ["push-up", "pushup"],
+    "one arm": ["onearm"]
     # Add more standard names and their variations here
 }
 
@@ -45,12 +46,34 @@ def replace_chars(text, char_to_replace, replacement_char):
     return text.replace(char_to_replace, replacement_char)
 
 def to_singular(word):
-        # Check for 'es' or 's' at the end of the word, but not 'ss' (like in 'press')
-        if word.endswith('es') and not word.endswith('ss') and not word.endswith('plus') and not word.endswith('ees'):
+    # Handle special irregular cases
+    irregulars = {
+        'feet': 'foot',
+        'teeth': 'tooth',
+        'geese': 'goose',
+        # Add more irregular plural forms as needed
+    }
+    if word in irregulars:
+        return irregulars[word]
+
+    # Handle regular cases
+    if word.endswith('ies') and len(word) > 3:
+        return word[:-3] + 'y'
+    elif word.endswith('es') and len(word) > 2:
+        # Handles cases like "pushes" to "push"
+        if word[-3] in 'sxz' or word[-4:-2] in ['sh', 'ch']:
             return word[:-2]
-        elif word.endswith('s') and not word[-2:] == 'ss' and not word.endswith('plus'):
-            return word[:-1]
-        return word
+        # Special cases where 'es' is not a plural marker
+        elif word.lower() in ['series', 'species']:
+            return word
+    elif word.endswith('s') and not word.endswith('ss'):
+        # Check for vowel before 's' or specific words
+        if word[-2] in 'aeiou' or word.lower() in ['plus', 'bias', 'corps']:
+            return word
+        return word[:-1]
+
+    return word
+
 
 def sanitize_list(a_list):
     sanitized_elements = [stringfunctions.sanitize_string(name) for name in a_list]
@@ -156,7 +179,7 @@ class ChatGPT:
         format_code = (
             f'\n\n{{'
             f'\n    "exercise_name_primary": "The name of the exercise demonstrated",'
-            f'\n    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],'
+            f'\n    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],'
             f'\n    "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",'
             f'\n    "planes_of_motion": ["List of planes of motion involved"],'
             f'\n    "equipment": [{{'
@@ -178,9 +201,9 @@ class ChatGPT:
             f'\n    "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: {self.valid_compensations}"],'
             f'\n    "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],'
             f'\n    "additional_tags": ["List any additional tags relevant to the exercise"],'
-            f'\n    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],'
-            f'\n    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],'
-            f'\n    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],'
+            f'\n    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],'
+            f'\n    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],'
+            f'\n    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],'
             f'\n    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"'
             f'\n}}'
         )
@@ -198,20 +221,20 @@ class ChatGPT:
             if key in exercise_json:
                 if isinstance(exercise_json[key], list):
                     exercise_json[key] = [
-                        standardize_exercise_name(replace_chars(to_singular(item), '-', ' '), standard_exercise_names)
-                        for item in exercise_json[key]
+                        standardize_exercise_name(item, standard_exercise_names) for item in exercise_json[key]
                     ]
                 elif isinstance(exercise_json[key], str):
-                    exercise_json[key] = standardize_exercise_name(replace_chars(to_singular(exercise_json[key]), '-', ' '), standard_exercise_names)
+                    exercise_json[key] = standardize_exercise_name(exercise_json[key], standard_exercise_names)
         
         return exercise_json
+    
     def clean_json_response(self, response_text):
         start_index = response_text.find('{')
         if start_index == -1:
             return None  # Indicates no valid JSON found
         return response_text[start_index:]
 
-    def get_exercise_details(self, user_message, max_retries=3):
+    def get_exercise_details(self, user_message, max_retries=2):
         for _ in range(max_retries):
             response = self._get_chatgpt_response(user_message)
             if response.choices:

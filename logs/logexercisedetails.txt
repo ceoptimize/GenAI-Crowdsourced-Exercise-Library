@@ -2,7 +2,7 @@ Given the youtube video information "{'video_title': '💪🏽 6 PUSH UP VARIATI
 
 {
     "exercise_name_primary": "The name of the exercise demonstrated",
-    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],
+    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],
     "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
     "planes_of_motion": ["List of planes of motion involved"],
     "equipment": [{
@@ -24,16 +24,268 @@ Given the youtube video information "{'video_title': '💪🏽 6 PUSH UP VARIATI
     "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
     "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
     "additional_tags": ["List any additional tags relevant to the exercise"],
-    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
-    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
-    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],
-    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
+    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
+    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
+    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],
+    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
 } and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
 {
-    "exercise_name_primary": "Push Up",
+    "exercise_name_primary": "Narrow Push Up",
     "exercise_aliases": [],
-    "difficulty": "7",
+    "difficulty": 5,
+    "planes_of_motion": ["Sagittal", "Frontal"],
+    "equipment": [{
+        "Name": "No Equipment",
+        "Count": 0
+    }],
+    "proprioception": [],
+    "other_props": [],
+    "body_parts": {
+        "primary": "Chest",
+        "secondary": ["Triceps", "Core", "Shoulders"]
+    },
+    "exercise_type": "Push",
+    "OPT_model_phases": ["Stabilization"],
+    "exercise_category": ["Resistance", "Core"],
+    "joint_usage": "Multijoint",
+    "sides": "Bilateral",
+    "sports_relevance": [],
+    "corrective_exercise": [],
+    "contraindications": [],
+    "additional_tags": [],
+    "regressions": ["Push Up", "Incline Push Up"],
+    "progressions": ["Decline Push Up", "Half Handstand Push Up", "Feet Elevated Push Up"],
+    "variations": ["Alternating Hand Push Up", "Hand Release Push Up"],
+    "description": "Start in a tall plank position on your mat with your feet hip-width apart. Place your hands beneath your shoulders. Keep your core tight. Bend your elbows and lower your body towards the ground until your chest is just above the floor. Push back up with the same intensity as you lowered to the ground, keeping your abs tight throughout the movement. Make sure to keep your head neutral with your neck in line with your spine throughout the exercise."
+}
+Type of exercise_details: <class 'str'>, Length: 1367
+Successful json load
+Successful json clean
+Given the youtube video information "{'video_title': 'Arm Chair Pushup Exercise for Pre-Op Joint Replacement', 'channel_title': "St. Mary's Regional Medical Center", 'transcript': 'Sitting in a sturdy armchair with your feet flat on the floor, scoot to the front of the seat and place your hands on the armrests. Straighten your arms, raising your bottom up from the seat as far as possible. Use your legs as needed to lift. Progress to using only your arms and unaffected leg to perform the push-up. Do not hold your breath or strain too hard. Perform this exercise 20 times.', 'total_time_seconds': 51}", provide exercise details in the following format: 
+
+{
+    "exercise_name_primary": "The name of the exercise demonstrated",
+    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],
+    "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
+    "planes_of_motion": ["List of planes of motion involved"],
+    "equipment": [{
+        "Name": "Name of the equipment, which must be constrained to the following: ['treadmill', 'stationary bike', 'elliptical machine', 'rowing machine', 'dumbbell', 'barbell', 'kettlebell', 'resistance band', 'weight bench', 'leg press machine', 'cable machine', 'stability ball', 'jump rope', 'yoga mat', 'trx suspension trainer', 'battle rope', 'plyometric box', 'bench press', 'pull-up bar', 'power rack', 'climbing rope', 'foam roller', 'ab wheel', 'hula hoop', 'squat rack', 'punching bag', 'speed bag', 'heavy bag', 'exercise mat', 'stair stepper', 'exercise ball', 'gymnastic ring', 'trap bar', 'battle ropes', 'swiss ball', 'medicine ball', 'weight plate', 'push-up bar', 'dip station', 'roman chair', 'cable crossover machine', 'smith machine', 'hack squat machine', 'glute ham raise machine', 'calf raise machine', 'seated leg curl machine', 'leg extension machine', 'chest fly machine', 'lat pulldown machine', 'cable row machine', 'cable pulldown machine', 'treadmill', 'exercise bike', 'cross trainer', 'no equipment']",
+        "Count": "Minimum number of this equipment needed (THIS FIELD SHOULD BE AN INTEGER)"
+    }],
+    "proprioception": ["List of proprioceptive tools used"],
+    "other_props": ["List of other props necessary to do the exercise"],
+    "body_parts": {
+        "primary": "This field must be populated. Specify one primary body part or muscle group primarily engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']",
+        "secondary": ["List of other body parts or muscle groups engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']"]
+    },
+    "exercise_type": "Specify whether the exercise is a 'push' or 'pull' exercise",
+    "OPT_model_phases": ["List the phase or phases of the NASM OPT model that the exercise falls into"],
+    "exercise_category": ["Categorize the exercise (it can fall into multiple categories): balance, core, resistance, flexibility, cardio, plyometric, SAQ, neuromotor"],
+    "joint_usage": "Specify the type of joint usage: isolation, multijoint, or full body",
+    "sides": "Specify the type of sides: unilateral, bilateral, or alternating",
+    "sports_relevance": ["List any sports where this exercise is specifically relevant or beneficial (e.g. golf, tennis, basketball)"],
+    "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
+    "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
+    "additional_tags": ["List any additional tags relevant to the exercise"],
+    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
+    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
+    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],
+    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
+} and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
+{
+    "exercise_name_primary": "Arm Chair Push-up",
+    "exercise_aliases": [],
+    "difficulty": "2",
     "planes_of_motion": ["sagittal"],
+    "equipment": [{
+        "Name": "No equipment",
+        "Count": 0
+    }],
+    "proprioception": [],
+    "other_props": [],
+    "body_parts": {
+        "primary": "chest",
+        "secondary": ["triceps", "shoulders"]
+    },
+    "exercise_type": "Push",
+    "OPT_model_phases": ["Stabilization"],
+    "exercise_category": ["resistance"],
+    "joint_usage": "multijoint",
+    "sides": "bilateral",
+    "sports_relevance": [],
+    "corrective_exercise": ["rounded shoulders", "forward head posture", "scapular winging", "anterior pelvic tilt"],
+    "contraindications": [],
+    "additional_tags": [],
+    "regressions": ["Chair Dip", "Floor Push-Up"],
+    "progressions": ["Push-Up with Alternating Arm Lift", "One Arm Push-Up"],
+    "variations": ["Push-Up with Alternating Shoulder Taps", "Wide Arm Push-Up", "Static Hold Push-Up"],
+    "description": "Sit at the edge of a chair with your feet flat on the ground, and place your palms on the armrests. Straighten your arms to lift your bottom away from the chair while supporting your weight with your feet and palms. Keep your glutes engaged and your knees slightly bent. Push your body back up until your elbows are as straight as possible. Do not hold your breath or strain too hard."
+}
+Type of exercise_details: <class 'str'>, Length: 1385
+Successful json load
+Successful json clean
+Given the youtube video information "{'video_title': 'Knee Push Up Plus - Serratus Anterior Strengthening Exercise', 'channel_title': 'PhysioExercise', 'transcript': 'Hello and welcome to this video about the Knee Push-up Plus which is a modification of the Push-up Plus exercise as described by Decker et al. in the year 1999 and by Mendez et al in the year 2021. This exercise generated the a MVIC of 72% in the Serratus Anterior muscle. To perform this exercise, go into a prone position with hands shoulder wide apart and chest near the ground. Keep in mind that body weight is supported by the hands and knees rather than the hands and feet. Extend your elbows to a standard push-up position and continue to rise up by protracting the scapula then return to the starting position by retracting the scapula and repeat this exercise with respect to the pain.', 'total_time_seconds': 45}", provide exercise details in the following format: 
+
+{
+    "exercise_name_primary": "The name of the exercise demonstrated",
+    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],
+    "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
+    "planes_of_motion": ["List of planes of motion involved"],
+    "equipment": [{
+        "Name": "Name of the equipment, which must be constrained to the following: ['treadmill', 'stationary bike', 'elliptical machine', 'rowing machine', 'dumbbell', 'barbell', 'kettlebell', 'resistance band', 'weight bench', 'leg press machine', 'cable machine', 'stability ball', 'jump rope', 'yoga mat', 'trx suspension trainer', 'battle rope', 'plyometric box', 'bench press', 'pull-up bar', 'power rack', 'climbing rope', 'foam roller', 'ab wheel', 'hula hoop', 'squat rack', 'punching bag', 'speed bag', 'heavy bag', 'exercise mat', 'stair stepper', 'exercise ball', 'gymnastic ring', 'trap bar', 'battle ropes', 'swiss ball', 'medicine ball', 'weight plate', 'push-up bar', 'dip station', 'roman chair', 'cable crossover machine', 'smith machine', 'hack squat machine', 'glute ham raise machine', 'calf raise machine', 'seated leg curl machine', 'leg extension machine', 'chest fly machine', 'lat pulldown machine', 'cable row machine', 'cable pulldown machine', 'treadmill', 'exercise bike', 'cross trainer', 'no equipment']",
+        "Count": "Minimum number of this equipment needed (THIS FIELD SHOULD BE AN INTEGER)"
+    }],
+    "proprioception": ["List of proprioceptive tools used"],
+    "other_props": ["List of other props necessary to do the exercise"],
+    "body_parts": {
+        "primary": "This field must be populated. Specify one primary body part or muscle group primarily engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']",
+        "secondary": ["List of other body parts or muscle groups engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']"]
+    },
+    "exercise_type": "Specify whether the exercise is a 'push' or 'pull' exercise",
+    "OPT_model_phases": ["List the phase or phases of the NASM OPT model that the exercise falls into"],
+    "exercise_category": ["Categorize the exercise (it can fall into multiple categories): balance, core, resistance, flexibility, cardio, plyometric, SAQ, neuromotor"],
+    "joint_usage": "Specify the type of joint usage: isolation, multijoint, or full body",
+    "sides": "Specify the type of sides: unilateral, bilateral, or alternating",
+    "sports_relevance": ["List any sports where this exercise is specifically relevant or beneficial (e.g. golf, tennis, basketball)"],
+    "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
+    "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
+    "additional_tags": ["List any additional tags relevant to the exercise"],
+    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
+    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
+    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],
+    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
+} and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
+{
+    "exercise_name_primary": "Knee Push-up Plus",
+    "exercise_aliases": [],
+    "difficulty": 6,
+    "planes_of_motion": ["sagittal", "frontal"],
+    "equipment": [{
+        "Name": "no equipment",
+        "Count": 0 
+    }],
+    "proprioception": [],
+    "other_props": [],
+    "body_parts": {
+        "primary": "serratus anterior",
+        "secondary": ["shoulders", "core", "triceps"]
+    },
+    "exercise_type": "push",
+    "OPT_model_phases": ["stabilization"],
+    "exercise_category": ["resistance"],
+    "joint_usage": "multijoint",
+    "sides": "unilateral",
+    "sports_relevance": [],
+    "corrective_exercise": ["scapular winging"],
+    "contraindications": ["significant lower back pain"],
+    "additional_tags": [],
+    "regressions": ["push-up", "wall push-up", "Modified Push-up"],
+    "progressions": ["plyometric push-up", "decline push-up", "banded push-up"],
+    "variations": ["feet-elevated Push-up Plus", "knees-elevated Push-up Plus"],
+    "description": "Begin in a prone position on the floor with your hands shoulder-width apart and your elbows extended. Keep your body weight supported by your hands and knees rather than hands and feet. Push up using your arms and protract your scapula until your body forms a straight line. Return to the original position by retracting your scapula and repeat."
+}
+Type of exercise_details: <class 'str'>, Length: 1333
+Successful json load
+Successful json clean
+Given the youtube video information "{'video_title': '5EW Exercises: Incline Push-Ups', 'channel_title': '5th Element Wellness', 'transcript': "Alright Guys, We gonna do the incline push-ups now. They're really good for a beginner learning how to do push-ups as we're learning shoulder stabilization, okay, so how to do protraction and retraction. Grabbing onto a bar a bench a box, anything that's the elevated off the ground, getting to a nice straight line. Again, so your core and your glutes are on, the chest is lifted and you're squeezing elbows into the sides of your body, so as you see, my body is a nice stiff plank, my elbows are squeezing in as I'm pressing up. Don't want to flare the elbows out, we don't to collapse the body, they're really stiff plank position, elbows coming in, pressing back up nice and straight, okay? There's the incline push up.", 'total_time_seconds': 54}", provide exercise details in the following format: 
+
+{
+    "exercise_name_primary": "The name of the exercise demonstrated",
+    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],
+    "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
+    "planes_of_motion": ["List of planes of motion involved"],
+    "equipment": [{
+        "Name": "Name of the equipment, which must be constrained to the following: ['treadmill', 'stationary bike', 'elliptical machine', 'rowing machine', 'dumbbell', 'barbell', 'kettlebell', 'resistance band', 'weight bench', 'leg press machine', 'cable machine', 'stability ball', 'jump rope', 'yoga mat', 'trx suspension trainer', 'battle rope', 'plyometric box', 'bench press', 'pull-up bar', 'power rack', 'climbing rope', 'foam roller', 'ab wheel', 'hula hoop', 'squat rack', 'punching bag', 'speed bag', 'heavy bag', 'exercise mat', 'stair stepper', 'exercise ball', 'gymnastic ring', 'trap bar', 'battle ropes', 'swiss ball', 'medicine ball', 'weight plate', 'push-up bar', 'dip station', 'roman chair', 'cable crossover machine', 'smith machine', 'hack squat machine', 'glute ham raise machine', 'calf raise machine', 'seated leg curl machine', 'leg extension machine', 'chest fly machine', 'lat pulldown machine', 'cable row machine', 'cable pulldown machine', 'treadmill', 'exercise bike', 'cross trainer', 'no equipment']",
+        "Count": "Minimum number of this equipment needed (THIS FIELD SHOULD BE AN INTEGER)"
+    }],
+    "proprioception": ["List of proprioceptive tools used"],
+    "other_props": ["List of other props necessary to do the exercise"],
+    "body_parts": {
+        "primary": "This field must be populated. Specify one primary body part or muscle group primarily engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']",
+        "secondary": ["List of other body parts or muscle groups engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']"]
+    },
+    "exercise_type": "Specify whether the exercise is a 'push' or 'pull' exercise",
+    "OPT_model_phases": ["List the phase or phases of the NASM OPT model that the exercise falls into"],
+    "exercise_category": ["Categorize the exercise (it can fall into multiple categories): balance, core, resistance, flexibility, cardio, plyometric, SAQ, neuromotor"],
+    "joint_usage": "Specify the type of joint usage: isolation, multijoint, or full body",
+    "sides": "Specify the type of sides: unilateral, bilateral, or alternating",
+    "sports_relevance": ["List any sports where this exercise is specifically relevant or beneficial (e.g. golf, tennis, basketball)"],
+    "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
+    "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
+    "additional_tags": ["List any additional tags relevant to the exercise"],
+    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
+    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
+    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],
+    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
+} and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
+{
+    "exercise_name_primary": "Incline Push-Ups",
+    "exercise_aliases": [],
+    "difficulty": "3",
+    "planes_of_motion": ["sagittal"],
+    "equipment": [{
+        "Name": "Bench",
+        "Count": 1
+    }],
+    "proprioception": [],
+    "other_props": [],
+    "body_parts": {
+        "primary": "Chest",
+        "secondary": ["Shoulders", "Triceps"]
+    },
+    "exercise_type": "Push",
+    "OPT_model_phases": ["Stabilization", "Strength"],
+    "exercise_category": ["Resistance"],
+    "joint_usage": "Multijoint",
+    "sides": "Unilateral",
+    "sports_relevance": [],
+    "corrective_exercise": [],
+    "contraindications": [],
+    "additional_tags": [],
+    "regressions": ["Bodyweight Push-Up", "High Knees Push-Up", "Kneeling Push-Up"],
+    "progressions": ["Decline Push-Ups", "Wide Push-Ups", "Weighted Push-Ups"],
+    "variations": ["Elevated Push-Ups", "Plyo Push-Ups", "Isometric Push-Ups"],
+    "description": "Grab a bench and position your hands on it. Your feet should stay on the ground and you should assume a plank position, engaging your core and keeping your chest lifted. Your elbows should be in the sides of your body and it is important they don't flare out and you don't collapse your body. With control, lower your body to the bench then push back up to the starting position. You can add an extra challenge by including a clap between each repetition if desired."
+}
+Type of exercise_details: <class 'str'>, Length: 1396
+Successful json load
+Successful json clean
+Given the youtube video information "{'video_title': '💪🏽 6 PUSH UP VARIATIONS TO BUILD A STRONGER CHEST, TRICEPS, SHOULDERS &amp; BACK 🔥', 'channel_title': 'TIFF x DAN', 'transcript': "Alright, I'm going to walk you through a push up only workout, hit the chest, triceps, shoulders, back let's go. First up, narrow push ups. These will focus on your inner chest or the pectoral muscles. Next we'll move into wide push ups to target the serratus anterior muscles, or the outer part of your chest. Now we go into Skullcrushers. These are great for your triceps if you want that horseshoe shape. Moving on to staggered push ups. This is a moving push up, so it's going to be great for your triceps and building your core. If you want to build the muscles in your lower and upper back then you need to do these archer push ups. Last but not least, hand release push ups to increase force off the ground and to strengthen your core and shoulders.", 'total_time_seconds': 34}", provide exercise details in the following format: 
+
+{
+    "exercise_name_primary": "The name of the exercise demonstrated",
+    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],
+    "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
+    "planes_of_motion": ["List of planes of motion involved"],
+    "equipment": [{
+        "Name": "Name of the equipment, which must be constrained to the following: ['treadmill', 'stationary bike', 'elliptical machine', 'rowing machine', 'dumbbell', 'barbell', 'kettlebell', 'resistance band', 'weight bench', 'leg press machine', 'cable machine', 'stability ball', 'jump rope', 'yoga mat', 'trx suspension trainer', 'battle rope', 'plyometric box', 'bench press', 'pull-up bar', 'power rack', 'climbing rope', 'foam roller', 'ab wheel', 'hula hoop', 'squat rack', 'punching bag', 'speed bag', 'heavy bag', 'exercise mat', 'stair stepper', 'exercise ball', 'gymnastic ring', 'trap bar', 'battle ropes', 'swiss ball', 'medicine ball', 'weight plate', 'push-up bar', 'dip station', 'roman chair', 'cable crossover machine', 'smith machine', 'hack squat machine', 'glute ham raise machine', 'calf raise machine', 'seated leg curl machine', 'leg extension machine', 'chest fly machine', 'lat pulldown machine', 'cable row machine', 'cable pulldown machine', 'treadmill', 'exercise bike', 'cross trainer', 'no equipment']",
+        "Count": "Minimum number of this equipment needed (THIS FIELD SHOULD BE AN INTEGER)"
+    }],
+    "proprioception": ["List of proprioceptive tools used"],
+    "other_props": ["List of other props necessary to do the exercise"],
+    "body_parts": {
+        "primary": "This field must be populated. Specify one primary body part or muscle group primarily engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']",
+        "secondary": ["List of other body parts or muscle groups engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']"]
+    },
+    "exercise_type": "Specify whether the exercise is a 'push' or 'pull' exercise",
+    "OPT_model_phases": ["List the phase or phases of the NASM OPT model that the exercise falls into"],
+    "exercise_category": ["Categorize the exercise (it can fall into multiple categories): balance, core, resistance, flexibility, cardio, plyometric, SAQ, neuromotor"],
+    "joint_usage": "Specify the type of joint usage: isolation, multijoint, or full body",
+    "sides": "Specify the type of sides: unilateral, bilateral, or alternating",
+    "sports_relevance": ["List any sports where this exercise is specifically relevant or beneficial (e.g. golf, tennis, basketball)"],
+    "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
+    "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
+    "additional_tags": ["List any additional tags relevant to the exercise"],
+    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
+    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
+    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],
+    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
+} and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
+{
+    "exercise_name_primary": "Push-up",
+    "exercise_aliases": [],
+    "difficulty": "5",
+    "planes_of_motion": ["sagittal", "transverse"],
     "equipment": [{
         "Name": "No equipment",
         "Count": 0
@@ -45,87 +297,27 @@ Given the youtube video information "{'video_title': '💪🏽 6 PUSH UP VARIATI
         "secondary": ["Triceps", "Shoulders", "Back"]
     },
     "exercise_type": "Push",
-    "OPT_model_phases": ["Stabilization"],
-    "exercise_category": ["Resistance"],
-    "joint_usage": "Multijoint",
-    "sides": "Unilateral",
-    "sports_relevance": [],
-    "corrective_exercise": ["Rounded Shoulders", "Forward Head Posture", "Anterior Pelvic Tilt"],
-    "contraindications": [],
-    "additional_tags": [],
-    "regressions": ["Wall Push Up", "Kneeling Push Up", "Hands Elevated Push Up", "Incline Push Up", "Mountain Climbers"],
-    "progressions": ["Elevated Feet Push Up", "Feet Elevated Push Up", "Single Arm Push Up", "Clapping Push Up", "One Leg Push Up"],
-    "variations": ["Wide Push Up", "Skullcrushers", "Staggered Push Ups", "Archer Push Ups", "Hand Release Push Ups"],
-    "description": "Begin in a plank position with your wrists beneath your shoulders and your feet hip distance apart. Slowly lower your chest down towards the ground, engaging your upper body and core muscles to maintain a straight line with your body until your chest is a few inches from the floor. Push back up engaging your arms, chest, and core until you are back in the starting plank position. Keep your core tight, maintain a straight spine, and ensure your hips don't sink."
-}
-Type of exercise_details: <class 'str'>, Length: 1585
-Successful json load
-Successful json clean
-Given the youtube video information "{'video_title': 'Arm Chair Pushup Exercise for Pre-Op Joint Replacement', 'channel_title': "St. Mary's Regional Medical Center", 'transcript': 'Sitting in a sturdy armchair with your feet flat on the floor, scoot to the front of the seat and place your hands on the armrests. Straighten your arms, raising your bottom up from the seat as far as possible. Use your legs as needed to lift. Progress to using only your arms and unaffected leg to perform the push-up. Do not hold your breath or strain too hard. Perform this exercise 20 times.', 'total_time_seconds': 51}", provide exercise details in the following format: 
-
-{
-    "exercise_name_primary": "The name of the exercise demonstrated",
-    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],
-    "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
-    "planes_of_motion": ["List of planes of motion involved"],
-    "equipment": [{
-        "Name": "Name of the equipment, which must be constrained to the following: ['treadmill', 'stationary bike', 'elliptical machine', 'rowing machine', 'dumbbell', 'barbell', 'kettlebell', 'resistance band', 'weight bench', 'leg press machine', 'cable machine', 'stability ball', 'jump rope', 'yoga mat', 'trx suspension trainer', 'battle rope', 'plyometric box', 'bench press', 'pull-up bar', 'power rack', 'climbing rope', 'foam roller', 'ab wheel', 'hula hoop', 'squat rack', 'punching bag', 'speed bag', 'heavy bag', 'exercise mat', 'stair stepper', 'exercise ball', 'gymnastic ring', 'trap bar', 'battle ropes', 'swiss ball', 'medicine ball', 'weight plate', 'push-up bar', 'dip station', 'roman chair', 'cable crossover machine', 'smith machine', 'hack squat machine', 'glute ham raise machine', 'calf raise machine', 'seated leg curl machine', 'leg extension machine', 'chest fly machine', 'lat pulldown machine', 'cable row machine', 'cable pulldown machine', 'treadmill', 'exercise bike', 'cross trainer', 'no equipment']",
-        "Count": "Minimum number of this equipment needed (THIS FIELD SHOULD BE AN INTEGER)"
-    }],
-    "proprioception": ["List of proprioceptive tools used"],
-    "other_props": ["List of other props necessary to do the exercise"],
-    "body_parts": {
-        "primary": "This field must be populated. Specify one primary body part or muscle group primarily engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']",
-        "secondary": ["List of other body parts or muscle groups engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']"]
-    },
-    "exercise_type": "Specify whether the exercise is a 'push' or 'pull' exercise",
-    "OPT_model_phases": ["List the phase or phases of the NASM OPT model that the exercise falls into"],
-    "exercise_category": ["Categorize the exercise (it can fall into multiple categories): balance, core, resistance, flexibility, cardio, plyometric, SAQ, neuromotor"],
-    "joint_usage": "Specify the type of joint usage: isolation, multijoint, or full body",
-    "sides": "Specify the type of sides: unilateral, bilateral, or alternating",
-    "sports_relevance": ["List any sports where this exercise is specifically relevant or beneficial (e.g. golf, tennis, basketball)"],
-    "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
-    "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
-    "additional_tags": ["List any additional tags relevant to the exercise"],
-    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
-    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
-    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],
-    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
-} and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
-{
-    "exercise_name_primary": "Arm Chair Pushup",
-    "exercise_aliases": [],
-    "difficulty": "3",
-    "planes_of_motion": ["Sagittal"],
-    "equipment": [{"Name": "Armchair", "Count": 1}],
-    "proprioception": [],
-    "other_props": [],
-    "body_parts": {
-        "primary": "Chest",
-        "secondary": ["Shoulders", "Core"]
-    },
-    "exercise_type": "Push",
-    "OPT_model_phases": ["Stabilization"],
-    "exercise_category": ["Resistance", "Core"],
-    "joint_usage": "Multijoint",
+    "OPT_model_phases": ["1","2"],
+    "exercise_category": ["Core","Resistance"],
+    "joint_usage": "Multi-joint",
     "sides": "Bilateral",
     "sports_relevance": [],
     "corrective_exercise": [],
-    "contraindications": ["Recent joint replacement"],
-    "additional_tags": [],
-    "regressions": ["Wall Pushups"],
-    "progressions": ["Feet Elevated Pushups", "Mountain Climbers"],
-    "variations": ["Wide Grip Pushups", "Spiderman Pushups"],
-    "description": "Sit in the front of an armchair with your feet flat on the floor and your hands positioned on the armrests. Bend your arms and press your body away from the seat of the chair, using your legs to help propel you upward. As you gain strength, eliminate the assistance of your legs and focus on using your arms and unaffected leg to perform the push-up. Take care not to overexert yourself. Aim to perform this exercise 20 times."
+    "contraindications": ["Shoulder/elbow pain"],
+    "additional_tags": ["Bodyweight"],
+    "regressions": ["Wall Push-ups","Knee Push-ups"],
+    "progressions": ["Incline Push-ups","Spiderman Push-ups"],
+    "variations": ["Close-grip Push-ups","Diamond Push-ups"],
+    "description": "Start in a plank position with your arms fully extended, your wrists, elbows, and shoulders all in line with your torso and your feet together. Lower your body until your chest nearly touches the floor, pause for a moment in the bottom position then drive your body back up until your arms are fully extended. Ensure that your core stays tight and your spine stays in a neutral position with your knees locked throughout the entire movement."
 }
-Type of exercise_details: <class 'str'>, Length: 1277
+Type of exercise_details: <class 'str'>, Length: 1345
 Successful json load
 Successful json clean
-Given the youtube video information "{'video_title': 'Scapula Push-Ups - Thoracic Spine Exercise - CORE Chiropractic', 'channel_title': 'CORE Chiropractic', 'transcript': "- This exercise is called scapula push-ups. So here, similar to a push-up, you're moving your body in a push-up position. Going to a wall makes it really easy because you don't have full gravity of your body on your arms. But if you're going against a wall, the goal of it is you're trying to pull your scapula off of your ribs and then back, so pull it back, pull it back. So here, we're up against a wall, you're leaning in, you're getting your feet in a position that is comfortable, leaning in so it's an inch off of that ribcage, and then you're coming up. And a little bit even more rounded, and that's great. So you're gonna go in towards the wall, and then push back away. Push in, so this is the push-up. All you're doing is just moving that scapula up and down that ribcage so that you're getting mobility between those bones, where typically we don't get a lot of mobility. So you're gonna do a set of 10 twice. As you get better at this, you're gonna wanna go onto the ground.", 'total_time_seconds': 59}", provide exercise details in the following format: 
+Given the youtube video information "{'video_title': 'ACC Wellness Center Workouts - Incline Pushup', 'channel_title': 'Alpena Community College', 'transcript': "hey guys welcome back to another motivational Monday this week's exercise is an incline push-up to do this we are actually going to be using the bar so we want to put it for me since I'm shorter we have it at an eight so what you do is it you can actually do a wide pushup a normal push-up or in a narrow push-up I'll show you all three so wide push up we'll just walk our feet back and we're incline and we just go down up then we can also move our hands to a normal push-up lastly we can go with and a narrow grip the key when we're doing this is making sure our back stays flat and our core stays engaged that's all", 'total_time_seconds': 51}", provide exercise details in the following format: 
 
 {
     "exercise_name_primary": "The name of the exercise demonstrated",
-    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],
+    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],
     "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
     "planes_of_motion": ["List of planes of motion involved"],
     "equipment": [{
@@ -147,140 +339,20 @@ Given the youtube video information "{'video_title': 'Scapula Push-Ups - Thoraci
     "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
     "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
     "additional_tags": ["List any additional tags relevant to the exercise"],
-    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
-    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
-    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],
-    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
+    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
+    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
+    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],
+    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
 } and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
 {
-    "exercise_name_primary": "Scapula Push-Ups",
-    "exercise_aliases": [],
-    "difficulty": 6,
-    "planes_of_motion": ["Sagittal"],
-    "equipment": [{
-        "Name": "Wall",
-        "Count": 1
-    }],
-    "proprioception": [],
-    "other_props": [],
-    "body_parts": {
-        "primary": "Upper Back",
-        "secondary": []
-    },
-    "exercise_type": "Push",
-    "OPT_model_phases": ["Stabilization Endurance"],
-    "exercise_category": ["Core", "Resistance"],
-    "joint_usage": "Isolation",
-    "sides": "Unilateral",
-    "sports_relevance": [],
-    "corrective_exercise": ["Rounded Shoulders", "Forward Head Posture", "Scapular Winging", "Anterior Pelvic Tilt"],
-    "contraindications": ["Severed shoulder pathology"],
-    "additional_tags": [],
-    "regressions": ["Wall Angels", "Wall Slides"],
-    "progressions": ["Floor Push-Ups"],
-    "variations": ["Kneeling Push-Ups"],
-    "description": "This exercise is called Scapula Push-Ups. To perform it, stand a few inches away from a wall. Plant your feet in a comfortable position. Lean in so your body is an inch away from the wall, and then press your hands into it. Using your shoulder blades, slide them up and back down along your ribcage to create mobility in the area. This movement is like a push-up, with the goal being to move your scapula. Perform 10 repetitions twice for one set. As you progress, you may want to do the exercise without leaning against a wall."
-}
-Type of exercise_details: <class 'str'>, Length: 1445
-Successful json load
-Successful json clean
-Given the youtube video information "{'video_title': '5EW Exercises: Incline Push-Ups', 'channel_title': '5th Element Wellness', 'transcript': "Alright Guys, We gonna do the incline push-ups now. They're really good for a beginner learning how to do push-ups as we're learning shoulder stabilization, okay, so how to do protraction and retraction. Grabbing onto a bar a bench a box, anything that's the elevated off the ground, getting to a nice straight line. Again, so your core and your glutes are on, the chest is lifted and you're squeezing elbows into the sides of your body, so as you see, my body is a nice stiff plank, my elbows are squeezing in as I'm pressing up. Don't want to flare the elbows out, we don't to collapse the body, they're really stiff plank position, elbows coming in, pressing back up nice and straight, okay? There's the incline push up.", 'total_time_seconds': 54}", provide exercise details in the following format: 
-
-{
-    "exercise_name_primary": "The name of the exercise demonstrated",
-    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],
-    "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
-    "planes_of_motion": ["List of planes of motion involved"],
-    "equipment": [{
-        "Name": "Name of the equipment, which must be constrained to the following: ['treadmill', 'stationary bike', 'elliptical machine', 'rowing machine', 'dumbbell', 'barbell', 'kettlebell', 'resistance band', 'weight bench', 'leg press machine', 'cable machine', 'stability ball', 'jump rope', 'yoga mat', 'trx suspension trainer', 'battle rope', 'plyometric box', 'bench press', 'pull-up bar', 'power rack', 'climbing rope', 'foam roller', 'ab wheel', 'hula hoop', 'squat rack', 'punching bag', 'speed bag', 'heavy bag', 'exercise mat', 'stair stepper', 'exercise ball', 'gymnastic ring', 'trap bar', 'battle ropes', 'swiss ball', 'medicine ball', 'weight plate', 'push-up bar', 'dip station', 'roman chair', 'cable crossover machine', 'smith machine', 'hack squat machine', 'glute ham raise machine', 'calf raise machine', 'seated leg curl machine', 'leg extension machine', 'chest fly machine', 'lat pulldown machine', 'cable row machine', 'cable pulldown machine', 'treadmill', 'exercise bike', 'cross trainer', 'no equipment']",
-        "Count": "Minimum number of this equipment needed (THIS FIELD SHOULD BE AN INTEGER)"
-    }],
-    "proprioception": ["List of proprioceptive tools used"],
-    "other_props": ["List of other props necessary to do the exercise"],
-    "body_parts": {
-        "primary": "This field must be populated. Specify one primary body part or muscle group primarily engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']",
-        "secondary": ["List of other body parts or muscle groups engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']"]
-    },
-    "exercise_type": "Specify whether the exercise is a 'push' or 'pull' exercise",
-    "OPT_model_phases": ["List the phase or phases of the NASM OPT model that the exercise falls into"],
-    "exercise_category": ["Categorize the exercise (it can fall into multiple categories): balance, core, resistance, flexibility, cardio, plyometric, SAQ, neuromotor"],
-    "joint_usage": "Specify the type of joint usage: isolation, multijoint, or full body",
-    "sides": "Specify the type of sides: unilateral, bilateral, or alternating",
-    "sports_relevance": ["List any sports where this exercise is specifically relevant or beneficial (e.g. golf, tennis, basketball)"],
-    "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
-    "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
-    "additional_tags": ["List any additional tags relevant to the exercise"],
-    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
-    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
-    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],
-    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
-} and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
-{
-    "exercise_name_primary": "Incline Push-Ups",
+    "exercise_name_primary": "Incline Pushup",
     "exercise_aliases": [],
     "difficulty": 4,
     "planes_of_motion": ["sagittal"],
-    "equipment": [{"Name": "bench", "Count": 1}],
-    "proprioception": [],
-    "other_props": [],
-    "body_parts": {
-        "primary": "chest",
-        "secondary": ["shoulders", "core"]
-    },
-    "exercise_type": "push",
-    "OPT_model_phases": ["stabilization"],
-    "exercise_category": ["resistance"],
-    "joint_usage": "multijoint",
-    "sides": "bilateral",
-    "sports_relevance": [],
-    "corrective_exercise": ["rounded shoulders", "forward head posture", "anterior pelvic tilt"],
-    "contraindications": [],
-    "additional_tags": [],
-    "regressions": ["wall push-ups", "bent knee push-ups", "elevated push-ups"],
-    "progressions": ["decline push-ups", "feet elevated push-ups", "weighted push-ups"],
-    "variations": ["diamond push-ups", "bench rotational push-ups", "explosive plyometric push-ups"],
-    "description": "Grab onto a bar, bench or box that is elevated off the ground, making sure your core and glutes are engaged, and your body is in a nice stiff plank. Squeeze your elbows into the side of your body as you press up, keeping your elbows close to your body and not flaring them out. Lower yourself in a controlled manner, maintaining tension in the core and glutes throughout the movement. This is one repetition."
-}
-Type of exercise_details: <class 'str'>, Length: 1392
-Successful json load
-Successful json clean
-Given the youtube video information "{'video_title': 'Push Up Progression', 'channel_title': 'Heather Robertson', 'transcript': "Here are some tips on how to progress and do a full push up. The third one is the one that has helped me the most! Always warm up the wrist first. This helps with wrist strength and mobility and can prevent injury or strain in the joints. Start standing with your palms forward and your thumbs in line with your armpits. Keep your feet planted firmly and think about pushing open a heavy door. Start with wall push-ups. High reps will help you get used to proper form and will help build strength. Over time, begin to lower your incline try using a bench or stair riser. Once you're able to properly complete three sets of ten, lower your incline again and perform kneeling push-ups. Once you hit 3 sets of 10 here, with proper form, try a negative push-up. Lower yourself slowly until your chest hits the floor and then press up using the knees for support. Continue this way until you can press yourself up without using the knees. Be consistent and be patient. I know push-ups can be a challenge but with practice you will get there!", 'total_time_seconds': 59}", provide exercise details in the following format: 
-
-{
-    "exercise_name_primary": "The name of the exercise demonstrated",
-    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],
-    "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
-    "planes_of_motion": ["List of planes of motion involved"],
     "equipment": [{
-        "Name": "Name of the equipment, which must be constrained to the following: ['treadmill', 'stationary bike', 'elliptical machine', 'rowing machine', 'dumbbell', 'barbell', 'kettlebell', 'resistance band', 'weight bench', 'leg press machine', 'cable machine', 'stability ball', 'jump rope', 'yoga mat', 'trx suspension trainer', 'battle rope', 'plyometric box', 'bench press', 'pull-up bar', 'power rack', 'climbing rope', 'foam roller', 'ab wheel', 'hula hoop', 'squat rack', 'punching bag', 'speed bag', 'heavy bag', 'exercise mat', 'stair stepper', 'exercise ball', 'gymnastic ring', 'trap bar', 'battle ropes', 'swiss ball', 'medicine ball', 'weight plate', 'push-up bar', 'dip station', 'roman chair', 'cable crossover machine', 'smith machine', 'hack squat machine', 'glute ham raise machine', 'calf raise machine', 'seated leg curl machine', 'leg extension machine', 'chest fly machine', 'lat pulldown machine', 'cable row machine', 'cable pulldown machine', 'treadmill', 'exercise bike', 'cross trainer', 'no equipment']",
-        "Count": "Minimum number of this equipment needed (THIS FIELD SHOULD BE AN INTEGER)"
+        "Name": "barbell",
+        "Count": 1
     }],
-    "proprioception": ["List of proprioceptive tools used"],
-    "other_props": ["List of other props necessary to do the exercise"],
-    "body_parts": {
-        "primary": "This field must be populated. Specify one primary body part or muscle group primarily engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']",
-        "secondary": ["List of other body parts or muscle groups engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']"]
-    },
-    "exercise_type": "Specify whether the exercise is a 'push' or 'pull' exercise",
-    "OPT_model_phases": ["List the phase or phases of the NASM OPT model that the exercise falls into"],
-    "exercise_category": ["Categorize the exercise (it can fall into multiple categories): balance, core, resistance, flexibility, cardio, plyometric, SAQ, neuromotor"],
-    "joint_usage": "Specify the type of joint usage: isolation, multijoint, or full body",
-    "sides": "Specify the type of sides: unilateral, bilateral, or alternating",
-    "sports_relevance": ["List any sports where this exercise is specifically relevant or beneficial (e.g. golf, tennis, basketball)"],
-    "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
-    "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
-    "additional_tags": ["List any additional tags relevant to the exercise"],
-    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
-    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
-    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],
-    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
-} and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
-{
-    "exercise_name_primary": "Push Up",
-    "exercise_aliases": [],
-    "difficulty": 5,
-    "planes_of_motion": ["sagittal"],
-    "equipment": [],
     "proprioception": [],
     "other_props": [],
     "body_parts": {
@@ -288,27 +360,27 @@ Given the youtube video information "{'video_title': 'Push Up Progression', 'cha
         "secondary": ["triceps", "shoulders", "core"]
     },
     "exercise_type": "push",
-    "OPT_model_phases": ["stabilization endurance"],
-    "exercise_category": ["resistance", "core"],
+    "OPT_model_phases": ["Assessment", "Stabilization"],
+    "exercise_category": ["resistance"],
     "joint_usage": "multijoint",
     "sides": "bilateral",
     "sports_relevance": [],
-    "corrective_exercise": ["rounded shoulders", "forward head posture", "anterior pelvic tilt", "scapular winging"],
+    "corrective_exercise": ["forward head posture", "shoulder elevation or shrugging"],
     "contraindications": [],
     "additional_tags": [],
-    "regressions": ["wall push-ups", "kneeling push-ups"],
-    "progressions": ["negative push-ups"],
-    "variations": [],
-    "description": "Start standing with your palms forward and your thumbs in line with your armpits. Keep your feet planted firmly and think about pushing open a heavy door. Lower yourself slowly until your chest hits the floor and press up."
+    "regressions": ["pushup", "wall press"],
+    "progressions": ["decline pushup", "plyometric pushup"],
+    "variations": ["diamond pushup", "wide pushup"],
+    "description": "Start in a plank position, with your arms shoulder-width apart and hands underneath your shoulders. Place a barbell on the ground slightly wider than shoulder-width apart. Your hands should be placed on the bar, shoulder-width apart. Squeeze your core and glutes while keeping your back flat and eyes forward. Lower down until your chest is between your hands and press up off the ground, returning to the starting position. This should be done slowly and controlled."
 }
-Type of exercise_details: <class 'str'>, Length: 1069
+Type of exercise_details: <class 'str'>, Length: 1375
 Successful json load
 Successful json clean
-Given the youtube video information "{'video_title': 'INCLINE PUSH UP', 'channel_title': 'Fitness exercises by To Na', 'transcript': 'start in the regular push-up position but with your hands elevated on a chair or bench then push your body up and down using your arm strength remember to keep your body straight', 'total_time_seconds': 15}", provide exercise details in the following format: 
+Given the youtube video information "{'video_title': 'Push Up Variation: How To Do a Decline Push up | Tough Mudder Training', 'channel_title': 'Tough Mudder', 'transcript': "[MUSIC PLAYING] Basically, all we're looking for is a regular push-up position, but raising our feet above our hands. Working our decline push-up is going to help with that ever so important upper body strength. [MUSIC PLAYING] Get yourself ready for Mud Mile 2.0. [MUSIC PLAYING]", 'total_time_seconds': 57}", provide exercise details in the following format: 
 
 {
     "exercise_name_primary": "The name of the exercise demonstrated",
-    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],
+    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],
     "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
     "planes_of_motion": ["List of planes of motion involved"],
     "equipment": [{
@@ -330,48 +402,48 @@ Given the youtube video information "{'video_title': 'INCLINE PUSH UP', 'channel
     "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
     "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
     "additional_tags": ["List any additional tags relevant to the exercise"],
-    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
-    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
-    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],
-    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
+    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
+    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
+    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],
+    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
 } and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
 {
-    "exercise_name_primary": "Incline Push Up",
+    "exercise_name_primary": "Decline Push Up",
     "exercise_aliases": [],
     "difficulty": 8,
-    "planes_of_motion": ["Sagittal"],
+    "planes_of_motion": ["Sagittal", "Frontal"],
     "equipment": [{
-        "Name": "Chair or Bench",
-        "Count": 1
+        "Name": "No Equipment",
+        "Count": 0
     }],
     "proprioception": [],
     "other_props": [],
     "body_parts": {
         "primary": "Chest",
-        "secondary": ["Triceps", "Shoulders"]
+        "secondary": ["Shoulders", "Triceps", "Core"]
     },
     "exercise_type": "Push",
-    "OPT_model_phases": ["Stabilization"],
-    "exercise_category": ["Resistance"],
+    "OPT_model_phases": ["Stabilization Endurance"],
+    "exercise_category": ["Resistance", "Plyometric"],
     "joint_usage": "Multijoint",
     "sides": "Unilateral",
-    "sports_relevance": [],
+    "sports_relevance": ["Football", "Soccer", "Basketball"],
     "corrective_exercise": [],
-    "contraindications": ["Shoulder impingement", "Shoulder instability"],
-    "additional_tags": ["Bodyweight exercise"],
-    "regressions": ["Wall Push Up"],
-    "progressions": ["Decline Push Up", "Feet Elevated Push Up", "Clapping Push Up"],
-    "variations": ["Spider Man Push Up", "Wide Arm Push Up", "Elevated Feet Push Up"],
-    "description": "Start in the regular push-up position hands elevated on a chair or bench. Push your body up and down using your arm strength while keeping your body straight. Make sure to keep your core engaged throughout the exercise."
+    "contraindications": [],
+    "additional_tags": [],
+    "regressions": ["Regular Push-up", "Kneeling Push-up", "Wall Push-up"],
+    "progressions": ["Weighted Decline Push-up", "Decline Push-up with one leg elevated", "Tripod Push-up"],
+    "variations": ["Rotational Push-up", "Wide Arm Push-up", "Rotation Push-up"],
+    "description": "Set up on your hands and feet, holding your weight up on your toes with your hands directly underneath your shoulders. Bend your elbows and lower your body until your chest lightly touches the ground. Pause, then push back up until your elbows are straight but not locked."
 }
-Type of exercise_details: <class 'str'>, Length: 1175
+Type of exercise_details: <class 'str'>, Length: 1293
 Successful json load
 Successful json clean
 Given the youtube video information "{'video_title': 'Decline Push Ups | Fitness Workout', 'channel_title': 'Sculpt by Summer 🍑', 'transcript': 'Decline Push-Ups | Fitness Workout | Upper Body Exercise', 'total_time_seconds': 7}", provide exercise details in the following format: 
 
 {
     "exercise_name_primary": "The name of the exercise demonstrated",
-    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],
+    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],
     "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
     "planes_of_motion": ["List of planes of motion involved"],
     "equipment": [{
@@ -393,48 +465,48 @@ Given the youtube video information "{'video_title': 'Decline Push Ups | Fitness
     "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
     "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
     "additional_tags": ["List any additional tags relevant to the exercise"],
-    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
-    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
-    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],
-    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
+    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
+    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
+    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],
+    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
 } and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
 {
-    "exercise_name_primary": "Decline Push Up", 
-    "exercise_aliases": ["Declined Push Ups"],
-    "difficulty": "8",
-    "planes_of_motion": ["Sagittal"],
+    "exercise_name_primary": "Decline Push-Up",
+    "exercise_aliases": [],
+    "difficulty": 7,
+    "planes_of_motion": ["sagittal"],
     "equipment": [{
-        "Name": "No equipment",
+        "Name": "no equipment",
         "Count": 0
     }],
     "proprioception": [],
     "other_props": [],
     "body_parts": {
-        "primary": "Chest",
-        "secondary": ["Triceps", "Core"]
+        "primary": "chest",
+        "secondary": ["shoulders", "triceps"]
     },
     "exercise_type": "Push",
-    "OPT_model_phases": ["Stabilization", "Strength"],
-    "exercise_category": ["Resistance"],
-    "joint_usage": "Multijoint",
-    "sides": "Unilateral",
+    "OPT_model_phases": ["stabilization"],
+    "exercise_category": ["resistance", "neuromotor"],
+    "joint_usage": "multijoint",
+    "sides": "unilateral",
     "sports_relevance": [],
-    "corrective_exercise": ["Forward head posture", "Shoulder elevation or shrugging"],
-    "contraindications": [],
-    "additional_tags": ["Gravity Resisted Exercise"],
-    "regressions": ["Standard Push Up", "Incline Push Up"],
-    "progressions": ["Clap Push Up", "Side to Side Push Up"],
-    "variations": ["Spider-Man Push Up", "Jumping Push Up"], 
-    "description": "To perform a decline push up, start by assuming a high plank position with your feet on a raised surface and hands should be placed below and slightly forward of your shoulders. Engage your core and squeeze your glutes. Once ready, begin the movement by bending your elbows and lowering your body until your chest or chin touches the floor. At the bottom of the movement, press away from the floor and return back to the starting position in a controlled manner. Make sure to lower and raise your body in a straight line."
+    "corrective_exercise": ["forward head posture"],
+    "contraindications": ["injury to the shoulder, elbow, and wrist"],
+    "additional_tags": ["compound exercise"],
+    "regressions": ["Push-Ups", "Incline Push-Ups", "Wall Push-Ups", "Knee Push-Ups", "Tabletop Push-Ups"],
+    "progressions": ["Elevated Feet Push-Ups", "Clapping Push-Ups", "Maltese Push-Ups", "Spiderman Push-Ups", "Weighted Push-Ups"],
+    "variations": ["Hover Push-Ups", "Ignitions Push-Ups", "Staggered Push-Ups", "Stacked Feet Push-Ups", "Staggered Push-Ups"],
+    "description": "Start in a plank position with your feet shoulder-width apart and your hands beneath your shoulders. Keep your core tight and your head in line with your spine. Bend your elbows and lower your body towards the floor. Push away from floor until your elbows are straight, then repeat." 
 }
-Type of exercise_details: <class 'str'>, Length: 1495
+Type of exercise_details: <class 'str'>, Length: 1426
 Successful json load
 Successful json clean
 Given the youtube video information "{'video_title': 'Upper Body: Decline Pushups', 'channel_title': 'Portland State Campus Rec', 'transcript': 'Campus Rec Movement of the Day Decline Pushup, upper body workout with Certified Personal Trainer Ben Kirkpatrick. Elevate feet on a couch, box, chair, etc. Position arms slightly wider than shoulder-width apart. Retract scapula and engage core. Lower chest to just above the ground. Pause in full stretch position. "Explode back up into starting position. Campus Rec Movement of the Day', 'total_time_seconds': 32}", provide exercise details in the following format: 
 
 {
     "exercise_name_primary": "The name of the exercise demonstrated",
-    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],
+    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],
     "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
     "planes_of_motion": ["List of planes of motion involved"],
     "equipment": [{
@@ -456,111 +528,48 @@ Given the youtube video information "{'video_title': 'Upper Body: Decline Pushup
     "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
     "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
     "additional_tags": ["List any additional tags relevant to the exercise"],
-    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
-    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
-    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],
-    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
+    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
+    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
+    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],
+    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
 } and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
 {
     "exercise_name_primary": "Decline Pushup",
     "exercise_aliases": [],
-    "difficulty": "7",
+    "difficulty": 8,
     "planes_of_motion": ["sagittal"],
     "equipment": [{
         "Name": "no equipment",
         "Count": 0
     }],
-    "proprioception": ["none"],
-    "other_props": ["couch, box, chair, etc. (for feet elevation)"],
+    "proprioception": [],
+    "other_props": ["chair/box/couch"],
     "body_parts": {
         "primary": "chest",
-        "secondary": ["triceps", "shoulders"]
+        "secondary": ["shoulders", "triceps"]
     },
     "exercise_type": "push",
-    "OPT_model_phases": ["stabilization"],
-    "exercise_category": ["resistance", "balance"],
+    "OPT_model_phases": ["stabilization endurance"],
+    "exercise_category": ["resistance"],
     "joint_usage": "multijoint",
-    "sides": "bilateral",
+    "sides": "unilateral",
     "sports_relevance": [],
     "corrective_exercise": [],
-    "contraindications": ["shoulder injury or pain"],
-    "additional_tags": ["bodyweight"],
-    "regressions": ["regular Pushup"],
-    "progressions": ["Feet Elevated Pushup"],
-    "variations": ["Wide Pushup", "Close Grip Pushup", "Spiderman Pushup"],
-    "description": "Begin in the standard pushup position but with feet elevated on a couch, box, chair and so on. Position the arms slightly wider than shoulder-width apart and retract the scapulae while engaging the core. Lower the chest to just above the ground and pause in full stretch position. Explosively push back up into the starting position." 
-}
-Type of exercise_details: <class 'str'>, Length: 1272
-Successful json load
-Successful json clean
-Given the youtube video information "{'video_title': 'Decline Push ups with Ball - Chaparral Fitness', 'channel_title': 'College of DuPage', 'transcript': '[MUSIC PLAYING] Decline push-up with a ball. Place your feet on the center of an exercise ball and your hands on the floor approximately shoulder width apart. Hold your torso up with your feet on the ball. This is your starting position. Slowly lower yourself downward until your chest nearly touches the floor. Pause. Then extend your elbows by pushing up off the floor back to your starting position. Be careful not to lock your elbows. [MUSIC PLAYING]', 'total_time_seconds': 48}", provide exercise details in the following format: 
-
-{
-    "exercise_name_primary": "The name of the exercise demonstrated",
-    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],
-    "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
-    "planes_of_motion": ["List of planes of motion involved"],
-    "equipment": [{
-        "Name": "Name of the equipment, which must be constrained to the following: ['treadmill', 'stationary bike', 'elliptical machine', 'rowing machine', 'dumbbell', 'barbell', 'kettlebell', 'resistance band', 'weight bench', 'leg press machine', 'cable machine', 'stability ball', 'jump rope', 'yoga mat', 'trx suspension trainer', 'battle rope', 'plyometric box', 'bench press', 'pull-up bar', 'power rack', 'climbing rope', 'foam roller', 'ab wheel', 'hula hoop', 'squat rack', 'punching bag', 'speed bag', 'heavy bag', 'exercise mat', 'stair stepper', 'exercise ball', 'gymnastic ring', 'trap bar', 'battle ropes', 'swiss ball', 'medicine ball', 'weight plate', 'push-up bar', 'dip station', 'roman chair', 'cable crossover machine', 'smith machine', 'hack squat machine', 'glute ham raise machine', 'calf raise machine', 'seated leg curl machine', 'leg extension machine', 'chest fly machine', 'lat pulldown machine', 'cable row machine', 'cable pulldown machine', 'treadmill', 'exercise bike', 'cross trainer', 'no equipment']",
-        "Count": "Minimum number of this equipment needed (THIS FIELD SHOULD BE AN INTEGER)"
-    }],
-    "proprioception": ["List of proprioceptive tools used"],
-    "other_props": ["List of other props necessary to do the exercise"],
-    "body_parts": {
-        "primary": "This field must be populated. Specify one primary body part or muscle group primarily engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']",
-        "secondary": ["List of other body parts or muscle groups engaged, which must be constrained to the following: ['upper back', 'lower back', 'chest', 'quadriceps', 'hamstrings', 'glutes', 'biceps', 'triceps', 'core', 'shoulders', 'forearms']"]
-    },
-    "exercise_type": "Specify whether the exercise is a 'push' or 'pull' exercise",
-    "OPT_model_phases": ["List the phase or phases of the NASM OPT model that the exercise falls into"],
-    "exercise_category": ["Categorize the exercise (it can fall into multiple categories): balance, core, resistance, flexibility, cardio, plyometric, SAQ, neuromotor"],
-    "joint_usage": "Specify the type of joint usage: isolation, multijoint, or full body",
-    "sides": "Specify the type of sides: unilateral, bilateral, or alternating",
-    "sports_relevance": ["List any sports where this exercise is specifically relevant or beneficial (e.g. golf, tennis, basketball)"],
-    "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
-    "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
-    "additional_tags": ["List any additional tags relevant to the exercise"],
-    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
-    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
-    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],
-    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
-} and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
-{
-    "exercise_name_primary": "Decline Pushup with Ball",
-    "exercise_aliases": [],
-    "difficulty": 8,
-    "planes_of_motion": ["sagittal"],
-    "equipment": [{
-        "Name": "exercise ball",
-        "Count": 1
-    }],
-    "proprioception": [],
-    "other_props": [],
-    "body_parts": {
-        "primary": "chest",
-        "secondary": ["triceps", "shoulders"]
-    },
-    "exercise_type": "push",
-    "OPT_model_phases": ["stabilization", "strength"],
-    "exercise_category": ["resistance"],
-    "joint_usage": "isolation",
-    "sides": "bilateral",
-    "sports_relevance": [],
-    "corrective_exercise": ["forward head posture"],
     "contraindications": [],
     "additional_tags": [],
-    "regressions": ["Push-up"],
-    "progressions": ["Decline Push-up"],
-    "variations": [],
-    "description": "Start in a prone position with your feet on the center of an exercise ball and your hands on the floor approximately shoulder width apart. Hold your torso up with your feet on the ball. Lower yourself downward until your chest nearly touches the floor. Pause. Then extend your elbows by pushing up off the floor back to your starting position. Be careful not to lock your elbows."
+    "regressions": ["Pushup", "Side Pushup", "Wall Pushup"],
+    "progressions": ["Incline Pushup", "Weighted Pushup", "Dive Bomber Pushup"],
+    "variations": ["Wide Pushup", "Decline Wide Pushup", "Pike Pushup"],
+    "description": "Start in a plank position with feet elevated on a box, chair or couch. Position hands slightly wider than shoulder width apart, engage core and retract the shoulder blades. Lower chest to just above the ground, pause in the bottom position slightly and then press back to the starting position with control. Make sure to keep the core tight throughout the movements and avoid arching or sagging the lower back."
 }
-Type of exercise_details: <class 'str'>, Length: 1193
+Type of exercise_details: <class 'str'>, Length: 1328
 Successful json load
 Successful json clean
 Given the youtube video information "{'video_title': 'Knee Push Up Plus - Serratus Anterior Strengthening Exercise', 'channel_title': 'PhysioExercise', 'transcript': 'Hello and welcome to this video about the Knee Push-up Plus which is a modification of the Push-up Plus exercise as described by Decker et al. in the year 1999 and by Mendez et al in the year 2021. This exercise generated the a MVIC of 72% in the Serratus Anterior muscle. To perform this exercise, go into a prone position with hands shoulder wide apart and chest near the ground. Keep in mind that body weight is supported by the hands and knees rather than the hands and feet. Extend your elbows to a standard push-up position and continue to rise up by protracting the scapula then return to the starting position by retracting the scapula and repeat this exercise with respect to the pain.', 'total_time_seconds': 45}", provide exercise details in the following format: 
 
 {
     "exercise_name_primary": "The name of the exercise demonstrated",
-    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],
+    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],
     "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
     "planes_of_motion": ["List of planes of motion involved"],
     "equipment": [{
@@ -582,16 +591,16 @@ Given the youtube video information "{'video_title': 'Knee Push Up Plus - Serrat
     "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
     "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
     "additional_tags": ["List any additional tags relevant to the exercise"],
-    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
-    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
-    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],
-    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
+    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
+    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
+    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],
+    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
 } and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
 {
-    "exercise_name_primary": "Knee Push-up Plus",
-    "exercise_aliases": ["The Push-up Plus exercise"],
-    "difficulty": "6",
-    "planes_of_motion": ["Sagittal"],
+    "exercise_name_primary": "Knee Push Up Plus",
+    "exercise_aliases": [],
+    "difficulty": "5",
+    "planes_of_motion": ["sagittal"],
     "equipment": [{
         "Name": "No equipment",
         "Count": 0
@@ -600,30 +609,30 @@ Given the youtube video information "{'video_title': 'Knee Push Up Plus - Serrat
     "other_props": [],
     "body_parts": {
         "primary": "Serratus Anterior",
-        "secondary": ["Chest", "Shoulders"]
+        "secondary": ["Triceps", "Shoulders"]
     },
     "exercise_type": "Push",
-    "OPT_model_phases": ["Stabilization"],
-    "exercise_category": ["Resistance", "Neuromotor"],
+    "OPT_model_phases": ["Stabilization Endurance"],
+    "exercise_category": ["resistance"],
     "joint_usage": "Multijoint",
     "sides": "Unilateral",
     "sports_relevance": [],
-    "corrective_exercise": ["Scapular winging", "Anterior Pelvic Tilt"],
+    "corrective_exercise": [],
     "contraindications": [],
     "additional_tags": [],
-    "regressions": ["Standard Push-up"],
-    "progressions": ["Push-up Plus", "Feet-Elevated Push-up Plus"],
-    "variations": ["Single Arm Push-up Plus", "Wide Arm Push-up Plus", "Shoulder Push-up Plus"],
-    "description": "To perform this exercise, go into a prone position with hands shoulder wide apart and chest near the ground. Keep in mind that body weight is supported by the hands and knees rather than the hands and feet. Extend your elbows to a standard push-up position and continue to rise up by protracting the scapula then return to the starting position by retracting the scapula and repeat this exercise with respect to the pain."
+    "regressions": ["Push-up Plus"],
+    "progressions": ["Incline Push-up Plus", "Decline Push-up Plus", "Feet Elevated Push-up Plus"],
+    "variations": ["Plank Push-up Plus", "Knee Plank Push-up Plus"],
+    "description": "Begin in a prone position with your hands shoulder-width apart and chest close to the ground. Support your body weight with your hands and knees instead of your hands and feet. Extend your elbows into the beginning of a standard push-up position, then make a conscious effort to raise yourself up by protracting the scapula. Once more elevated, slowly return to the starting position by retracting the scapula. Keep in mind that pain should be your guide while performing the exercise."
 }
-Type of exercise_details: <class 'str'>, Length: 1401
+Type of exercise_details: <class 'str'>, Length: 1394
 Successful json load
 Successful json clean
-Given the youtube video information "{'video_title': 'How To Do KNEE PUSH UPS | Chest &amp; Triceps Workout', 'channel_title': 'Stylecraze Fitness', 'transcript': "hi I'm Rachel Ganguly I'm a fitness trainer let's do some knee push-ups keep your hands shoulder width apart knees bent lower your body to the floor by bending your arms in pain while you're going down and exhale while you're coming up this is a modified push-up I hope you guys enjoyed this video do hit the like button if you want to get fitter subscribe to our Channel", 'total_time_seconds': 48}", provide exercise details in the following format: 
+Given the youtube video information "{'video_title': 'KNEE PUSH-UP with audio instructions', 'channel_title': 'Lean with Liz', 'transcript': 'kneel on the floor extend arms and put hands shoulder-width apart on the floor in front of you tighten abdominals while you bend arms lowering your torso push torso back up by straightening arms slow and steady never round your back keep your back straight go as low as you can', 'total_time_seconds': 18}", provide exercise details in the following format: 
 
 {
     "exercise_name_primary": "The name of the exercise demonstrated",
-    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],
+    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],
     "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
     "planes_of_motion": ["List of planes of motion involved"],
     "equipment": [{
@@ -645,48 +654,45 @@ Given the youtube video information "{'video_title': 'How To Do KNEE PUSH UPS | 
     "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
     "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
     "additional_tags": ["List any additional tags relevant to the exercise"],
-    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
-    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
-    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],
-    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
+    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
+    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
+    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],
+    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
 } and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
 {
-    "exercise_name_primary": "Knee Push-Ups",
+    "exercise_name_primary": "Knee Push-up",
     "exercise_aliases": [],
-    "difficulty": 5,
-    "planes_of_motion": ["sagittal"],
-    "equipment": [{
-        "Name": "no equipment",
-        "Count": 0
-    }],
+    "difficulty": 3,
+    "planes_of_motion": ["sagittal", "transverse"],
+    "equipment": [{"Name": "No Equipment", "Count": 0}],
     "proprioception": [],
     "other_props": [],
     "body_parts": {
         "primary": "chest",
-        "secondary": ["triceps"]
+        "secondary": ["triceps", "core"]
     },
-    "exercise_type": "push",
-    "OPT_model_phases": ["Stabilization", "Strength"],
+    "exercise_type": "Push",
+    "OPT_model_phases": ["Stabilization"],
     "exercise_category": ["resistance", "core"],
     "joint_usage": "multijoint",
-    "sides": "bilateral", 
+    "sides": "bilateral",
     "sports_relevance": [],
     "corrective_exercise": [],
-    "contraindications": ["shoulder injury"],
-    "additional_tags": ["bodyweight exercise"],
-    "regressions": ["modified push-up"],
-    "progressions": ["regular push-up", "cliæk push-up"],
-    "variations": ["narrow push-up", "wide push-up"],
-    "description": "Start with hands shoulder-width apart and knees bent. Lower yourself to the floor by bending your arms while keeping the core tight. Exhale while coming back up into the starting position."
+    "contraindications": [],
+    "additional_tags": [],
+    "regressions": ["Plank", "Wall Push-up", "Cobra Position", "Bridge"],
+    "progressions": ["Shoulder Push-up", "Decline Push-up", "Jump Push-up"],
+    "variations": ["Mountain Climber Push-up", "Wide Grip Push-up", "Clap Push-up", "Elevated Push-up"],
+    "description": "Kneel on the floor with your arms extended and your hands shoulder width apart placed on the ground in front of you. Keep your back straight and abdominals tightened, bend your arms to lower your torso to the ground. Push your torso back up by straightening your arms and go as low as you can without rounding your back. Perform this movement steady and controlled."
 }
-Type of exercise_details: <class 'str'>, Length: 1061
+Type of exercise_details: <class 'str'>, Length: 1289
 Successful json load
 Successful json clean
-Given the youtube video information "{'video_title': 'Hip Pain &amp; Weakness: Wall Push up Knee Highs', 'channel_title': 'INSYNC PHYSIO Vancouver', 'transcript': 'Slightly flatten the lower back and keep the inner core muscles engaged below your belly button to stabilize your posture. Going into a plank position on the wall, bring yourself down into a push up while you lift one knee up in a straight line up towards your chest and then lower your leg back down as you straighten up with the push up. Repeat this on the other side while alternating each knee to chest doing a total of 10 repetitions on each side to start. Perform a total of 3 sets of 10 repetitions for each side. If youre a runner or do sports that involve running & experience anterior hip pain or weakness, then this exercise may help. If you have any pain during the exercise or are unsure about what you are doing, consult your local Physiotherapist before continuing.', 'total_time_seconds': 53}", provide exercise details in the following format: 
+Given the youtube video information "{'video_title': 'Wall Push Ups For Beginners | How To', 'channel_title': 'Stylecraze Fitness', 'transcript': "hi I'm Rachel Ganguly I'm a fitness trainer I'll show you how to do a wall pushup stand facing the wall arm's length away with feet slightly apart and legs straight butt knees not lock place your hands on the wall slightly wider than shoulder width apart keeping head in a neutral position bend elbows to lower your chest and head towards the wall coming as close as you can but not touching it straighten your arms and return to the starting position I hope you guys enjoyed this video do hit the like button you want to get Twitter subscribe to our Channel", 'total_time_seconds': 55}", provide exercise details in the following format: 
 
 {
     "exercise_name_primary": "The name of the exercise demonstrated",
-    "exercise_aliases": ["List of other known aliases for this exercise, if there are any, outside of the primary name"],
+    "exercise_aliases": ["List of other known names or aliases for this exercise, if there are any, outside of the primary name. This is NOT a variation of the exercise, but another name for the same exercise."],
     "difficulty": "On a scale of 1 (beginner) to 10 (expert) level, how difficult is this exercise to perform",
     "planes_of_motion": ["List of planes of motion involved"],
     "equipment": [{
@@ -708,40 +714,40 @@ Given the youtube video information "{'video_title': 'Hip Pain &amp; Weakness: W
     "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: ['rounded shoulders', 'forward head posture', 'knee valgus', 'knee varus', 'pronation distortion syndrome', 'lower crossed syndrome', 'upper crossed syndrome', 'scapular winging', 'anterior pelvic tilt', 'excessive forward lean', 'feet turned outward (excessive external rotation)', 'knees moving inward (valgus collapse)', 'feet pronation (flattening of arches)', 'heels rising off the ground', 'loss of lumbar curve (excessive flexion or extension)', 'forward head posture', 'shoulder elevation or shrugging']"],
     "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],
     "additional_tags": ["List any additional tags relevant to the exercise"],
-    "regressions": ["Provide a list of between 1 and 5 recognized actual exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
-    "progressions": ["Provide a list of between 1 and 5 recognized actual exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
-    "variations": ["Provide a list of between 1 and 5 recognized actual exercises that are neither regressions nor progressions, but variations of this exercise"],
-    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of a single instance or repetition of the exercise. Do not mention a certain number of rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
+    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],
+    "progressions": ["Provide a list of between 1 and 5 well-known and real exercises that would be more difficult or advanced compared to this exercise (also known as progressions)"],
+    "variations": ["Provide a list of between 1 and 5 well-known and real exercises that are neither regressions nor progressions, but variations of this exercise"],
+    "description": "Provide a detailed description or set of instructions for performing the exercise. Speak in terms of the mechanics of one single instance or repetition of the exercise. Do not mention performing a certain number of repetitions, rep range or count even if the transcript does. Absolutely do not copy or paraphrase closely the transcript. Use your knowledge of how to do the exercise as well. Don’t leave this field blank"
 } and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database
 {
-    "exercise_name_primary": "Wall Push up Knee Highs",
+    "exercise_name_primary": "Wall Push Up",
     "exercise_aliases": [],
-    "difficulty": "4",
-    "planes_of_motion": ["Frontal", "Sagittal"],
+    "difficulty": 3,
+    "planes_of_motion": ["Sagittal"],
     "equipment": [{
         "Name": "No Equipment",
-        "Count": 0
+        "Count": 1
     }],
     "proprioception": [],
     "other_props": [],
     "body_parts": {
-        "primary": "Quadriceps",
-        "secondary": ["Glutes", "Core", "Shoulders"]
+        "primary": "Chest",
+        "secondary": ["Shoulders", "Triceps"]
     },
     "exercise_type": "Push",
     "OPT_model_phases": ["Stabilization"],
-    "exercise_category": ["Core", "Resistance"],
+    "exercise_category": ["Resistance"],
     "joint_usage": "Multijoint",
-    "sides": "Alternating",
-    "sports_relevance": ["Running"],
-    "corrective_exercise": ["Knee Varus", "Anterior Pelvic Tilt", "Loss of Lumbar Curve"],
-    "contraindications": ["Ischemic Heart Disease", "Hypertension"],
-    "additional_tags": ["Anterior Hip Pain", "Hip Weakness"],
-    "regressions": ["Wall High Plank", "Wall Squat"],
-    "progressions": ["Single Arm Wall Push Up", "Hip Stretch Knee Highs"],
-    "variations": ["Mountain Climber Knee Highs", "Split Knee Up Push Up"],
-    "description": "Start in a plank position on the wall, slightly flatten your lower back and keep the inner core muscles engaged below your belly button. Lower down into a push up and then lift one knee up in a straight line up towards your chest. Return the leg back down and then straighten up with the push up. Alternate each knee to chest while performing a total of 10 repetitions on each side. Complete 3 sets of 10 repetitions on each side respectively."
+    "sides": "Unilateral",
+    "sports_relevance": [],
+    "corrective_exercise": [],
+    "contraindications": [],
+    "additional_tags": [],
+    "regressions": ["Push Ups on Knees", "Wall Push Away"],
+    "progressions": ["Push Up", "Incline Push Up"],
+    "variations": ["Wide Arm Push Up", "Lean and Reach Wall Push Up"],
+    "description": "Stand facing a wall at arm's length away, with feet slightly apart and legs straight, but knees not locked. Place your hands on the wall at slightly wider than shoulder width apart and keeping your head in a neutral position, bend your elbows to lower your chest and head towards the wall, coming as close as you can without touching the wall. Straighten your arms to return to the starting position. Ensure you maintain good form throughout the movement."
 }
-Type of exercise_details: <class 'str'>, Length: 1511
+Type of exercise_details: <class 'str'>, Length: 1312
 Successful json load
 Successful json clean
