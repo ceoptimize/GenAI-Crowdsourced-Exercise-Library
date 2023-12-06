@@ -1,128 +1,104 @@
-Timestamp: 2023-12-04 00:52:21
+Timestamp: 2023-12-06 13:35:41
+Video ID: ATink4Ix84A
+Video Title: 💪🏽 6 PUSH UP VARIATIONS TO BUILD A STRONGER CHEST, TRICEPS, SHOULDERS &amp; BACK 🔥
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Traceback: None
+
+Timestamp: 2023-12-06 13:35:42
 Video ID: zMwsibV1kng
 Video Title: Push Up Progression
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Traceback: no traceback
+Traceback: None
 
-Timestamp: 2023-12-04 00:52:22
+Timestamp: 2023-12-06 13:35:43
 Video ID: nJPZ3fjryVg
 Video Title: How many pushups per day to lose 1 lb/wk?
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Traceback: no traceback
+Traceback: None
 
-Timestamp: 2023-12-04 00:52:33
+Timestamp: 2023-12-06 13:35:44
 Video ID: VNtESzhTRtI
 Video Title: 🔥 How to INCREASE Push Ups fast? TRY THIS!
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Traceback: no traceback
+Traceback: None
 
-Timestamp: 2023-12-04 00:53:02
+Timestamp: 2023-12-06 13:36:27
+Video ID: ATink4Ix84A
+Video Title: 💪🏽 6 PUSH UP VARIATIONS TO BUILD A STRONGER CHEST, TRICEPS, SHOULDERS &amp; BACK 🔥
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Traceback: None
+
+Timestamp: 2023-12-06 13:36:28
 Video ID: zMwsibV1kng
 Video Title: Push Up Progression
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Traceback: no traceback
+Traceback: None
 
-Timestamp: 2023-12-04 00:53:03
+Timestamp: 2023-12-06 13:36:29
 Video ID: qq6MwUf4hFI
 Video Title: Incline Push Ups | Fitness Workout
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Traceback: no traceback
+Traceback: None
 
-Timestamp: 2023-12-04 00:53:55
-Video ID: Al9fOb4SFCU
-Video Title: How To Do KNEE PUSH UPS | Chest &amp; Triceps Workout
+Timestamp: 2023-12-06 13:37:01
+Video ID: zK-mwjE35nw
+Video Title: Push Up Variation: How To Do a Decline Push up | Tough Mudder Training
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Traceback: no traceback
+Traceback: None
 
-Timestamp: 2023-12-04 00:53:56
-Video ID: 6hUJ24m6v5A
-Video Title: Hip Pain &amp; Weakness: Wall Push up Knee Highs
+Timestamp: 2023-12-06 13:37:02
+Video ID: 2PSUrWs5By8
+Video Title: Decline Push Ups | Fitness Workout
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Traceback: no traceback
+Traceback: None
 
-Timestamp: 2023-12-04 00:54:05
-Video ID: GgZURSIYslE
-Video Title: Knee Push Up exercises while you watch TV.
+Timestamp: 2023-12-06 13:37:21
+Video ID: KPcL2QwMs_s
+Video Title: How To Do Decline Push Up Workout | Push ups | Shoulder Workout | Arm Workout | Triceps
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Traceback: no traceback
+Traceback: None
 
-Timestamp: 2023-12-04 00:54:06
-Video ID: zMwsibV1kng
-Video Title: Push Up Progression
+Timestamp: 2023-12-06 13:37:40
+Video ID: voWgMHWJlTQ
+Video Title: How Much Weight Do You Press in a Push-Up? #Shorts
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Traceback: no traceback
+Traceback: None
 
-Timestamp: 2023-12-04 00:54:07
-Video ID: xbJyQY4i5uw
-Video Title: Upper Body: Knee Pushups
-Likely/Unlikely Score: 0
-Error: Unlikely exercise video detected
-
-Traceback: no traceback
-
-Timestamp: 2023-12-04 00:54:07
-Video ID: nVsP36LTNvs
-Video Title: Knee push up - Easy
-Likely/Unlikely Score: 0
-Error: Unlikely exercise video detected
-
-Traceback: no traceback
-
-Timestamp: 2023-12-04 00:54:08
-Video ID: addOtAHj3SQ
-Video Title: Fix Your Knee Push Ups! #shorts
-Likely/Unlikely Score: 0
-Error: Unlikely exercise video detected
-
-Traceback: no traceback
-
-Timestamp: 2023-12-04 00:54:09
+Timestamp: 2023-12-06 13:37:41
 Video ID: VNtESzhTRtI
 Video Title: 🔥 How to INCREASE Push Ups fast? TRY THIS!
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Traceback: no traceback
+Traceback: None
 
-Timestamp: 2023-12-04 00:54:10
-Video ID: nJPZ3fjryVg
-Video Title: How many pushups per day to lose 1 lb/wk?
+Timestamp: 2023-12-06 13:37:56
+Video ID: 2USBv_AHjQw
+Video Title: Knee Push Up Plus - Serratus Anterior Strengthening Exercise
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
-Traceback: no traceback
-
-Timestamp: 2023-12-04 00:54:11
-Video ID: rLSQvI8ryDU
-Video Title: Modified Floor Push Up
-Likely/Unlikely Score: 1
-Error: value too long for type character varying(50)
-
-
-Traceback: Traceback (most recent call last):
-  File "/Users/christieentwistle/PycharmProjects/Youtubeapis/videoloader.py", line 130, in loadExerciseBasedVideos
-    self.postgres.insert_data(
-  File "/Users/christieentwistle/PycharmProjects/Youtubeapis/postgres.py", line 140, in insert_data
-    self.cursor.execute(query, values)
-psycopg2.errors.StringDataRightTruncation: value too long for type character varying(50)
-
-
+Traceback: None
 

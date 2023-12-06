@@ -17,7 +17,7 @@ def log_aggregate_results(successes, unlikely_videos, detail_failures, json_load
         except IOError as e:
             print(f"An I/O error occurred while writing to the aggregate log file: {str(e)}")
 
-def log_error(video_id, video_title, likely_score, error_message, traceback):
+def log_error(error_message, traceback = None, video_id = None, video_title = None, likely_score = None):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_message = (
         f"Timestamp: {timestamp}\n"

@@ -6,6 +6,7 @@ import pandas
 import json
 import traceback
 import stringfunctions
+import log
 
 
 '''
@@ -610,18 +611,7 @@ class PostgresDatabase:
         query = f"SELECT e.ExerciseName FROM ExerciseNameAlias ena JOIN Exercises e ON ena.AliasID = e.ExerciseID WHERE ena.ExerciseId = {exercise_id}"
         self.cursor.execute(query)
         return [row[0] for row in self.cursor.fetchall()]
-    '''
-    def get_existing_aliases(self, exercise_id):
-        # Query to fetch all aliases linked to the given exercise ID
-        query = f"""
-        SELECT e.ExerciseName 
-        FROM Exercises e 
-        INNER JOIN ExerciseNameAlias ena ON e.ExerciseID = ena.AliasID 
-        WHERE ena.ExerciseID = {exercise_id}
-        """
-        self.execute_query(query)
-        return [row[0] for row in self.cursor.fetchall()]
-    '''
+    
     def update_exercise_aliases_with_additional(self, exercise_id, exercise_name):
         print(f"Generating additional aliases for exercise name: {exercise_name}")
         additional_aliases = generate_aliases(exercise_name)
@@ -636,31 +626,8 @@ class PostgresDatabase:
                 if alias_id:
                     self.create_or_get_alias(exercise_id, alias_id)
                 print(f"Adding new alias: {sanitized_alias}")
-    '''
-    def update_exercise_aliases_with_additional(self, exercise_id, exercise_name):
-        additional_aliases = generate_aliases(exercise_name)
-        existing_aliases = self.get_existing_aliases(exercise_id)
-        new_aliases = set(additional_aliases) - set(existing_aliases)
-        if new_aliases:
-            self.update_exercise_aliases(exercise_id, list(new_aliases))
-    '''
-    '''
-    def update_exercise_aliases_with_additional(self, exercise_id, exercise_name):
-        print(f"Generating additional aliases for exercise name: {exercise_name}")
-        additional_aliases = generate_aliases(exercise_name)
-        print(f"Additional aliases generated: {additional_aliases}")
-        existing_aliases = self.get_existing_aliases(exercise_id)  
-        print(f"Existing aliases: {existing_aliases}")
-        
-        for alias in additional_aliases:
-            if alias not in existing_aliases:
-                print(f"Adding new alias: {alias}")
-                # Create or get the exercise ID for the alias
-                alias_id, _ = self.create_or_get_exercise(alias, None, insertnew=True)
-                # Insert into ExerciseNameAlias table
-                query = f"INSERT INTO ExerciseNameAlias (ExerciseID, AliasID) VALUES ({exercise_id}, {alias_id})"
-                self.execute_query(query)
-    '''  
+  
+ 
 
     def sanitize_and_check_exercise_relation(self, exercise_id, relation_id, relation_type):
         try:
@@ -690,6 +657,16 @@ class PostgresDatabase:
         except Exception as e:
             raise Exception(f"Error in sanitize_and_check_exercise_relation: {str(e)}")    
 
+    def normalize_json_keys(self, adjustment_json):
+        # Check and rename the 'regressions' key to 'regression' if it exists
+        if 'regressions' in adjustment_json:
+            adjustment_json['regression'] = adjustment_json.pop('regressions')
+
+        # Similarly, check and rename the 'progressions' key to 'progression' if it exists
+        if 'progressions' in adjustment_json:
+            adjustment_json['progression'] = adjustment_json.pop('progressions')
+
+        return adjustment_json
     
     def handle_existing_exercises_adjustments(self, exercise_id, regression_ids, progression_ids, variation_ids, chatgpt):
         # For each list (regressions, progressions, variations), fetch the exercise details
@@ -708,8 +685,12 @@ class PostgresDatabase:
 
     def update_exercise_relation_details(self, exercise_id, related_exercise_id, adjustment_json):
         try:
-            adjustment_data = json.loads(adjustment_json)
-
+           # adjustment_data = json.loads(adjustment_json)
+            adjustment_data = self.normalize_json_keys(adjustment_json)
+              # Convert the dictionary to a JSON string for logging
+            adjustment_data_str = json.dumps(adjustment_data, indent=4)
+            log.log_exercise_details(adjustment_data_str)
+        
             # Update regressions
             for area in adjustment_data.get('regression', []):
                 self.insert_or_update_relation_detail(exercise_id, related_exercise_id, 'regression', area)
@@ -757,20 +738,7 @@ class PostgresDatabase:
 
         return existing_relation_ids
     
-    '''
-    def update_exercise_relations(self, exercise_id, relation_list, relation_type, insertnew):
-        try:
-            for relation in relation_list:
-                relation_name = relation.strip().lower()
 
-                # Sanitize and check relation exercise
-                relation_id = self.create_or_get_exercise(relation_name, None, insertnew = insertnew)
-                if relation_id is None:
-                    break
-                self.sanitize_and_check_exercise_relation(exercise_id, relation_id, relation_type)
-        except Exception as e:
-            raise Exception(f"Error in update_exercise_relations: {str(e)}")  
-    '''
     def update_exercise_youtube(self, exercise_id, video_id):
         try:
         

@@ -96,53 +96,67 @@ class ChatGPT:
     
     def get_related_exercise_adjustments(self, primary_exercise_name, primary_exercise_desc, related_exercise_name, related_exercise_desc, relationship_type):
         # Construct the query
+        '''
         prompt = (
             f"Primary Exercise: {primary_exercise_name}\n"
             f"Primary Exercise description: {primary_exercise_desc}\n\n"
             f"Related Exercise: {related_exercise_name}\n"
             f"Related Exercise description: {related_exercise_desc}\n\n"
-            "Exercises can be progresed or regressed according to the following adjustment areas: " + ', '.join(self.adjustment_areas) + ".\n\n"
-            "Return a JSON format response indicating for each adjustment area if the related exercise is a regression, or progression to the primary exercise. If an adjustment area is neither progressed nor regressed than omit it. But you can never have an adjusment area that is both regressed and progressed. "
-            "The JSON format should be:\n"
+            "You are PersonalTrainerGPT. Exercises can be progressed or regressed in the following adjustment areas: " + ', '.join(self.valid_adjustments) + ".\n\n"
+            "Return a response in JSON format. Indicate if the related exercise is a regression or progression to the primary exercise in any of the adjustment areas. You do NOT have to use all of the adjustment areas - only the ones that apply."
+            "The JSON format should look like this:\n"
             "{\n"
-            "   'related_exercise_id': <id>,\n"
-            "   'regression': ['<adjustment area 1>', '<adjustment area 2>', ...],\n"
-            "   'progression': ['<adjustment area 3>', '<adjustment area 4>', ...]\n"
+            "   \"related_exercise_id\": \"<id>\",\n"
+            "   \"regression\": [list of adjustment areas],\n"
+            "   \"progression\": [list of adjustment areas]\n"   
             "}"
         )
+        '''
 
-        # Get the response from ChatGPT
-        response = self._get_chatgpt_response(prompt)
-
-        # Process and return the response
-        if response.choices:
-            adjustment_details = response.choices[0].text.strip()
-            return adjustment_details
-        else:
-            # Handle cases where the response is empty or invalid
-            return "Unable to determine adjustment details"
-
-
-    def get_related_exercise_adjustments(self, primary_exercise_name, primary_exercise_desc, related_exercise_name, related_exercise_desc, relationship_type):
-        # Construct the query
         prompt = (
             f"Primary Exercise: {primary_exercise_name}\n"
-            f"Description: {primary_exercise_desc}\n\n"
+            f"Primary Exercise description: {primary_exercise_desc}\n\n"
             f"Related Exercise: {related_exercise_name}\n"
-            f"Description: {related_exercise_desc}\n\n"
-            "For each of the following adjustment areas: complexity, range of motion, stability, lever length, equipment, and speed, specify if the related exercise is a regression, progression, or unrelated to the primary exercise in that particular area."
+            f"Related Exercise description: {related_exercise_desc}\n\n"
+            "You are PersonalTrainerGPT. Analyze the following adjustment areas for the exercises: " + ', '.join(self.valid_adjustments) + ".\n\n"
+            "Based on what you already know about these exercises, and if it helps, the descriptions provided, return a response in JSON format. Indicate if the related exercise is a regression or progression to the primary exercise in any of the adjustment areas. If it is neither, then leave it out of both categories! I would rather have you omit an adjustment area then give false information."
+            "Format the response as follows, ensuring to use double quotes for all keys and string values:\n"
+            "{\n"
+            "   \"related_exercise_id\": \"<related exercise ID>\",\n"
+            "   \"regression\": [\"<adjustment area 1>\", \"<adjustment area 2>\", ...],\n"
+            "   \"progression\": [\"<adjustment area 3>\", \"<adjustment area 4>\", ...]\n"
+            "}\n"
+            "Note: Do not include an adjustment area if it does not apply. Only use the areas that are relevant for the related exercise."
         )
+
 
         # Get the response from ChatGPT
         response = self._get_chatgpt_response(prompt)
 
         # Process and return the response
         if response.choices:
-            adjustment_details = response.choices[0].text.strip()
-            return adjustment_details
+            adjustment_details_raw = response.choices[0].text.strip()
+
+             # Clean the response and extract JSON
+            cleaned_details = self.clean_json_response(adjustment_details_raw)
+            if cleaned_details is None:
+                log.log_error("No valid JSON found in the response after attempting to clean json")
+                return "Unable to determine adjustment details"
+            else: 
+                log.log_exercise_details(cleaned_details)
+            try:
+                # Parse the cleaned response as JSON
+                adjustment_json = json.loads(cleaned_details)
+               
+                return adjustment_json
+            except json.JSONDecodeError as je:
+                log.log_error(f"JSON parsing error: {je}")
+                return "Unable to determine adjustment details"
         else:
             # Handle cases where the response is empty or invalid
+            log.log_error(f"Adjustment details response is empty or invalid {je}")
             return "Unable to determine adjustment details"
+
         
     def is_likely_exercise_video(self, video_id, video_title, channel_title, transcript, duration):
         # Construct the prompt for querying ChatGPT
@@ -270,32 +284,7 @@ class ChatGPT:
         # Log that all retries have been exhausted without success
         log.log_exercise_details("All retries exhausted without a successful response.")
         return None  # or some default value or action
-    '''
-    def get_exercise_details(self, gptquerydata, user_message, max_retries=3):
-        for _ in range(max_retries):
-            response = self._get_chatgpt_response(user_message)
-            if response.choices:
-                exercise_details = response.choices[0].text.strip()
-                print("ChatGPT response:")
-                log.log_exercise_details(exercise_details)
-                
-                # Try to parse the response into JSON
-                try:
-                    exercise_json = json.loads(exercise_details)
-                    print("Parsed JSON:")
-                    print(exercise_json)
-                    
-                    exercise_json = self.clean_exercises(exercise_json)
-                    log.log_exercise_details("Successful json load and clean")
-                    return exercise_json    
-                except json.JSONDecodeError as je:
-                    log.log_exercise_details(f"Failed to parse JSON. Response may not be in JSON format.\nError: {je}")
-            else:
-                print("Received an empty or invalid response from ChatGPT. Resubmitting request.")
-        
-        # If max_retries reached without obtaining valid JSON, raise an exception.
-        raise Exception("Unable to obtain valid exercise details after multiple retries")
-    '''
+   
     def _get_chatgpt_response(self, prompt):
     
         try:
