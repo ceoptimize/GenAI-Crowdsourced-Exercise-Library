@@ -132,8 +132,6 @@ class PostgresDatabase:
     def insert_data(self, table_name,  columns: list, values: list, primarykey= None):
        # self.cursor.execute(f"INSERT INTO {table_name} (exercise, body_parts, equipment_used) VALUES (%s, %s), (exercise, body_parts, equipment_used)")
        # self.cursor.execute(f"INSERT INTO {table_name} (exercise, body_parts, equipment_used) VALUES (%s, %s)", (exercise, bodyparts))
-        print(columns)
-        print(values)
         query = f"INSERT INTO {table_name} ({', '.join(columns)}) VALUES ({', '.join(['%s'] * len(values))})"
         if primarykey is None:
             primarykey  = self.get_primary_key_columns(table_name)
@@ -539,306 +537,6 @@ class PostgresDatabase:
                 return result[0] if result else None
         except Exception as e:
             raise Exception(f"Error in sanitize_and_check_body_area: {str(e)}")
-    
-    def sanitize_and_check_mechanics(self, mechanics):
-        try:
-            sanitized_mechanics = stringfunctions.sanitize_string(mechanics)
-
-            query = f"SELECT MechanicsID FROM Mechanics WHERE Mechanics = '{sanitized_mechanics}'"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                return result[0]
-            else:
-                query = f"INSERT INTO Mechanics (Mechanics) VALUES ('{sanitized_mechanics}') RETURNING MechanicsID"
-                self.execute_query(query)
-                result = self.cursor.fetchone()
-                return result[0] if result else None
-        except Exception as e:
-            raise Exception(f"Error in sanitize_and_check_mechanics: {str(e)}")
-
-    def update_exercise_mechanics(self, exercise_id, mechanics_id):
-        try:
-            query = f"SELECT ExerciseMechanicsID FROM ExerciseMechanics WHERE ExerciseID = {exercise_id} AND MechanicsID = {mechanics_id}"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                exercise_mechanics_id = result[0]
-                query = f"UPDATE ExerciseMechanics SET MechanicsVotes = MechanicsVotes + 1 WHERE ExerciseMechanicsID = {exercise_mechanics_id}"
-                self.execute_query(query)
-            else:
-                query = f"INSERT INTO ExerciseMechanics (ExerciseID, MechanicsID, MechanicsVotes) VALUES ({exercise_id}, {mechanics_id}, 1)"
-                self.execute_query(query)
-        except Exception as e:
-            raise Exception(f"Error in update_exercise_mechanics: {str(e)}")
-    
-    def sanitize_and_check_joint_usage(self, joint_usage):
-        try:
-            sanitized_joint_usage = stringfunctions.sanitize_string(joint_usage)
-
-            query = f"SELECT JointUsageID FROM JointUsage WHERE JointUsage = '{sanitized_joint_usage}'"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                return result[0]
-            else:
-                query = f"INSERT INTO JointUsage (JointUsage) VALUES ('{sanitized_joint_usage}') RETURNING JointUsageID"
-                self.execute_query(query)
-                result = self.cursor.fetchone()
-                return result[0] if result else None
-        except Exception as e:
-            raise Exception(f"Error in sanitize_and_check_joint_usage: {str(e)}")
-
-    def update_exercise_joint_usage(self, exercise_id, joint_usage_id):
-        try:
-            query = f"SELECT ExerciseJointUsageID FROM ExerciseJointUsage WHERE ExerciseID = {exercise_id} AND JointUsageID = {joint_usage_id}"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                exercise_joint_usage_id = result[0]
-                query = f"UPDATE ExerciseJointUsage SET JointUsageVotes = JointUsageVotes + 1 WHERE ExerciseJointUsageID = {exercise_joint_usage_id}"
-                self.execute_query(query)
-            else:
-                query = f"INSERT INTO ExerciseJointUsage (ExerciseID, JointUsageID, JointUsageVotes) VALUES ({exercise_id}, {joint_usage_id}, 1)"
-                self.execute_query(query)
-        except Exception as e:
-            raise Exception(f"Error in update_exercise_joint_usage: {str(e)}")
-
-    def sanitize_and_check_sides(self, sides):
-        try:
-            sanitized_sides = stringfunctions.sanitize_string(sides)
-
-            query = f"SELECT SidesID FROM Sides WHERE SidesName = '{sanitized_sides}'"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                return result[0]
-            else:
-                query = f"INSERT INTO Sides (SidesName) VALUES ('{sanitized_sides}') RETURNING SidesID"
-                self.execute_query(query)
-                result = self.cursor.fetchone()
-                return result[0] if result else None
-        except Exception as e:
-            raise Exception(f"Error in sanitize_and_check_sides: {str(e)}")
-
-    def update_exercise_sides(self, exercise_id, sides_id):
-        try:
-            query = f"SELECT ExerciseSidesID FROM ExerciseSides WHERE ExerciseID = {exercise_id} AND SidesID = {sides_id}"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                exercise_sides_id = result[0]
-                query = f"UPDATE ExerciseSides SET SidesVotes = SidesVotes + 1 WHERE ExerciseSidesID = {exercise_sides_id}"
-                self.execute_query(query)
-            else:
-                query = f"INSERT INTO ExerciseSides (ExerciseID, SidesID, SidesVotes) VALUES ({exercise_id}, {sides_id}, 1)"
-                self.execute_query(query)
-        except Exception as e:
-            raise Exception(f"Error in update_exercise_sides: {str(e)}")
-
-    def sanitize_and_check_opt(self, opt_phase):
-        try:
-            sanitized_opt = stringfunctions.sanitize_string(opt_phase)
-
-            query = f"SELECT OptID FROM OPT WHERE OptPhase = '{sanitized_opt}'"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                return result[0]
-            else:
-                query = f"INSERT INTO OPT (OptPhase) VALUES ('{sanitized_opt}') RETURNING OptID"
-                self.execute_query(query)
-                result = self.cursor.fetchone()
-                return result[0] if result else None
-        except Exception as e:
-            raise Exception(f"Error in sanitize_and_check_opt: {str(e)}")
-
-    def update_exercise_opt(self, exercise_id, opt_id, opt_votes=1):
-        try:
-            query = f"SELECT ExerciseOptID FROM ExerciseOPT WHERE ExerciseID = {exercise_id} AND OptID = {opt_id}"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                exercise_opt_id = result[0]
-                query = f"UPDATE ExerciseOPT SET OptVotes = OptVotes + {opt_votes} WHERE ExerciseOptID = {exercise_opt_id}"
-                self.execute_query(query)
-            else:
-                query = f"INSERT INTO ExerciseOPT (ExerciseID, OptID, OptVotes) VALUES ({exercise_id}, {opt_id}, {opt_votes})"
-                self.execute_query(query)
-        except Exception as e:
-            raise Exception(f"Error in update_exercise_opt: {str(e)}")
-        
-    def sanitize_and_check_category(self, category_name):
-        try:
-            sanitized_name = stringfunctions.sanitize_string(category_name)
-
-            # Check if the category already exists
-            query = f"SELECT CategoryID FROM Category WHERE CategoryName = '{sanitized_name}'"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                return result[0]  # Return existing CategoryID
-            else:
-                # Insert new category
-                query = f"INSERT INTO Category (CategoryName) VALUES ('{sanitized_name}') RETURNING CategoryID"
-                self.execute_query(query)
-                result = self.cursor.fetchone()
-                return result[0] if result else None
-        except Exception as e:
-            raise Exception(f"Error in sanitize_and_check_category: {str(e)}")
-
-        
-
-    def update_exercise_category(self, exercise_id, category_id):
-        try:
-            # Check if the relationship already exists
-            query = f"SELECT ExerciseCategoryID FROM ExerciseCategory WHERE ExerciseID = {exercise_id} AND CategoryID = {category_id}"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                # Relationship exists, update votes
-                exercise_category_id = result[0]
-                query = f"UPDATE ExerciseCategory SET CategoryVotes = CategoryVotes + 1 WHERE ExerciseCategoryID = {exercise_category_id}"
-                self.execute_query(query)
-            else:
-                # Insert new relationship
-                query = f"INSERT INTO ExerciseCategory (ExerciseID, CategoryID, CategoryVotes) VALUES ({exercise_id}, {category_id}, 1)"
-                self.execute_query(query)
-        except Exception as e:
-            raise Exception(f"Error in update_exercise_category: {str(e)}")
-
-
-    def sanitize_and_check_corrective(self, corrective_name):
-        try:
-            sanitized_name = stringfunctions.sanitize_string(corrective_name)
-
-            # Check if the corrective already exists
-            query = f"SELECT CorrectiveID FROM Corrective WHERE CorrectiveName = '{sanitized_name}'"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                return result[0]  # Return existing CorrectiveID
-            else:
-                # Insert new corrective
-                query = f"INSERT INTO Corrective (CorrectiveName) VALUES ('{sanitized_name}') RETURNING CorrectiveID"
-                self.execute_query(query)
-                result = self.cursor.fetchone()
-                return result[0] if result else None
-        except Exception as e:
-            raise Exception(f"Error in sanitize_and_check_corrective: {str(e)}")
-
-    def update_exercise_corrective(self, exercise_id, corrective_id):
-        try:
-            # Check if the relationship already exists
-            query = f"SELECT ExerciseCorrectiveID FROM ExerciseCorrective WHERE ExerciseID = {exercise_id} AND CorrectiveID = {corrective_id}"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                # Relationship exists, update votes
-                exercise_corrective_id = result[0]
-                query = f"UPDATE ExerciseCorrective SET CorrectiveVotes = CorrectiveVotes + 1 WHERE ExerciseCorrectiveID = {exercise_corrective_id}"
-                self.execute_query(query)
-            else:
-                # Insert new relationship
-                query = f"INSERT INTO ExerciseCorrective (ExerciseID, CorrectiveID, CorrectiveVotes) VALUES ({exercise_id}, {corrective_id}, 1)"
-                self.execute_query(query)
-        except Exception as e:
-            raise Exception(f"Error in update_exercise_corrective: {str(e)}")
-
-
-    def sanitize_and_check_contraindication(self, contraindication_name):
-        try:
-            sanitized_name = stringfunctions.sanitize_string(contraindication_name)
-
-            # Check if the contraindication already exists
-            query = f"SELECT ContraindicationID FROM Contraindication WHERE ContraindicationName = '{sanitized_name}'"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                return result[0]  # Return existing ContraindicationID
-            else:
-                # Insert new contraindication
-                query = f"INSERT INTO Contraindication (ContraindicationName) VALUES ('{sanitized_name}') RETURNING ContraindicationID"
-                self.execute_query(query)
-                result = self.cursor.fetchone()
-                return result[0] if result else None
-        except Exception as e:
-            raise Exception(f"Error in sanitize_and_check_contraindication: {str(e)}")
- 
-    
-    def update_exercise_contraindication(self, exercise_id, contraindication_id):
-        try:
-            # Check if the relationship already exists
-            query = f"SELECT ExerciseContraindicationID FROM ExerciseContraindication WHERE ExerciseID = {exercise_id} AND ContraindicationID = {contraindication_id}"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                # Relationship exists, update votes
-                exercise_contraindication_id = result[0]
-                query = f"UPDATE ExerciseContraindication SET ContraindicationVotes = ContraindicationVotes + 1 WHERE ExerciseContraindicationID = {exercise_contraindication_id}"
-                self.execute_query(query)
-            else:
-                # Insert new relationship
-                query = f"INSERT INTO ExerciseContraindication (ExerciseID, ContraindicationID, ContraindicationVotes) VALUES ({exercise_id}, {contraindication_id}, 1)"
-                self.execute_query(query)
-        except Exception as e:
-            raise Exception(f"Error in update_exercise_contraindication: {str(e)}")
-        
-    
-    def sanitize_and_check_sport(self, sport_name):
-        try:
-            sanitized_name = stringfunctions.sanitize_string(sport_name)
-
-            # Check if the sport already exists
-            query = f"SELECT SportID FROM Sport WHERE SportName = '{sanitized_name}'"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                return result[0]  # Return existing SportID
-            else:
-                # Insert new sport
-                query = f"INSERT INTO Sport (SportName) VALUES ('{sanitized_name}') RETURNING SportID"
-                self.execute_query(query)
-                result = self.cursor.fetchone()
-                return result[0] if result else None
-        except Exception as e:
-            raise Exception(f"Error in sanitize_and_check_sport: {str(e)}")
-        
-    def update_exercise_sport(self, exercise_id, sport_id):
-        try:
-            # Check if the relationship already exists
-            query = f"SELECT ExerciseSportID FROM ExerciseSport WHERE ExerciseID = {exercise_id} AND SportID = {sport_id}"
-            self.execute_query(query)
-            result = self.cursor.fetchone()
-
-            if result:
-                # Relationship exists, update votes
-                exercise_sport_id = result[0]
-                query = f"UPDATE ExerciseSport SET SportVotes = SportVotes + 1 WHERE ExerciseSportID = {exercise_sport_id}"
-                self.execute_query(query)
-            else:
-                # Insert new relationship
-                query = f"INSERT INTO ExerciseSport (ExerciseID, SportID, SportVotes) VALUES ({exercise_id}, {sport_id}, 1)"
-                self.execute_query(query)
-        except Exception as e:
-            raise Exception(f"Error in update_exercise_sport: {str(e)}")
-
-
 
 
     def update_exercise_body_area(self, exercise_id, body_area_id, is_primary, is_primary_votes, is_secondary, is_secondary_votes):
@@ -868,15 +566,6 @@ class PostgresDatabase:
         except Exception as e:
             raise Exception(f"Error in update_exercise_description: {str(e)}")              
 
-    def update_exercise_tags(self, exercise_id, tags):
-        try:
-            for tag in tags:
-                sanitized_tag = stringfunctions.sanitize_string(tag)
-                query = f"INSERT INTO ExerciseTag (ExerciseID, ExerciseTag) VALUES ({exercise_id}, '{sanitized_tag}') ON CONFLICT DO NOTHING"
-                self.execute_query(query)
-        except Exception as e:
-            raise Exception(f"Error in update_exercise_tags: {str(e)}")
-
 
     def update_exercise_aliases(self, exercise_id, exercise_aliases):
         try:
@@ -890,7 +579,31 @@ class PostgresDatabase:
 
         except Exception as e:
             raise Exception(f"Error in update_exercise_aliases: {str(e)}")
-    
+    '''     
+    def update_exercise_aliases(self, exercise_id, exercise_aliases):
+        try:
+            for alias in exercise_aliases:
+                # Ensure alias is present in the Exercises table
+                alias_id, _ = self.create_or_get_exercise(alias, None, insertnew=True)
+
+                # Check if relation already exists in ExerciseNameAlias table
+                query = f"SELECT ExerciseAliasID FROM ExerciseNameAlias WHERE ExerciseID = {exercise_id} AND AliasID = {alias_id}"
+                self.execute_query(query)
+                result = self.cursor.fetchone()
+
+                if result:
+                    # Update existing relation
+                    exercise_alias_id = result[0]
+                    update_query = f"UPDATE ExerciseNameAlias SET AliasVotes = AliasVotes + 1 WHERE ExerciseAliasID = {exercise_alias_id}"
+                    self.execute_query(update_query)
+                else:
+                    # Insert new relation
+                    insert_query = f"INSERT INTO ExerciseNameAlias (ExerciseID, AliasID, AliasVotes) VALUES ({exercise_id}, {alias_id}, 1)"
+                    self.execute_query(insert_query)
+        except Exception as e:
+            raise Exception(f"Error in update_exercise_aliases: {str(e)}") 
+    '''  
+
 
     
     def get_existing_aliases(self, exercise_id):
@@ -1027,6 +740,7 @@ class PostgresDatabase:
 
     def update_exercise_youtube(self, exercise_id, video_id):
         try:
+        
             query = f"SELECT ExerciseVideoMatch FROM ExerciseYouTube WHERE ExerciseID = {exercise_id} " \
                     f"AND YoutubeVideoID = '{video_id}'"
             self.execute_query(query)
@@ -1049,10 +763,8 @@ class PostgresDatabase:
     def load_json(self, json_data, youtubevideoId: str, insertnewrelations = False):
         #print(json_data)
         # Parse JSON data
-        print ("WHAAAT")
         print(youtubevideoId)
         try:
-            
             exercise_name = stringfunctions.sanitize_string(json_data['exercise_name_primary'])
             print(exercise_name)
             exercise_difficulty = json_data.get('difficulty', 1)
@@ -1088,56 +800,6 @@ class PostgresDatabase:
             for plane in planes_of_motion:
                 body_plane_id = self.sanitize_and_check_body_plane(plane)
                 self.update_exercise_plane(exercise_id, body_plane_id, 1)
-            
-           
-            mechanics = json_data['exercise_mechanics']
-            if mechanics:  # check if mechanics data is present
-                mechanics_id = self.sanitize_and_check_mechanics(mechanics)
-                self.update_exercise_mechanics(exercise_id, mechanics_id)
-
-            
-                        # Inside load_json method
-            joint_usage = json_data.get('joint_usage', '')
-            if joint_usage:  # check if joint_usage data is present
-                joint_usage_id = self.sanitize_and_check_joint_usage(joint_usage)
-                self.update_exercise_joint_usage(exercise_id, joint_usage_id)
-
-                        # Inside load_json method
-            sides_data = json_data.get('sides', '')
-            if sides_data:  # check if sides data is present
-                sides_id = self.sanitize_and_check_sides(sides_data)
-                self.update_exercise_sides(exercise_id, sides_id)
-
-            opt_model_phases = json_data.get('OPT_model_phases', [])
-            for opt_phase in opt_model_phases:
-                opt_id = self.sanitize_and_check_opt(opt_phase)
-                self.update_exercise_opt(exercise_id, opt_id)
-
-                        # Inside load_json method
-            exercise_categories = json_data.get('exercise_category', [])
-            for category in exercise_categories:
-                category_id = self.sanitize_and_check_category(category)
-                self.update_exercise_category(exercise_id, category_id)
-
-            corrective_exercises = json_data.get('corrective_exercise', [])
-            for corrective in corrective_exercises:
-                corrective_id = self.sanitize_and_check_corrective(corrective)
-                self.update_exercise_corrective(exercise_id, corrective_id)
-            
-            contraindications = json_data.get('contraindications', [])
-            for contraindication in contraindications:
-                contraindication_id = self.sanitize_and_check_contraindication(contraindication)
-                self.update_exercise_contraindication(exercise_id, contraindication_id)
-
-            sports_relevance = json_data.get('sports_relevance', [])
-            for sport in sports_relevance:
-                sport_id = self.sanitize_and_check_sport(sport)
-                self.update_exercise_sport(exercise_id, sport_id)
-
-            tags = json_data.get('additional_tags', [])
-            if tags:
-                self.update_exercise_tags(exercise_id, tags)
-            
 
             # Process body areas
             body_parts = json_data['body_parts']
@@ -1171,7 +833,6 @@ class PostgresDatabase:
             existingvariationids = self.update_exercise_relations(exercise_id, variations, 'variation', insertnew= insertnewrelations)
 
             return exercise_id, existingregressionids, existingprogressionids, existingvariationids
-            
             # Commit changes to the database
            # self.conn.commit()
      
@@ -1227,5 +888,4 @@ class PostgresDatabase:
 
         
             
-
 

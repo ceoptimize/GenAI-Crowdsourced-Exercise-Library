@@ -200,19 +200,18 @@ class ChatGPT:
             f'\n        "Name": "Name of the equipment, which must be constrained to the following: {self.valid_equipment}",'
             f'\n        "Count": "Minimum number of this equipment needed (THIS FIELD SHOULD BE AN INTEGER)"'
             f'\n    }}],'
-            f'\n    "proprioception": ["List of proprioceptive tools used"],'
-            f'\n    "other_props": ["List of other props necessary to do the exercise"],'
+            f'\n    "other_props": ["List of any other props or equipment necessary to do the exercise"],'
             f'\n    "body_parts": {{'
             f'\n        "primary": "This field must be populated. Specify one primary body part or muscle group primarily engaged, which must be constrained to the following: {self.valid_bodyareas}",'
             f'\n        "secondary": ["List of other body parts or muscle groups engaged, which must be constrained to the following: {self.valid_bodyareas}"]'
             f'\n    }},'
-            f'\n    "exercise_type": "Specify whether the exercise is a \'push\' or \'pull\' exercise",'
+            f'\n    "exercise_mechanics": "Specify whether the exercise is a \'push\' or \'pull\' exercise",'
             f'\n    "OPT_model_phases": ["List the phase or phases of the NASM OPT model that the exercise falls into"],'
             f'\n    "exercise_category": ["Categorize the exercise (it can fall into multiple categories): balance, core, resistance, flexibility, cardio, plyometric, SAQ, neuromotor"],'
             f'\n    "joint_usage": "Specify the type of joint usage: isolation, multijoint, or full body",'
             f'\n    "sides": "Specify the type of sides: unilateral, bilateral, or alternating",'
             f'\n    "sports_relevance": ["List any sports where this exercise is specifically relevant or beneficial (e.g. golf, tennis, basketball)"],'
-            f'\n    "corrective_exercise": ["List any valid_compensations or muscular imbalances that this exercise would help correct, including any of the following: {self.valid_compensations}"],'
+            f'\n    "corrective_exercise": ["List any valid compensations or muscular imbalances that this exercise would help correct, including any of the following: {self.valid_compensations}"],'
             f'\n    "contraindications": ["List any health conditions or situations where the exercise is contraindicated"],'
             f'\n    "additional_tags": ["List any additional tags relevant to the exercise"],'
             f'\n    "regressions": ["Provide a list of between 1 and 5 well-known and real exercises that one would need to be capable of performing before attempting this exercise (also known as regressions)"],'
@@ -223,7 +222,7 @@ class ChatGPT:
         )
 
       
-        user_message = f'Given the youtube video information "{gptquerydata}", provide exercise details in the following format: {format_code} and please only use singular (not plural) in listing all items like exercise names, aliases, regressions, progressions and variations, equipment names, bodyparts, etc because they need to represent unique items in a database'
+        user_message = f'Act as PersonalTrainerGPT. Given the youtube video information "{gptquerydata}", provide exercise details in the following format: {format_code} and please only use singular (not plural) in listing all items. We need to build a database of unique items, so each item represents a single data element that can be used to inform workouts.'
 
         return(user_message)
  

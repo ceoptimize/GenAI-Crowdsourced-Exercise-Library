@@ -3,7 +3,6 @@
 import psycopg2
 import re
 import sqlparse
-import pandas
 import json
 import traceback
 

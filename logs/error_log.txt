@@ -1,4 +1,4 @@
-Timestamp: 2023-12-06 13:35:41
+Timestamp: 2023-12-10 17:14:51
 Video ID: ATink4Ix84A
 Video Title: 💪🏽 6 PUSH UP VARIATIONS TO BUILD A STRONGER CHEST, TRICEPS, SHOULDERS &amp; BACK 🔥
 Likely/Unlikely Score: 0
@@ -6,7 +6,15 @@ Error: Unlikely exercise video detected
 
 Traceback: None
 
-Timestamp: 2023-12-06 13:35:42
+Timestamp: 2023-12-10 17:15:01
+Video ID: mqhbzV6nlok
+Video Title: 7 Tips To Increase Your Push Ups In 30 Days
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Traceback: None
+
+Timestamp: 2023-12-10 17:15:02
 Video ID: zMwsibV1kng
 Video Title: Push Up Progression
 Likely/Unlikely Score: 0
@@ -14,39 +22,45 @@ Error: Unlikely exercise video detected
 
 Traceback: None
 
-Timestamp: 2023-12-06 13:35:43
-Video ID: nJPZ3fjryVg
-Video Title: How many pushups per day to lose 1 lb/wk?
+Timestamp: 2023-12-10 17:15:12
+Video ID: 98vlDZI_NcI
+Video Title: #1 Tip to get strong in Handstand Push Up (ft. Gabo Saturno)
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
 Traceback: None
 
-Timestamp: 2023-12-06 13:35:44
-Video ID: VNtESzhTRtI
-Video Title: 🔥 How to INCREASE Push Ups fast? TRY THIS!
-Likely/Unlikely Score: 0
-Error: Unlikely exercise video detected
+Timestamp: 2023-12-10 17:15:35
+Video ID: KT_jlToOLGU
+Video Title: 5EW Exercises: Incline Push-Ups
+Likely/Unlikely Score: 1
+Error: Error in sanitize_and_check_corrective: value too long for type character varying(20)
 
-Traceback: None
 
-Timestamp: 2023-12-06 13:36:27
-Video ID: ATink4Ix84A
-Video Title: 💪🏽 6 PUSH UP VARIATIONS TO BUILD A STRONGER CHEST, TRICEPS, SHOULDERS &amp; BACK 🔥
-Likely/Unlikely Score: 0
-Error: Unlikely exercise video detected
+Traceback: Traceback (most recent call last):
+  File "/Users/christieentwistle/PycharmProjects/Youtubeapis/postgres.py", line 735, in sanitize_and_check_corrective
+    self.execute_query(query)
+  File "/Users/christieentwistle/PycharmProjects/Youtubeapis/postgres.py", line 302, in execute_query
+    self.cursor.execute(query)
+psycopg2.errors.StringDataRightTruncation: value too long for type character varying(20)
 
-Traceback: None
 
-Timestamp: 2023-12-06 13:36:28
-Video ID: zMwsibV1kng
-Video Title: Push Up Progression
-Likely/Unlikely Score: 0
-Error: Unlikely exercise video detected
+During handling of the above exception, another exception occurred:
 
-Traceback: None
+Traceback (most recent call last):
+  File "/Users/christieentwistle/PycharmProjects/Youtubeapis/videoloader.py", line 143, in loadExerciseBasedVideos
+    exercise_id, existingregressionids, existingprogressionids,existingvariationids = self.postgres.load_json(json_data, youtubevideoId=video_id, insertnewrelations=insertnewrelations)
+                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/christieentwistle/PycharmProjects/Youtubeapis/postgres.py", line 1124, in load_json
+    corrective_id = self.sanitize_and_check_corrective(corrective)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/christieentwistle/PycharmProjects/Youtubeapis/postgres.py", line 739, in sanitize_and_check_corrective
+    raise Exception(f"Error in sanitize_and_check_corrective: {str(e)}")
+Exception: Error in sanitize_and_check_corrective: value too long for type character varying(20)
 
-Timestamp: 2023-12-06 13:36:29
+
+
+Timestamp: 2023-12-10 17:15:36
 Video ID: qq6MwUf4hFI
 Video Title: Incline Push Ups | Fitness Workout
 Likely/Unlikely Score: 0
@@ -54,7 +68,15 @@ Error: Unlikely exercise video detected
 
 Traceback: None
 
-Timestamp: 2023-12-06 13:37:01
+Timestamp: 2023-12-10 17:15:51
+Video ID: zMwsibV1kng
+Video Title: Push Up Progression
+Likely/Unlikely Score: 0
+Error: Unlikely exercise video detected
+
+Traceback: None
+
+Timestamp: 2023-12-10 17:16:25
 Video ID: zK-mwjE35nw
 Video Title: Push Up Variation: How To Do a Decline Push up | Tough Mudder Training
 Likely/Unlikely Score: 0
@@ -62,15 +84,7 @@ Error: Unlikely exercise video detected
 
 Traceback: None
 
-Timestamp: 2023-12-06 13:37:02
-Video ID: 2PSUrWs5By8
-Video Title: Decline Push Ups | Fitness Workout
-Likely/Unlikely Score: 0
-Error: Unlikely exercise video detected
-
-Traceback: None
-
-Timestamp: 2023-12-06 13:37:21
+Timestamp: 2023-12-10 17:16:49
 Video ID: KPcL2QwMs_s
 Video Title: How To Do Decline Push Up Workout | Push ups | Shoulder Workout | Arm Workout | Triceps
 Likely/Unlikely Score: 0
@@ -78,25 +92,17 @@ Error: Unlikely exercise video detected
 
 Traceback: None
 
-Timestamp: 2023-12-06 13:37:40
-Video ID: voWgMHWJlTQ
-Video Title: How Much Weight Do You Press in a Push-Up? #Shorts
+Timestamp: 2023-12-10 17:16:50
+Video ID: zMwsibV1kng
+Video Title: Push Up Progression
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
 Traceback: None
 
-Timestamp: 2023-12-06 13:37:41
-Video ID: VNtESzhTRtI
-Video Title: 🔥 How to INCREASE Push Ups fast? TRY THIS!
-Likely/Unlikely Score: 0
-Error: Unlikely exercise video detected
-
-Traceback: None
-
-Timestamp: 2023-12-06 13:37:56
-Video ID: 2USBv_AHjQw
-Video Title: Knee Push Up Plus - Serratus Anterior Strengthening Exercise
+Timestamp: 2023-12-10 17:16:51
+Video ID: V3xQaDIN_qk
+Video Title: How To: Decline Push-Up (Shiva Singh Health &amp; Fitness)#shortYouTube
 Likely/Unlikely Score: 0
 Error: Unlikely exercise video detected
 
