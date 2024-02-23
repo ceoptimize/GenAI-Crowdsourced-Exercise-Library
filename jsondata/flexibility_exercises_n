@@ -1,0 +1,311 @@
+{
+  "Flexibility_Exercises": [
+    {
+      "Flexibility_Subcategory": "myofascial release",
+      "Exercise_Name": "Self-Myofascial Release for Peroneals",
+      "Equipment": [
+        {
+          "Name": "Foam roller",
+          "Count": "1",
+          "Type": "MFR" 
+        }
+      ],
+      "Body_Area": "legs",
+      "Plane": "sagittal",
+      "Sides": "unilateral",
+      "supportsurface": "floor",
+      "bodyposition": "lateral",
+      "Unit": "duration",
+      "Description": "Position the foam roller under the side of the calf and roll up and down to release the peroneals."
+    },
+    {
+        "Flexibility_Subcategory": "myofascial release",
+        "Exercise_Name": "Quadriceps Foam Rolling",
+        "Equipment": [
+          {
+            "Name": "Foam roller",
+            "Count": "1",
+            "Type": "MFR"
+          }
+        ],
+        "Body_Area": "quadriceps",
+        "Plane": "sagittal",
+        "Sides": "bilateral",
+        "supportsurface": "floor",
+        "bodyposition": "prone",
+        "Unit": "duration",
+        "Description": "Lie prone with a foam roller placed under the front of the thighs. Using your forearms for support, roll up and down from the pelvic bone to the knee."
+    },
+    {
+      "Flexibility_Subcategory": "static",
+      "Exercise_Name": "Seated Ball Adductor Stretch",
+      "Equipment": [
+        {
+          "Name": "Stability ball",
+          "Count": "1",
+          "Type": "support"
+        }
+      ],
+      "Body_Area": "legs",
+      "Plane": "frontal",
+      "Sides": "bilateral",
+      "supportsurface": "stability ball",
+      "bodyposition": "seated",
+      "Unit": "duration",
+      "Description": "Sit with wide legs over a stability ball and gently lean forward to stretch the adductors."
+    },
+    {
+        "Flexibility_Subcategory": "myofascial release",
+        "Exercise_Name": "Thoracic Spine Release",
+        "Equipment": [
+            {
+            "Name": "Foam roller",
+            "Count": "1",
+            "Type": "MFR"
+            }
+        ],
+        "Body_Area": "back",
+        "Plane": "transverse",
+        "Sides": "bilateral",
+        "supportsurface": "floor",
+        "bodyposition": "supine",
+        "Unit": "duration",
+        "Description": "Lie back on a foam roller positioned under the thoracic spine. Cross arms over the chest, lift hips slightly, and gently roll back and forth to release tension."
+    },
+    {
+        "Flexibility_Subcategory": "static",
+        "Exercise_Name": "Seated Hamstring Stretch",
+        "Equipment": [
+            {
+            "Name": "None",
+            "Count": "0",
+            "Type": "None"
+            }
+        ],
+        "Body_Area": "legs",
+        "Plane": "sagittal",
+        "Sides": "bilateral",
+        "bodyposition": "floor seated",
+        "Unit": "duration",
+        "Description": "Sit on the ground with legs extended forward. Hinge at the hips and lean forward, reaching towards the toes, to stretch the hamstrings."
+    },
+    {
+        "Flexibility_Subcategory": "myofascial release",
+        "Exercise_Name": "Hamstrings Foam Rolling",
+        "Equipment": [
+          {
+            "Name": "Foam roller",
+            "Count": 1,
+            "Type": "MFR"
+          }
+        ],
+        "Body_Area": "legs",
+        "Plane": "sagittal",
+        "Sides": "bilateral",
+        "Support_surface": "floor",
+        "Body_Position": "seated",
+        "Unit": "duration",
+        "Description": "While seated on the floor, place a foam roller under the hamstrings and slowly roll back and forth to massage and release the muscles."
+    },
+    {
+        "Flexibility_Subcategory": "static",
+        "Exercise_Name": "Soleus Stretch",
+        "Equipment": [
+            {
+              "Name": "Wall",
+              "Count": 1,
+              "Type": "support"
+            }
+          ],
+        "Body_Area": "lower legs",
+        "Plane": "sagittal",
+        "Sides": "bilateral",
+        "Support_Surface": "floor",
+        "Body_Position": "standing",
+        "Unit": "duration",
+        "Description": "Stand facing a wall, step one foot back, and press the heel down while bending the front knee."
+      },
+      {
+        "Flexibility_Subcategory": "static",
+        "Exercise_Name": "90/90 Hamstring Stretch",
+        "Equipment": [],
+        "Body_Area": "hamstrings",
+        "Plane": "sagittal",
+        "Sides": "unilateral",
+        "Support_Surface": "floor",
+        "Body_Position": "seated",
+        "Unit": "duration",
+        "Description": "Sit with one leg extended, the other bent, and reach towards the toes of the extended leg."
+      },
+      {
+        "Flexibility_Subcategory": "static",
+        "Exercise_Name": "Supine Biceps Femoris Stretch",
+        "Equipment": [],
+        "Body_Area": "hamstrings",
+        "Plane": "sagittal",
+        "Sides": "unilateral",
+        "Support_Surface": "floor",
+        "Body_Position": "supine",
+        "Unit": "duration",
+        "Description": "Lie on your back, lift one leg straight up, and pull it gently towards you."
+      },
+      {
+        "Flexibility_Subcategory": "static",
+        "Exercise_Name": "Standing Biceps Femoris Stretch",
+        "Equipment": [
+          {
+            "Name": "Elevated Surface",
+            "Count": 1,
+            "Type": "elevation"
+          }
+        ],
+        "Body_Area": "hamstrings",
+        "Plane": "sagittal",
+        "Sides": "unilateral",
+        "Support_Surface": "floor",
+        "Body_Position": "standing",
+        "Unit": "duration",
+        "Description": "Place one foot on an elevated surface at hip level. Keeping the knee straight, hinge at the hip and lean forward until a stretch is felt in the hamstrings."
+      },
+      {
+        "Flexibility_Subcategory": "static",
+        "Exercise_Name": "Seated Ball Adductor Stretch",
+        "Equipment": [
+          {
+            "Name": "Stability Ball",
+            "Count": 1,
+            "Type": "support"
+          }
+        ],
+        "Body_Area": "adductors",
+        "Plane": "frontal",
+        "Sides": "bilateral",
+        "Support_Surface": "floor",
+        "Body_Position": "seated",
+        "Unit": "duration",
+        "Description": "Sit on the floor, legs wide over a stability ball. Lean forward, stretching the inner thighs."
+      },
+      {
+        "Flexibility_Subcategory": "static",
+        "Exercise_Name": "Adductor Magnus Stretch",
+        "Equipment": [
+          {
+            "Name": "Elevated Surface",
+            "Count": 1,
+            "Type": "elevation"
+          }
+        ],
+        "Body_Area": "adductors",
+        "Plane": "sagittal",
+        "Sides": "bilateral",
+        "Support_Surface": "elevated surface",
+        "Body_Position": "standing",
+        "Unit": "duration",
+        "Description": "Stand and place one leg on an elevated surface, lean forward to stretch the adductor."
+      },
+      {
+        "Flexibility_Subcategory": "static",
+        "Exercise_Name": "Supine Piriformis Stretch",
+        "Equipment": [],
+        "Body_Area": "glutes",
+        "Plane": "sagittal",
+        "Sides": "unilateral",
+        "Support_Surface": "floor",
+        "Body_Position": "supine",
+        "Unit": "duration",
+        "Description": "Lie on your back, cross one ankle over opposite knee, and pull the knee towards the chest."
+      },
+      {
+        "Flexibility_Subcategory": "static",
+        "Exercise_Name": "Erector Spinae Stretch",
+        "Equipment": [],
+        "Body_Area": "back",
+        "Plane": "sagittal",
+        "Sides": "bilateral",
+        "Support_Surface": "floor",
+        "Body_Position": "prone",
+        "Unit": "duration",
+        "Description": "Lie face down, hands under shoulders, gently arch back lifting chest off the floor."
+      },
+      {
+        "Flexibility_Subcategory": "static",
+        "Exercise_Name": "Levator Scapulae Stretch",
+        "Equipment": [],
+        "Body_Area": "neck",
+        "Plane": "sagittal",
+        "Sides": "unilateral",
+        "Support_Surface": "chair",
+        "Body_Position": "seated",
+        "Unit": "duration",
+        "Description": "Seated, turn your head to one side, tilt it downward as if looking at your armpit, use hand for gentle pressure."
+      },
+      {
+        "Flexibility_Subcategory": "static",
+        "Exercise_Name": "Sternocleidomastoid Stretch",
+        "Equipment": [],
+        "Body_Area": "neck",
+        "Plane": "transverse",
+        "Sides": "unilateral",
+        "Support_Surface": "floor",
+        "Body_Position": "supine",
+        "Unit": "duration",
+        "Description": "Lie on back, turn head to one side, then tilt it back slightly to feel a stretch in the neck."
+      },
+      {
+        "Flexibility_Subcategory": "active-isolated",
+        "Exercise_Name": "Soleus Stretch",
+        "Equipment": [
+          {
+            "Name": "None",
+            "Count": 0,
+            "Type": "spatial_marker"
+          }
+        ],
+        "Body_Area": "lower legs",
+        "Plane": "sagittal",
+        "Sides": "bilateral",
+        "Support_Surface": "wall",
+        "Body_Position": "standing",
+        "Unit": "repetitions",
+        "Description": "Face a wall with one foot in front of the other, front knee bent, back leg straight, and heel down to stretch the soleus."
+      },
+      {
+        "Flexibility_Subcategory": "active-isolated",
+        "Exercise_Name": "90/90 Hamstring Stretch",
+        "Equipment": [
+          {
+            "Name": "None",
+            "Count": 0,
+            "Type": "spatial_marker"
+          }
+        ],
+        "Body_Area": "hamstrings",
+        "Plane": "sagittal",
+        "Sides": "bilateral",
+        "Support_Surface": "floor",
+        "Body_Position": "seated",
+        "Unit": "repetitions",
+        "Description": "Sit on the ground with one leg extended, reach forward while lifting the extended leg to stretch the hamstring."
+      },
+      {
+        "Flexibility_Subcategory": "active-isolated",
+        "Exercise_Name": "Supine Biceps Femoris Stretch",
+        "Equipment": [
+          {
+            "Name": "None",
+            "Count": 0,
+            "Type": "spatial_marker"
+          }
+        ],
+        "Body_Area": "hamstrings",
+        "Plane": "sagittal",
+        "Sides": "unilateral",
+        "Support_Surface": "floor",
+        "Body_Position": "supine",
+        "Unit": "repetitions",
+        "Description": "Lie on your back, lift one leg and pull it closer to your body to stretch the hamstrings."
+      }
+
+
+  ]
+}

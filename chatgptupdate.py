@@ -16,23 +16,25 @@ standard_exercise_names = {
     # Add more standard names and their variations here
 }
 
+
 def standardize_exercise_name(name, standard_names):
     # Replace hyphens with spaces to handle cases like "push-up"
     name = name.replace('-', ' ')
     words = name.split()  # Split the name into words
-    
+
     new_words = []
     for word in words:
         # Apply to_singular to each word to ensure they are not plural
-        singular_word = to_singular(word)
+        singular_word = stringfunctions.to_singular(word)
         for standard, synonyms in standard_names.items():
             # Check if the singular word is in the synonyms list
             if singular_word.lower() in synonyms:
                 singular_word = standard  # Replace it with the standard term
                 break
         new_words.append(singular_word)  # Add the word to the new words list
-    
+
     return ' '.join(new_words)  # Reconstruct the name
+
 
 '''
 def standardize_exercise_name(name, standard_names):
@@ -41,51 +43,27 @@ def standardize_exercise_name(name, standard_names):
             return standard
     return name
 '''
-    
+
+
 def replace_chars(text, char_to_replace, replacement_char):
     return text.replace(char_to_replace, replacement_char)
 
-def to_singular(word):
-    # Handle special irregular cases
-    irregulars = {
-        'feet': 'foot',
-        'teeth': 'tooth',
-        'geese': 'goose',
-        # Add more irregular plural forms as needed
-    }
-    if word in irregulars:
-        return irregulars[word]
-
-    # Handle regular cases
-    if word.endswith('ies') and len(word) > 3:
-        return word[:-3] + 'y'
-    elif word.endswith('es') and len(word) > 2:
-        # Handles cases like "pushes" to "push"
-        if word[-3] in 'sxz' or word[-4:-2] in ['sh', 'ch']:
-            return word[:-2]
-        # Special cases where 'es' is not a plural marker
-        elif word.lower() in ['series', 'species']:
-            return word
-    elif word.endswith('s') and not word.endswith('ss'):
-        # Check for vowel before 's' or specific words
-        if word[-2] in 'aeiou' or word.lower() in ['plus', 'bias', 'corps']:
-            return word
-        return word[:-1]
-
-    return word
 
 
 def sanitize_list(a_list):
-    sanitized_elements = [stringfunctions.sanitize_string(name) for name in a_list]
+    sanitized_elements = [
+        stringfunctions.sanitize_string(name) for name in a_list]
     return sanitized_elements
+
 
 class ChatGPT:
     def __init__(self, apikey=Api().chat_gpt_api):
         self.api_key = apikey
-        self.model_engine = "text-davinci-003"
+     #   self.model_engine = "text-davinci-003"     Deprecated as pf 1/4/23
+        self.model_engine = "gpt-3.5-turbo-1106"
        # self.model_engine = "text-curie-003"
         openai.api_key = self.api_key
-           # Read the JSON data into a dictionary
+        # Read the JSON data into a dictionary
         with open('valid_data.json', 'r') as json_file:
             valid_data = json.load(json_file)
 
@@ -93,7 +71,7 @@ class ChatGPT:
         self.valid_bodyareas = sanitize_list(valid_data['bodyareas'])
         self.valid_compensations = sanitize_list(valid_data['compensations'])
         self.valid_adjustments = sanitize_list(valid_data['adjustmentareas'])
-    
+
     def get_related_exercise_adjustments(self, primary_exercise_name, primary_exercise_desc, related_exercise_name, related_exercise_desc, relationship_type):
         # Construct the query
         '''
@@ -118,7 +96,8 @@ class ChatGPT:
             f"Primary Exercise description: {primary_exercise_desc}\n\n"
             f"Related Exercise: {related_exercise_name}\n"
             f"Related Exercise description: {related_exercise_desc}\n\n"
-            "You are PersonalTrainerGPT. Analyze the following adjustment areas for the exercises: " + ', '.join(self.valid_adjustments) + ".\n\n"
+            "You are PersonalTrainerGPT. Analyze the following adjustment areas for the exercises: " +
+            ', '.join(self.valid_adjustments) + ".\n\n"
             "Based on what you already know about these exercises, and if it helps, the descriptions provided, return a response in JSON format. Indicate if the related exercise is a regression or progression to the primary exercise in any of the adjustment areas. If it is neither, then leave it out of both categories! I would rather have you omit an adjustment area then give false information."
             "Format the response as follows, ensuring to use double quotes for all keys and string values:\n"
             "{\n"
@@ -129,7 +108,6 @@ class ChatGPT:
             "Note: Do not include an adjustment area if it does not apply. Only use the areas that are relevant for the related exercise."
         )
 
-
         # Get the response from ChatGPT
         response = self._get_chatgpt_response(prompt)
 
@@ -137,27 +115,28 @@ class ChatGPT:
         if response.choices:
             adjustment_details_raw = response.choices[0].text.strip()
 
-             # Clean the response and extract JSON
-            cleaned_details = self.clean_json_response(adjustment_details_raw)
+            # Clean the response and extract JSON
+            cleaned_details = stringfunctions.clean_json_response(adjustment_details_raw)
             if cleaned_details is None:
-                log.log_error("No valid JSON found in the response after attempting to clean json")
+                log.log_error(
+                    "No valid JSON found in the response after attempting to clean json")
                 return "Unable to determine adjustment details"
-            else: 
-                log.log_exercise_details(cleaned_details)
+            else:
+                log.log_details(cleaned_details)
             try:
                 # Parse the cleaned response as JSON
                 adjustment_json = json.loads(cleaned_details)
-               
+
                 return adjustment_json
             except json.JSONDecodeError as je:
                 log.log_error(f"JSON parsing error: {je}")
                 return "Unable to determine adjustment details"
         else:
             # Handle cases where the response is empty or invalid
-            log.log_error(f"Adjustment details response is empty or invalid {je}")
+            log.log_error(
+                f"Adjustment details response is empty or invalid {je}")
             return "Unable to determine adjustment details"
 
-        
     def is_likely_exercise_video(self, video_id, video_title, channel_title, transcript, duration):
         # Construct the prompt for querying ChatGPT
         prompt = (
@@ -167,7 +146,7 @@ class ChatGPT:
             f"Transcript: {transcript}\n"
             f"Duration: {duration}\n\n"
             "Based on the information provided, could this video stand alone as one exercise in an exercise library that a fitness professional uses for programming for clients? (Be sure not to include videos focused on a personal experience, transformation, competition, or advertising a piece of equipment.) Answer with '1' for a Confident Yes and '0' for Unsure or Maybe, and '-1' for a Confident No."
-           # "Based on the information provided, is this video likely to be a professional exercise demonstration of ONE exercise only with instructions focused on how to properly perform the technique of the exercise, and not focused on a personal experience, transformation, competition, or piece of equipment? Or to put it differently - could this be one exercise in an exercise library? Answer with '1' for a Confident Yes and '0' for Unsure or Maybe, and '-1' for a Confident No."
+            # "Based on the information provided, is this video likely to be a professional exercise demonstration of ONE exercise only with instructions focused on how to properly perform the technique of the exercise, and not focused on a personal experience, transformation, competition, or piece of equipment? Or to put it differently - could this be one exercise in an exercise library? Answer with '1' for a Confident Yes and '0' for Unsure or Maybe, and '-1' for a Confident No."
         )
 
         # Get the response from ChatGPT
@@ -184,11 +163,11 @@ class ChatGPT:
             return is_exercise_video
         except Exception as e:
             # Handle exceptions such as an empty response, API errors, etc.
-            print(f"An error occurred while determining if the video is an exercise video: {str(e)}")
+            print(
+                f"An error occurred while determining if the video is an exercise video: {str(e)}")
             return 0  # Default to 0 if there's an error or ambiguous response
-    
+
     def formulate_chat_gpt_exercise_query(self, gptquerydata):
-        
 
         format_code = (
             f'\n\n{{'
@@ -221,15 +200,14 @@ class ChatGPT:
             f'\n}}'
         )
 
-      
         user_message = f'Act as PersonalTrainerGPT. Given the youtube video information "{gptquerydata}", provide exercise details in the following format: {format_code} and please only use singular (not plural) in listing all items. We need to build a database of unique items, so each item represents a single data element that can be used to inform workouts.'
 
-        return(user_message)
- 
+        return (user_message)
 
     def clean_exercises(self, exercise_json):
-        keys_to_clean = ['exercise_name_primary', 'exercise_aliases', 'regressions', 'progressions', 'variations']
-        
+        keys_to_clean = ['exercise_name_primary', 'exercise_aliases',
+                         'regressions', 'progressions', 'variations']
+
         for key in keys_to_clean:
             if key in exercise_json:
                 if isinstance(exercise_json[key], list):
@@ -237,15 +215,11 @@ class ChatGPT:
                         standardize_exercise_name(item, standard_exercise_names) for item in exercise_json[key]
                     ]
                 elif isinstance(exercise_json[key], str):
-                    exercise_json[key] = standardize_exercise_name(exercise_json[key], standard_exercise_names)
-        
+                    exercise_json[key] = standardize_exercise_name(
+                        exercise_json[key], standard_exercise_names)
+
         return exercise_json
-    
-    def clean_json_response(self, response_text):
-        start_index = response_text.find('{')
-        if start_index == -1:
-            return None  # Indicates no valid JSON found
-        return response_text[start_index:]
+
 
     def get_exercise_details(self, user_message, max_retries=2):
         for _ in range(max_retries):
@@ -253,55 +227,59 @@ class ChatGPT:
             if response.choices:
                 exercise_details = response.choices[0].text.strip()
                 print("ChatGPT response:")
-                log.log_exercise_details(user_message)
-                cleaned_details = self.clean_json_response(exercise_details)
+                log.log_details(user_message)
+                cleaned_details = stringfunctions.clean_json_response(exercise_details)
                 if cleaned_details is None:
-                    log.log_exercise_details("No valid JSON found in the response after attempting to clean json")
+                    log.log_details(
+                        "No valid JSON found in the response after attempting to clean json")
                     continue
-                log.log_exercise_details(cleaned_details)
-                log.log_exercise_details(f"Type of exercise_details: {type(cleaned_details)}, Length: {len(cleaned_details)}")
+                log.log_details(cleaned_details)
+                log.log_details(
+                    f"Type of exercise_details: {type(cleaned_details)}, Length: {len(cleaned_details)}")
 
                 try:
                     exercise_json = json.loads(cleaned_details)
-                    log.log_exercise_details("Successful json load")
-                  
+                    log.log_details("Successful json load")
+
                 except json.JSONDecodeError as je:
-                    log.log_exercise_details(f"JSON parsing error: {je}")
+                    log.log_details(f"JSON parsing error: {je}")
                     continue  # Skip the rest of the loop and try again
 
                 try:
                     # Assuming clean_exercises modifies the JSON and returns a new version
                     exercise_json = self.clean_exercises(exercise_json)
-                    log.log_exercise_details("Successful json clean")
+                    log.log_details("Successful json clean")
                     return exercise_json
                 except Exception as e:
                     # Log the specific error from clean_exercises
-                    log.log_exercise_details(f"Error in clean_exercises method: {str(e)}")
+                    log.log_details(
+                        f"Error in clean_exercises method: {str(e)}")
             else:
-                print("Received an empty or invalid response from ChatGPT. Resubmitting request.")
+                print(
+                    "Received an empty or invalid response from ChatGPT. Resubmitting request.")
 
         # Log that all retries have been exhausted without success
-        log.log_exercise_details("All retries exhausted without a successful response.")
+        log.log_details("All retries exhausted without a successful response.")
         return None  # or some default value or action
-   
+
     def _get_chatgpt_response(self, prompt):
-    
+
         try:
             completion = openai.Completion.create(
                 engine=self.model_engine,
                 prompt=prompt,
                 max_tokens=2000
             )
-            
+
             # Print the length of choices
             print(f"Length of choices: {len(completion.choices)}")
-            
+
             if not completion.choices or len(completion.choices) == 0:
                 print("EMPTY RESPONSE")
         except Exception as e:
             print(f"Exception occurred: {str(e)}")
             completion = None
-        
+
         return completion
 
     def process_exercise(self, title):
@@ -310,7 +288,6 @@ class ChatGPT:
 
     def process_exercise_titles(self, exercise_titles):
         with concurrent.futures.ThreadPoolExecutor() as executor:
-            futures = [executor.submit(self.process_exercise, title) for title in exercise_titles]
+            futures = [executor.submit(self.process_exercise, title)
+                       for title in exercise_titles]
             concurrent.futures.wait(futures)
-
-

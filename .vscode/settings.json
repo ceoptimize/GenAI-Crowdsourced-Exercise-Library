@@ -2,5 +2,17 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.autopep8"
     },
-    "python.formatting.provider": "none"
+    "python.formatting.provider": "none",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "database": "mydatabase",
+            "username": "postgres",
+            "name": "christiepostgres",
+            "password": "C$g$9292greer"
+        }
+    ]
 }

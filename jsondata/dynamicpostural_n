@@ -1,0 +1,30 @@
+{
+  "Dynamic Postural Assessment": {
+    "Movement Impairments": {
+      "Excessive Forward Trunk Lean": {
+        "Overactive Muscles": ["Soleus", "Gastrocnemius", "Hip flexors", "Rectus abdominis", "External obliques"],
+        "Underactive Muscles": ["Hamstrings complex", "Gluteus maximus", "Lumbar extensors"]
+      },
+      "Arms Fall Forward": {
+        "Overactive Muscles": ["Latissimus dorsi", "Pectoralis major", "Pectoralis minor"],
+        "Underactive Muscles": ["Middle trapezius", "Lower trapezius", "Rhomboids", "Posterior deltoids", "Rotator cuff"]
+      },
+      "Scapular Elevation": {
+        "Overactive Muscles": ["Levator scapulae", "Upper trapezius"],
+        "Underactive Muscles": ["Lower trapezius"]
+      },
+      "Head Juts Forward": {
+        "Overactive Muscles": ["Levator scapulae", "Sternocleidomastoid"],
+        "Underactive Muscles": ["Deep cervical flexors"]
+      },
+      "Turn Out": {
+        "Overactive Muscles": ["Soleus", "Gastrocnemius", "Hamstrings complex"],
+        "Underactive Muscles": ["Gluteus maximus", "Gluteus medius", "Anterior tibialis", "Posterior tibialis"]
+      },
+      "Valgus": {
+        "Overactive Muscles": ["Tensor fascia latae (TFL)", "Adductor Complex"],
+        "Underactive Muscles": ["Gluteus maximus", "Gluteus medius"]
+      }
+    }
+  }
+}

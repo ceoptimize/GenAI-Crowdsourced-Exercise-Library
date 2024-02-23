@@ -1,0 +1,90 @@
+For the joint 'shoulder', list only each applicable  joint movement and omit those unlikely to be applied. The list must be a subset of ('flexion', 'extension', 'rotation', 'abduction', 'adduction', 'circumduction', 'pronation', 'supination', 'dorsiflexion', 'plantarflexion', 'inversion', 'eversion', 'opposition', 'reposition', 'elevation', 'depression', 'protraction', 'retraction', 'horizontal abduction', 'horizontal adduction', 'internal rotation', 'external rotation', 'stabilization'). Return answer in JSON format: {
+  "joint": "shoulder",
+  "joint movement": [
+    {
+      "name": "joint movement",
+      "confidence score": "a number between 0 and 1"
+    }
+  ]
+}
+
+For the joint 'wrist', list only each applicable  joint movement and omit those unlikely to be applied. The list must be a subset of ('flexion', 'extension', 'rotation', 'abduction', 'adduction', 'circumduction', 'pronation', 'supination', 'dorsiflexion', 'plantarflexion', 'inversion', 'eversion', 'opposition', 'reposition', 'elevation', 'depression', 'protraction', 'retraction', 'horizontal abduction', 'horizontal adduction', 'internal rotation', 'external rotation', 'stabilization'). Return answer in JSON format: {
+  "joint": "wrist",
+  "joint movement": [
+    {
+      "name": "joint movement",
+      "confidence score": "a number between 0 and 1"
+    }
+  ]
+}
+
+For the joint 'elbow', list only each applicable  joint movement and omit those unlikely to be applied. The list must be a subset of ('flexion', 'extension', 'rotation', 'abduction', 'adduction', 'circumduction', 'pronation', 'supination', 'dorsiflexion', 'plantarflexion', 'inversion', 'eversion', 'opposition', 'reposition', 'elevation', 'depression', 'protraction', 'retraction', 'horizontal abduction', 'horizontal adduction', 'internal rotation', 'external rotation', 'stabilization'). Return answer in JSON format: {
+  "joint": "elbow",
+  "joint movement": [
+    {
+      "name": "joint movement",
+      "confidence score": "a number between 0 and 1"
+    }
+  ]
+}
+
+For the joint 'hip', list only each applicable  joint movement and omit those unlikely to be applied. The list must be a subset of ('flexion', 'extension', 'rotation', 'abduction', 'adduction', 'circumduction', 'pronation', 'supination', 'dorsiflexion', 'plantarflexion', 'inversion', 'eversion', 'opposition', 'reposition', 'elevation', 'depression', 'protraction', 'retraction', 'horizontal abduction', 'horizontal adduction', 'internal rotation', 'external rotation', 'stabilization'). Return answer in JSON format: {
+  "joint": "hip",
+  "joint movement": [
+    {
+      "name": "joint movement",
+      "confidence score": "a number between 0 and 1"
+    }
+  ]
+}
+
+For the joint 'knee', list only each applicable  joint movement and omit those unlikely to be applied. The list must be a subset of ('flexion', 'extension', 'rotation', 'abduction', 'adduction', 'circumduction', 'pronation', 'supination', 'dorsiflexion', 'plantarflexion', 'inversion', 'eversion', 'opposition', 'reposition', 'elevation', 'depression', 'protraction', 'retraction', 'horizontal abduction', 'horizontal adduction', 'internal rotation', 'external rotation', 'stabilization'). Return answer in JSON format: {
+  "joint": "knee",
+  "joint movement": [
+    {
+      "name": "joint movement",
+      "confidence score": "a number between 0 and 1"
+    }
+  ]
+}
+
+For the joint 'ankle', list only each applicable  joint movement and omit those unlikely to be applied. The list must be a subset of ('flexion', 'extension', 'rotation', 'abduction', 'adduction', 'circumduction', 'pronation', 'supination', 'dorsiflexion', 'plantarflexion', 'inversion', 'eversion', 'opposition', 'reposition', 'elevation', 'depression', 'protraction', 'retraction', 'horizontal abduction', 'horizontal adduction', 'internal rotation', 'external rotation', 'stabilization'). Return answer in JSON format: {
+  "joint": "ankle",
+  "joint movement": [
+    {
+      "name": "joint movement",
+      "confidence score": "a number between 0 and 1"
+    }
+  ]
+}
+
+For the joint 'spinal', list only each applicable  joint movement and omit those unlikely to be applied. The list must be a subset of ('flexion', 'extension', 'rotation', 'abduction', 'adduction', 'circumduction', 'pronation', 'supination', 'dorsiflexion', 'plantarflexion', 'inversion', 'eversion', 'opposition', 'reposition', 'elevation', 'depression', 'protraction', 'retraction', 'horizontal abduction', 'horizontal adduction', 'internal rotation', 'external rotation', 'stabilization'). Return answer in JSON format: {
+  "joint": "spinal",
+  "joint movement": [
+    {
+      "name": "joint movement",
+      "confidence score": "a number between 0 and 1"
+    }
+  ]
+}
+
+For the joint 'hand', list only each applicable  joint movement and omit those unlikely to be applied. The list must be a subset of ('flexion', 'extension', 'rotation', 'abduction', 'adduction', 'circumduction', 'pronation', 'supination', 'dorsiflexion', 'plantarflexion', 'inversion', 'eversion', 'opposition', 'reposition', 'elevation', 'depression', 'protraction', 'retraction', 'horizontal abduction', 'horizontal adduction', 'internal rotation', 'external rotation', 'stabilization'). Return answer in JSON format: {
+  "joint": "hand",
+  "joint movement": [
+    {
+      "name": "joint movement",
+      "confidence score": "a number between 0 and 1"
+    }
+  ]
+}
+
+For the joint 'foot', list only each applicable  joint movement and omit those unlikely to be applied. The list must be a subset of ('flexion', 'extension', 'rotation', 'abduction', 'adduction', 'circumduction', 'pronation', 'supination', 'dorsiflexion', 'plantarflexion', 'inversion', 'eversion', 'opposition', 'reposition', 'elevation', 'depression', 'protraction', 'retraction', 'horizontal abduction', 'horizontal adduction', 'internal rotation', 'external rotation', 'stabilization'). Return answer in JSON format: {
+  "joint": "foot",
+  "joint movement": [
+    {
+      "name": "joint movement",
+      "confidence score": "a number between 0 and 1"
+    }
+  ]
+}
+
