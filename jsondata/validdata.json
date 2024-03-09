@@ -316,12 +316,15 @@
       "complexity",
       "range of motion"
     ],
-    "sports": [
+    "sport": [
         "baseball",
         "basketball",
         "boxing",
         "cycling",
         "football",
+        "lacrosse",
+        "ice hockey",
+        "field hockey",
         "golf",
         "gymnastics",
         "hockey",
@@ -335,13 +338,16 @@
         "swimming",
         "tennis",
         "track and field",
+        "cross country",
+        "crossfit",
         "volleyball",
         "wrestling",
         "olympic weightlifting",
         "powerlifting",
         "yoga",
         "pilates",
-        "dance"        
+        "dance",
+        "calisthenics"        
     ],
     "difficulty": [
         "beginner",

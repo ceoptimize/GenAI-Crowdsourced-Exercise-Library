@@ -1727,6 +1727,18 @@ class PostgresDatabase:
             print(f"An error occurred: {e}")
             self.conn.rollback()
             raise e
+        
+
+    
+    def get_single_feature_values_from_db(self, feature):
+        feature_name = self.single_mapping[feature]["name_column"]
+        feature_table = self.single_mapping[feature]["table"]
+        # Construct and execute the SELECT query
+        select_query = f"SELECT {feature_name} FROM {feature_table}"
+        self.execute_query(select_query)
+        result = self.cursor.fetchall()
+        return [item[0] for item in result]
+     
 
     def load_manualgpt_body_position_support_surface_data(self, json_filepath, datefoldername):
         # Read the JSON data
