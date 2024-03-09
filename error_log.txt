@@ -1,9 +1,0 @@
-Video ID: A8i2sstXev8, Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'float' and 'str'
-Video ID: gwPy-DuKVBc, Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'float' and 'str'
-Video ID: 4ieM-r5EYZs, Error: Error in create_or_get_exercise: value too long for type character varying(50)
-
-Video ID: cpGwJlNqUog, Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'float' and 'str'
-Video ID: waQ2E6iWYt4, Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'NoneType' and 'int'
-Video ID: edP1B-D46qo, Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'NoneType' and 'int'
-Video ID: l4Yjt0kp0OE, Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'NoneType' and 'int'
-Video ID: tKJSeQEYwVg, Error: Error in create_or_get_exercise: unsupported operand type(s) for +: 'NoneType' and 'int'

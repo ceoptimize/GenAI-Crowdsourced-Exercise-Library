@@ -4,7 +4,7 @@ import json
 import os
 import googleapiclient.discovery
 import googleapiclient.errors
-from postgres import PostgresDatabase
+from youtubeapis.postgres import PostgresDatabase
 import re
 
 SCOPES = ["https://www.googleapis.com/auth/youtube.force-ssl"]

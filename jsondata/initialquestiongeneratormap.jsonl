@@ -1,6 +1,0 @@
-{"feature_pair": ["support surface", "body position"], "include_choices": true}
-{"feature_pair": ["body position", "support surface"], "include_choices": true}
-{"feature_pair": ["joint", "joint movement"], "include_choices": true}
-{"feature_pair": ["joint movement", "joint"], "include_choices": true}
-{"feature_pair": ["injury", "body structure"], "include_choices": true}
-{"feature_pair": ["body structure", "injury"], "include_choices": true, chicken: "nuggets"}

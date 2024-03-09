@@ -1,1 +1,0 @@
-DROP FUNCTION dynamic_confidence_score_view(text, text, text, text, text, text, text, text);
