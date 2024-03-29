@@ -174,8 +174,8 @@ SQLscripts/
 
 webapp/
 
-config/*
-!config/config_template.json
+config/config.json
+
 
 logs/
 

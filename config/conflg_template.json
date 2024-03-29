@@ -1,0 +1,44 @@
+{
+    "openai": {
+      "api_key_name": "placeholder",
+      "api_key": "YOUR_OPENAI_API_KEY",
+      "model": {
+        "default": "gpt-3.5-turbo",
+        "alternatives": [ "gpt-3.5-turbo", "gpt-4-0125-preview"],
+        "settings": {
+          "max_tokens": 300,
+          "temperature": 0
+        }
+      }
+    },
+    "youtube": {
+      "videoplatform": {
+        "api_key": "YOUR_YOUTUBE_API_KEY"
+      },
+      "crowdsourcedvideo": {
+        "api_key": "YOUR_YOUTUBE_API_KEY"
+      },
+      "crowdsourcedvideo2": {
+        "api_key": "YOUR_YOUTUBE_API_KEY"
+      },
+      "crowdsourcedvideo3": {
+        "api_key": "YOUR_YOUTUBE_API_KEY"
+      },
+      "crowdsourcedvideo4": {
+        "api_key": "YOUR_YOUTUBE_API_KEY"
+      }
+    }, 
+    "mongodb": {
+      "uri": "YOUR_MONGODB_URI",
+      "database": "ExerciseDB",
+      "collections": {
+        "gpt_entries": "GPTEntries",
+        "unsent_question_maps": "UnsentQuestionMaps"
+      }
+    },
+    "questionmapfilepath": {
+      "initial": "resources/jsondata/initialquestiongeneratormap.jsonl",
+      "general": "resources/jsondata/questiongeneratormap.jsonl",
+      "secondary": "resources/jsondata/secondaryquestiongeneratormap.jsonl"
+    }
+}
