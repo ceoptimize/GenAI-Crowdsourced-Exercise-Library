@@ -8,7 +8,7 @@ import tiktoken
 from postgres import PostgresDatabase
 import logging
 from GPTtoMongo import QuestionMapProcessor
-import youtubeapis.stringfunctions as stringfunctions
+import stringfunctions as stringfunctions
 
 
 # Load the configuration
@@ -76,7 +76,7 @@ def main():
         temperature=0,
         role="personal trainer",
         model="gpt-4-0125-preview",
-        question_map_type="initial", 
+        question_map_type="initial",
         previewmessage=True,
         sendtoGPT=True,
         interactive=True,
@@ -85,7 +85,7 @@ def main():
     )
 
     processor.process_map()
-    
+
     #TODO: Add logic to load and update Postgres with data from MongoDB
 
 

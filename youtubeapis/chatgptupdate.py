@@ -71,7 +71,7 @@ class ChatGPT:
         self.model_engine = "gpt-3.5-turbo-1106"
 
         # Read the JSON data into a dictionary
-        with open('resources/valid_data.json', 'r') as json_file:
+        with open('resources/jsondata/valid_data.json', 'r') as json_file:
             valid_data = json.load(json_file)
 
         self.valid_equipment = sanitize_list(valid_data['equipment'])
