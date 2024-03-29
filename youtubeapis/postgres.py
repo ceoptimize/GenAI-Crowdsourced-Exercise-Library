@@ -5,15 +5,16 @@ import re
 import sqlparse
 import json
 import traceback
-import youtubeapis.stringfunctions as stringfunctions
-import youtubeapis.log as log
+import stringfunctions as stringfunctions
+import log
 import os
 from datetime import datetime
 from bson import ObjectId
 
+SINGLE_MAPPING_FILE = 'resources/jsondata/single_mapping.json'
+JOINT_MAPPING_FILE = 'resources/jsondata/joint_mapping.json'
 
-
-word_mapping = [
+WORD_MAPPING = [
     ['knee', 'kneeling'],
     ['clap', 'clapping'],
     ['incline', 'inclined', 'inclining'],
@@ -33,7 +34,7 @@ def generate_aliases(exercise_name):
     words = exercise_name.split()
     new_aliases = set([exercise_name])  # Include the original name as well
 
-    for word_set in word_mapping:
+    for word_set in WORD_MAPPING:
         for word in words:
             if word in word_set:
                 # Generate all possible combinations with the synonyms
@@ -80,7 +81,7 @@ class PostgresDatabase:
         self.unimplemented_feature_keys = ["movement pattern", "difficulty"]
     
     def load_joint_feature_mapping(self):
-        with open('jsondata/joint_mapping.json', 'r') as file:
+        with open(JOINT_MAPPING_FILE, 'r') as file:
             return json.load(file)
     
 
@@ -89,7 +90,7 @@ class PostgresDatabase:
         return self.joint_mapping.get(joint_key, None)
         
     def load_single_feature_mapping(self):
-        with open('jsondata/single_mapping.json', 'r') as file:
+        with open(SINGLE_MAPPING_FILE, 'r') as file:
             return json.load(file)
 
     def execute_sql_file(self, filename):

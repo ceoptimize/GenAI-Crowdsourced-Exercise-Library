@@ -1,0 +1,46 @@
+{
+    "support surface": {
+      "table": "SupportSurface",
+      "id_column": "SupportSurfaceID",
+      "name_column": "SupportSurface",
+      "log_column": "GPTLog",
+      "votes_column": "GPTVotes"
+    },
+    "body position": {
+      "table": "BodyPosition",
+      "id_column": "BodyPositionID",
+      "name_column": "BodyPosition",
+      "log_column": "GPTLog",
+      "votes_column": "GPTVotes"
+    },
+    "joint":  {
+      "table": "Joint",
+      "id_column": "JointID",
+      "name_column": "Joint",
+      "log_column": "GPTLog",
+      "votes_column": "GPTVotes"
+    },
+    "joint movement":  {
+      "table": "JointMovement",
+      "id_column": "JointMovementID",
+      "name_column": "JointMovement",
+      "log_column": "GPTLog",
+      "votes_column": "GPTVotes"
+    },
+    "injury":  {
+      "table": "Injury",
+      "id_column": "InjuryID",
+      "name_column": "Injury",
+      "log_column": "GPTLog",
+      "votes_column": "GPTVotes"
+    },
+    "body structure":  {
+      "table": "BodyStructure",
+      "id_column": "BodyStructureID",
+      "name_column": "BodyStructure",
+      "log_column": "GPTLog",
+      "votes_column": "GPTVotes"
+    }
+
+  }
+  

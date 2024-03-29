@@ -1,0 +1,16 @@
+{
+  "Static Postural Assessment": {
+    "Pes Planus Distortion Syndrome": {
+      "Overactive Muscles": ["Gastrocnemius", "Soleus", "Adductors", "Hip flexors"],
+      "Underactive Muscles": ["Anterior tibialis", "Posterior tibialis", "Gluteus maximus", "Gluteus medius"]
+    },
+    "Lower Crossed Syndrome": {
+      "Overactive Muscles": ["Hip flexors", "Lumbar extensors"],
+      "Underactive Muscles": ["Gluteus maximus", "Gluteus medius", "Abdominals"]
+    },
+    "Upper Crossed Syndrome": {
+      "Overactive Muscles": ["Upper trapezius", "Levator scapulae", "Sternocleidomastoid", "Pectoralis major", "Pectoralis minor"],
+      "Underactive Muscles": ["Deep cervical flexors", "Rhomboids", "Middle trapezius", "Lower trapezius"]
+    }
+  }
+}

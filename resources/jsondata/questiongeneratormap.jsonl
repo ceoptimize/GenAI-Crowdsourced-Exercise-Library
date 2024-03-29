@@ -1,0 +1,10 @@
+{"feature_pair": ["health condition", "exercise characteristic"], "include_choices": True, "insertrelationship" : "contraindicated"}
+{"feature_pair": ["compensation", "muscle"], "json_format": {"status": "underactive/overactive"}}
+{"feature_pair": ["muscle", "exercise"], "json_format": {"muscle role": "agonist/synergist/stabilizer"}, "outputrange": [10, 30]}
+{"feature_pair": ["equipment", "exercise"], "json_format": {"equipment count": "count", "equipment role": "resistance/MFR/support/elevation/proprioceptive/spatialmarker"}, "outputrange": [10, 30]}
+{"feature_pair": ["chain", "exercise"], "outputrange": [20, 30]}
+{"feature_pair": ["measurement", "exercise"], "outputrange": [10, 30]}
+{"feature_pair": ["side type", "exercise"], "outputrange": [10, 30]}
+{"feature_pair": ["exercise focus", "exercise"], "outputrange": [10, 30]}
+{"feature_pair": ["exercise characteristics", "exercise"], "outputrange": [10, 30]}
+{"feature_pair": ["sports", "exercise"], "outputrange": [10, 30]}

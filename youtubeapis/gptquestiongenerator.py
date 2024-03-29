@@ -1,21 +1,20 @@
 import json
 import random
 import os
-from datetime import datetime  # Correctly import the datetime class
-from youtubeapis.chatgptupdate import ChatGPT
-import youtubeapis.log as log
+from datetime import datetime 
+from chatgptupdate import ChatGPT
+
 from openai import OpenAI
-import youtubeapis.openaiapi as openaiapi
 from typing import Tuple, Optional, Dict, Any
-from youtubeapis.postgres import PostgresDatabase
+from postgres import PostgresDatabase
 
 
 
 
 
 # Define the data
-validdata_filepath= "jsondata/validdata.json"
-joint_mapping_filepath = "jsondata/joint_mapping.json"
+validdata_filepath= "resources/jsondata/validdata.json"
+joint_mapping_filepath = "resources/jsondata/joint_mapping.json"
 
 
 
@@ -429,7 +428,12 @@ class QuestionGenerator:
 
         return system_message_role, system_message_formatting, user_message
         
-    
+
+
+
+
+
+
 question = QuestionGenerator(usechatgptapi = True, role = "personal trainer")
 q1 = question.generate_question( (("joint", "knee"), "joint movement"), include_choices=True)
 #print(q1)

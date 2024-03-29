@@ -1,0 +1,32 @@
+{
+    "joint_mappings": [
+        {
+            "features": ["support surface", "body position"],
+            "additional_fields": [],
+            "table": "SupportSurfaceBodyPosition",
+            "id_columns": {
+                "feature1_id": "SupportSurfaceID",
+                "feature2_id": "BodyPositionID"
+            },
+            "relation_id_column": "SupportSurfaceBodyPositionID",
+            "log_column": "GPTLog",
+            "votes_column": "GPTVotes"
+        }
+
+    ], 
+    "single_mappings": [
+        {
+            "feature": "support surface",
+            "table": "SupportSurface",
+            "id_column": "SupportSurfaceID",
+            "log_column": "GPTLog",
+            "votes_column": "GPTVotes"
+        },
+        {
+            "feature": "body position",
+            "table": "BodyPosition",
+            "id_column": "BodyPositionID",
+            "log_column": "GPTLog",
+            "votes_column": "GPTVotes"
+        }]
+}

@@ -1,14 +1,21 @@
 import openai
 import json
-from youtubeapis.openaiapi import OpenaiApi
 import requests
 import json
 import psycopg2
 import openai
 import concurrent.futures
 import re
-import youtubeapis.stringfunctions as stringfunctions
-import youtubeapis.log as log
+import stringfunctions as stringfunctions
+import log
+import json
+from openai_communication import OpenAICommunication, TikTokenCommunication
+import os
+
+# Load the configuration
+CONFIG_PATH = 'config/config.json'
+with open(CONFIG_PATH, 'r') as config_file:
+    config = json.load(config_file)
 
 standard_exercise_names = {
     "push up": ["push-up", "pushup"],
@@ -56,14 +63,15 @@ def sanitize_list(a_list):
 
 
 class ChatGPT:
-    def __init__(self, apikey=OpenaiApi().chat_gpt_api):
-        self.api_key = apikey
-     #   self.model_engine = "text-davinci-003"     Deprecated as pf 1/4/23
+
+
+    def __init__(self, openai_comm = OpenAICommunication(api_key=os.environ.get("OPENAI_API_KEY", config['openai']['api_key']))):
+        self.openai_comm = openai_comm
+        self.api_key = openai_comm.api_key
         self.model_engine = "gpt-3.5-turbo-1106"
-       # self.model_engine = "text-curie-003"
-        openai.api_key = self.api_key
+
         # Read the JSON data into a dictionary
-        with open('valid_data.json', 'r') as json_file:
+        with open('resources/valid_data.json', 'r') as json_file:
             valid_data = json.load(json_file)
 
         self.valid_equipment = sanitize_list(valid_data['equipment'])

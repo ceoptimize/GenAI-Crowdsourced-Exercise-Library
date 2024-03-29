@@ -1,0 +1,29 @@
+{
+    "muscle-muscle":[
+        {"rotator cuff": ["supraspinatus", "infraspinatus", "teres minor", "subscapularis"]},
+        {"core": ["rectus abdominis", "obliques", "transversus abdominis"]},
+        {"glutes": ["gluteus maximus", "gluteus minimus", "gluteus medius"]},
+        {"lower back": ["erector spinae", "quadratus lumborum"]},
+        {"chest": ["pectoralis major", "pectoralis minor"]},
+        {"adductors": ["adductor magnus", "adductor longus", "adductor brevis"]},
+        {"groin": ["adductors"]},
+        {"deltoids": ["anterior deltoid", "lateral deltoid", "posterior deltoid"]},
+        {"trapezius": ["upper trapezius", "middle trapezius", "lower trapezius"]},
+        {"upper back": ["trapezius", "rhomboids"]},
+        {"shoulders": ["rotator cuff", "deltoids"]},
+        {"quadriceps": ["vastus lateralis", "vastus medialis", "vastus intermedius", "rectus femoris"]},
+        {"hamstrings": ["biceps femoris", "semitendinosus", "semimembranosus"]},
+        {"thighs": ["quadriceps, hamstrings", "sartorius"]},
+        {"forearm flexors": ["flexor carpi radialis", "flexor carpi ulnaris", "palmaris longus"]},
+        {"forearm extensors": ["extensor carpi radialis longus", "extensor carpi radialis brevis", "extensor carpi ulnaris"]},
+        {"forearms": ["forearm flexors, forearm extensors, brachioradialis"]},
+        {"hand": ["lumbricals", "dorsal interossei", "palmar interossei"]},
+        {"hip flexors": ["iliopsoas", "rectus femoris"]},
+        {"calves": ["gastrocnemius", "soleus"]},
+        {"shin": ["tibialis anterior"]},
+        {"lower leg": ["calves", "shin", "posterior tibialis"]},
+        {"upper arms": ["biceps brachii", "triceps brachii"]},
+        {"wrists": ["wrist flexors", "wrist extensors"]},
+        {"neck": ["scalenes", "sternocleidomastoid", "upper trapezius", "levator scapulae"]}
+    ]
+}

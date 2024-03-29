@@ -1,0 +1,7 @@
+{"feature_pair1": ["body position", "support surface", "on"], "feature_pair2": "health condition", "insertrelationship" : "contraindicated",  "include_choices": True}
+{"feature_pair1": ["body position", "support surface", "on"], "feature_pair2": ["joint","injury", ""], "insertrelationship" : "contraindicated"}
+{"feature_pair1": ["body position", "support surface", "on"], "feature_pair2": "exercise", "outputrange": (10,20)}
+{"feature_pair1": ["joint", "injury", ""], "feature_pair2": ["body position", "support surface", "on"], "insertrelationship" : "contraindicated"}
+{"feature_pair1": ["joint", "injury", ""], "feature_pair2": "sports", "include_choices": True}
+{"feature_pair1": ["muscle", "injury"], "feature_pair2": "sports", "include_choices": True}
+

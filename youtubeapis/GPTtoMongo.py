@@ -1,103 +1,38 @@
-from youtubeapis.gptquestiongenerator import QuestionGenerator
-from youtubeapis.modelpricing import ModelPricing
+from gptquestiongenerator import QuestionGenerator
+from modelpricing import ModelPricing
 import hashlib
-from datetime import datetime
+import datetime 
 import sys
 import os
 from openai import OpenAI
 from pymongo import MongoClient
-
-from youtubeapis.openaiapi import OpenaiApi
+from openai_communication import OpenAICommunication, TikTokenCommunication
+from mongodb import MongoDBManager
 import json
 import tiktoken
-from youtubeapis.postgres import PostgresDatabase
+from postgres import PostgresDatabase
 import logging
 
-apikey = OpenaiApi().chat_gpt_api
 
-client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY", apikey))
+# Load the configuration
+CONFIG_PATH = 'config/config.json'
+with open(CONFIG_PATH, 'r') as config_file:
+    config = json.load(config_file)
 
-# Get the directory of the current script
-current_dir = os.path.dirname(__file__)
-
-# Get the parent directory
-parent_dir = os.path.dirname(current_dir)
-
-# Add the parent directory to sys.path
-sys.path.append(parent_dir)
-
-mongoclient = MongoClient(
-    'mongodb+srv://ceoptimize:C$g$9292greer@ceoptimize.i3l3wkq.mongodb.net/')
-db = mongoclient['ExerciseDB']
-collection = db['GPTEntries']
-unsentcollection = db['UnsentQuestionMaps']
-
-
-initial_questions_map_filepath = "jsondata/initialquestiongeneratormap.jsonl"
-questions_map_filepath = "jsondata/questiongeneratormap.jsonl"
-secondary_questions_map_filepath = "jsondata/secondaryquestiongeneratormap.jsonl"
-
-
-def chat_completion_request(messages, model="gpt-3.5-turbo", max_tokens=180, temperature=0):
-    try:
-        response = client.chat.completions.create(
-            model=model,
-            messages=messages,
-            temperature=temperature,
-            max_tokens=max_tokens,
-        )
-        return response
-    except Exception as e:
-        print("Unable to generate ChatCompletion response")
-        print(f"Exception: {e}")
-        return e
-
-
-def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613"):
-    """Return the number of tokens used by a list of messages."""
-    try:
-        encoding = tiktoken.encoding_for_model(model)
-    except KeyError:
-        print("Warning: model not found. Using cl100k_base encoding.")
-        encoding = tiktoken.get_encoding("cl100k_base")
-    if model in {
-        "gpt-3.5-turbo-0613",
-        "gpt-3.5-turbo-16k-0613",
-        "gpt-4-32k-0314",
-        "gpt-4-0613",
-        "gpt-4-32k-0613",
-    }:
-        tokens_per_message = 3
-        tokens_per_name = 1
-    elif model == "gpt-3.5-turbo-0301":
-        # every message follows <|start|>{role/name}\n{content}<|end|>\n
-        tokens_per_message = 4
-        tokens_per_name = -1  # if there's a name, the role is omitted
-    elif "gpt-3.5-turbo" in model:
-        print("Warning: gpt-3.5-turbo may update over time. Returning num tokens assuming gpt-3.5-turbo-0613.")
-        return num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613")
-    elif "gpt-4" in model:
-        print(
-            "Warning: gpt-4 may update over time. Returning num tokens assuming gpt-4-0613.")
-        return num_tokens_from_messages(messages, model="gpt-4-0613")
-    else:
-        raise NotImplementedError(
-            f"""num_tokens_from_messages() is not implemented for model {model}. See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens."""
-        )
-    num_tokens = 0
-    for message in messages:
-        num_tokens += tokens_per_message
-        for key, value in message.items():
-            num_tokens += len(encoding.encode(value))
-            if key == "name":
-                num_tokens += tokens_per_name
-    num_tokens += 3  # every reply is primed with <|start|>assistant<|message|>
-    return num_tokens
+# Initialize communication and database manager
+openai_comm = OpenAICommunication(api_key=os.environ.get("OPENAI_API_KEY", config['openai']['api_key']))
+tiktoken_comm = TikTokenCommunication()
+mongodb_manager = MongoDBManager(
+    uri=os.environ.get("MONGODB_URI", config['mongodb']['uri']),
+    db_name=config['mongodb']['database'],
+    gpt_entries_coll=config['mongodb']['collections']['gpt_entries'],
+    unsent_question_maps_coll=config['mongodb']['collections']['unsent_question_maps']
+)
 
 
 def generate_gpt_response(messages, model="gpt-3.5-turbo", max_tokens=180, temperature=0):
     print(messages)
-    response = chat_completion_request(
+    response = openai_comm.chat_completion_request(
         messages, model, max_tokens, temperature)
     print(response)
     response_content = response.choices[0].message.content
@@ -111,6 +46,7 @@ def generate_gpt_response(messages, model="gpt-3.5-turbo", max_tokens=180, tempe
 
 def write_gpt_response_to_mongodb(response_content, prompt_tokens_tiktoken, prompt_tokens_gpt, completion_tokens_gpt, max_tokens, total_cost, temperature, model, input_feature_list: list, output_feature, question_map, user_response, messages, message_hash):
     # Create a dictionary for the new data
+    logger = setup_logger(name = 'mongo_db_logger', log_file = 'logs/mongo_db.log', level = logging.ERROR)
     try:
         input_features_dicts = [{"feature": feature, "value": value}
                                 for feature, value in input_feature_list]
@@ -129,21 +65,15 @@ def write_gpt_response_to_mongodb(response_content, prompt_tokens_tiktoken, prom
             "user_response": user_response,
             "messages": messages,
             "message_hash": message_hash,  # Add the hash of the message
-            "timestamp": datetime.now(),
+            "timestamp": datetime.datetime.now(),
         }
 
         # Insert the new data into MongoDB
-        inserted_document = collection.insert_one(new_data)
+        inserted_document = mongodb_manager.insert_gpt_entry(new_data)
         print(f"Document inserted with _id: {inserted_document.inserted_id}")
     except Exception as e:
-        # Log the error
-      #  logging.error(f"Error inserting document into MongoDB: {e}")
-        error_logger = setup_logger(
-            'mongo_db_insert_error_logger', 'logs/mongo_db_insert_error.log')
-        # log the error along with the new_data
-        error_logger.error(
-            f"Error inserting document into MongoDB: {e} Data: {new_data}")
-        print(f"Error inserting document into MongoDB: {e}")
+         # Log the exception with detailed context
+        logger.exception(f"Error inserting document into MongoDB: {e} - Data: {new_data}")
 
 
 def write_gpt_response_to_jsonlfile(response_content, prompt_tokens_tiktoken, prompt_tokens_gpt, completion_tokens_gpt, max_tokens, total_cost, temperature, model, input_feature_list: list, output_feature, question_map, user_response,  messages, message_hash, filename='playground/json/gpt_response.json'):
@@ -167,7 +97,7 @@ def write_gpt_response_to_jsonlfile(response_content, prompt_tokens_tiktoken, pr
         "user_response": user_response,
         "messages": messages,
         "message_hash": message_hash,  # Add the hash of the message
-        "timestamp": datetime.now().isoformat(),
+        "timestamp": datetime.datetime.now().isoformat(),
     }
 
     # Append the new data as a JSON Line
@@ -188,81 +118,119 @@ def calculate_cost_of_gpt_response(prompt_tokens, completion_tokens_gpt, model):
         return None
 
 
-def setup_logger(name, log_file, level=logging.INFO):
-    """Function to set up a logger for error logging."""
-    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    handler = logging.FileHandler(log_file)
-    handler.setFormatter(formatter)
-
+def setup_logger(name, log_file, level=logging.ERROR):
+    """Set up and return a logger."""
     logger = logging.getLogger(name)
-    logger.setLevel(level)
-    logger.addHandler(handler)
-
+    if not logger.handlers:  # Avoid adding multiple handlers to the same logger
+        logger.setLevel(level)
+        handler = logging.FileHandler(log_file)
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
     return logger
 
 
-class FeatureQuestionProcessor:
-    def __init__(self,
-                 model="gpt-4-0125-preview",
-                 role="personal trainer",
-                 max_tokens=300,
-                 temperature=0,
-                 questions_map_filepath=initial_questions_map_filepath,
-                 interactive=False,
-                 previewmessage=True,
-                 sendtoGPT=False,
-                 writetojson=False,
-                 writetomongo=False
-                 ):
+
+
+class QuestionMapProcessor:
+
+    """
+    Processes all the question maps from one question map filepath, and handles interactions with GPT models and databases.
+    """
+     
+    def __init__(self, openai_comm, tiktoken_comm, db_manager, pg, question_map_type="initial", model="gpt-4-0125-preview",
+                 role="personal trainer", max_tokens=300, temperature=0, interactive=False,
+                 previewmessage=True, sendtoGPT=False, writetojson=False, writetomongo=False):
+        """
+        Initializes the FeatureQuestionProcessor with API communication instances, database manager, and other settings.
+        
+        Parameters:
+            openai_comm (OpenAICommunication): An instance for OpenAI API communication.
+            tiktoken_comm (TikTokenCommunication): An instance for TikToken API communication.
+            db_manager (MongoDBManager): An instance for MongoDB operations.
+            model (str): The GPT model to use for generating responses.
+            role (str): The role to use in the question generation process.
+            max_tokens (int): Maximum number of tokens in the GPT response.
+            temperature (float): Temperature for the GPT response generation.
+            interactive (bool): Whether to interactively ask the user to send requests to GPT.
+            previewmessage (bool): Whether to preview the message before sending it to GPT.
+            sendtoGPT (bool): Whether to send the message to GPT for processing.
+            writetojson (bool): Whether to write the response to a JSONL file.
+            writetomongo (bool): Whether to write the response to MongoDB.
+        """
+        self.openai_comm = openai_comm
+        self.tiktoken_comm = tiktoken_comm
+        self.db_manager = db_manager
         self.qg = QuestionGenerator(role=role)
-        self.pg = PostgresDatabase()
+        self.pg = pg
         self.input_feature_list = []
-        self.interactive = interactive
         self.model = model
-        self.questions_map_filepath = questions_map_filepath
+        self.max_tokens = max_tokens
+        self.temperature = temperature
+        self.interactive = interactive
         self.previewmessage = previewmessage
         self.sendtoGPT = sendtoGPT
         self.writetojson = writetojson
         self.writetomongo = writetomongo
-        self.max_tokens = max_tokens
-        self.temperature = temperature
-        self.auto_process_remaining = False
-        self.skip_remaining = False
-        self.process_map(questions_map_filepath, previewmessage,
-                         sendtoGPT, writetojson, writetomongo)
+        self.role = role
+        self.question_map_type = question_map_type
+
+        # Determine the question map file path based on the type
+        if question_map_type == "initial":
+            self.question_map_filepath = config['questionmapfilepath']['initial']
+        elif question_map_type == "general":
+            self.question_map_filepath = config['questionmapfilepath']['general']
+        elif question_map_type == "secondary":
+            self.question_map_filepath = config['questionmapfilepath']['secondary']
+        else:
+            raise ValueError(f"Invalid question map type: {question_map_type}")
 
     def message_generator(self, system_message_role, system_message_formatting, user_message):
+
+        """
+        Generates a message dictionary for interaction with the GPT model.
+
+        Parameters:
+            system_message_role (str): The role of the system in the message.
+            system_message_formatting (str): The formatting of the system message.
+            user_message (str): The user's message.
+
+        Returns:
+            list: A list of message dictionaries.
+        """
+
         return [
             {"role": "system", "content": system_message_role +
                 " " + system_message_formatting},
             {"role": "user", "content": user_message},
         ]
 
-    def process_map(self, filepath, previewmessage, sendtoGPT, writetojson, writetomongo):
-        error_logger = setup_logger(
-            'question_map_error_logger', 'logs/question_map_error.log')
-        with open(filepath, "r") as f:
+    def process_map(self):
+            logger = setup_logger('process_map_logger', 'logs/process_map.log')
+      #  try:
+            with open(self.question_map_filepath, "r") as f:
+                for line_number, line in enumerate(f, 1):
+                    try:
+                        question_map = json.loads(line)
+                    except json.JSONDecodeError as e:
+                        error_msg = f"Error decoding JSON on line {line_number} of {self.question_map_filepath}: {e.msg}"
+                        logger.error(error_msg)
+                        continue
+                    
+                    # Process the question map based on its type
+                    if self.question_map_type == "initial" or self.question_map_type == "general":
+                        self.process_initial_general_question(
+                            question_map, self.previewmessage, self.sendtoGPT, self.writetojson, self.writetomongo)
+                    elif self.question_map_type == "secondary":
+                        self.process_secondary_question(
+                            question_map, self.previewmessage, self.sendtoGPT, self.writetojson, self.writetomongo)
+                    else:
+                        print("Invalid question map type")
+                        return None
+   #     except Exception as e:
+      #      logger.exception(f"Failed to process the file {self.question_map_filepath}: {e}")
 
-            for line_number, line in enumerate(f, 1):
-                try:
-                    question_map = json.loads(line)
-                except json.JSONDecodeError as e:
-                    error_msg = f"Error decoding JSON on line {line_number} of {filepath}: {e.msg}\nProblematic line: {line.strip()}"
-                    error_logger.error(error_msg)
-                    continue
-                question_map = json.loads(line)
-                if filepath == initial_questions_map_filepath:
-                    self.process_initial_general_question(
-                        question_map, previewmessage, sendtoGPT, writetojson, writetomongo)
-                elif filepath == questions_map_filepath:
-                    self.process_initial_general_question(
-                        question_map,  previewmessage, sendtoGPT, writetojson, writetomongo)
-                elif filepath == secondary_questions_map_filepath:
-                    self.process_secondary_question(
-                        question_map, previewmessage, sendtoGPT, writetojson, writetomongo)
-                else:
-                    print("Invalid questions map file path")
-                    return None
+    
 
     def process_initial_general_question(self, question_map, previewmessage, sendtoGPT, writetojson, writetomongo):
         self.skip_remaining = False  # Reset the flag for each new question map
@@ -287,6 +255,7 @@ class FeatureQuestionProcessor:
             self.process_messages(question_map, messages, previewmessage, sendtoGPT, writetojson,
                                   writetomongo, self.input_feature_list, feature2, 'playground/json/gpt_response.json')
 
+    
     def process_secondary_question(self, question_map,  previewmessage, sendtoGPT, writetojson, writetomongo, max_tokens, temperature):
         self.skip_remaining = False  # Reset the flag for each new question map
         self.auto_process_remaining = False  # Reset the flag for each new question map
@@ -319,7 +288,8 @@ class FeatureQuestionProcessor:
                                       writetomongo, self.input_feature_list, feature2a, 'playground/json/gpt_response.json')
 
     def process_messages(self, question_map, messages, previewmessage, sendtoGPT, writetojson, writetomongo, input_feature_list, output_feature, filename):
-        prompt_tokens_tiktoken = num_tokens_from_messages(messages)
+        prompt_tokens_tiktoken = self.tiktoken_comm.num_tokens_from_messages(
+            messages)
         predicted_total_cost = calculate_cost_of_gpt_response(
             prompt_tokens_tiktoken, self.max_tokens, self.model)
 
@@ -346,13 +316,13 @@ class FeatureQuestionProcessor:
                 print("Skipping all remaining messages for this question map.")
                 self.skip_remaining = True
                 # send unsent question map to unsent collection along with the messages and the user response
-                unsentcollection.insert_one(
+                db_manager.unsent_question_maps_coll.insert_one(
                     {"question_map": question_map, "messages": messages, "user_response": user_response})
                 return
             elif user_response == 'n':
                 print("Message not sent to ChatGPT.")
                 # send unsent question map to unsent collection along with the messages
-                unsentcollection.insert_one(
+                db_manager.unsent_question_maps_coll.insert_one(
                     {"question_map": question_map, "messages": messages, "user_response": user_response})
 
                 return  # Stop processing this message
@@ -389,19 +359,43 @@ class FeatureQuestionProcessor:
 
 
 if __name__ == "__main__":
+    openai_comm = OpenAICommunication(api_key=os.environ.get("OPENAI_API_KEY", config['openai']['api_key']))
+    tiktoken_comm = TikTokenCommunication()
 
-    processor = FeatureQuestionProcessor(
-        model="gpt-4-0125-preview",
+    db_manager = MongoDBManager(
+        uri=os.environ.get("MONGODB_URI", config['mongodb']['uri']),
+        db_name=config['mongodb']['database'],
+        gpt_entries_coll=config['mongodb']['collections']['gpt_entries'],
+        unsent_question_maps_coll=config['mongodb']['collections']['unsent_question_maps']
+    )
+
+    pg = PostgresDatabase()
+    
+
+    # Choose the question map based on your requirements
+   # question_map_filepath = config['questionmapfilepath']['initial']  # For example, using the initial question map
+
+   
+    processor = QuestionMapProcessor(
+        openai_comm=openai_comm,
+        tiktoken_comm=tiktoken_comm,
+        pg = pg,
+        db_manager=db_manager,
         max_tokens=300,
         temperature=0,
-        questions_map_filepath=initial_questions_map_filepath,
+        role="personal trainer",
+        model="gpt-4-0125-preview",
+        question_map_type="initial", 
         previewmessage=True,
         sendtoGPT=True,
         interactive=True,
         writetojson=True,
-        writetomongo=True,
-        role="personal trainer"
+        writetomongo=True
     )
+
+    processor.process_map()
+
+    
 
     '''
     MAP OUT THE DIFFERENT SCENARIOS 
