@@ -12,19 +12,7 @@
       }
     },
     "youtube": {
-      "videoplatform": {
-        "api_key": "YOUR_YOUTUBE_API_KEY"
-      },
-      "crowdsourcedvideo": {
-        "api_key": "YOUR_YOUTUBE_API_KEY"
-      },
-      "crowdsourcedvideo2": {
-        "api_key": "YOUR_YOUTUBE_API_KEY"
-      },
-      "crowdsourcedvideo3": {
-        "api_key": "YOUR_YOUTUBE_API_KEY"
-      },
-      "crowdsourcedvideo4": {
+      "google_api_project": {
         "api_key": "YOUR_YOUTUBE_API_KEY"
       }
     }, 

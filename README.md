@@ -18,6 +18,8 @@ Once you have installed and set up the Crowdsourced Exercise Database, you can s
 To populate the NoSQL and Postgres databases with fitness-related data:
 
 1. Ensure your MongoDB and PostgreSQL services are running, as well as an OpenAI key. 
+Ensure you have databases and collections set up as specified in the config_template.json file 
+
 2. Execute the main script in youtubeapis folder to start the data collection and structuring process:
 
 ```bash
